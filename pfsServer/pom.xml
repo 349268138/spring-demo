@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>pay-funds-security</artifactId>
+        <groupId>com.meituan.pay</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.meituan.pay</groupId>
+    <artifactId>pfs-server</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>pfsServer</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- 程序环境配置 -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env.name>dev</env.name>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>pipline</id>
+            <properties>
+                <env.name>pipline</env.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env.name>test</env.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>beta</id>
+            <properties>
+                <env.name>beta</env.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>staging</id>
+            <properties>
+                <env.name>staging</env.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env.name>prod</env.name>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+        </plugins>
+    </build>
+</project>

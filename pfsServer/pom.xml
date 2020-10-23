@@ -5,13 +5,13 @@
     <parent>
         <artifactId>pay-funds-security</artifactId>
         <groupId>com.meituan.pay</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.meituan.pay</groupId>
     <artifactId>pfs-server</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>pfsServer</name>
     <packaging>war</packaging>
 

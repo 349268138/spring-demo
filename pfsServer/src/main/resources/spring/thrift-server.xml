@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       default-autowire="byName"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--sop鉴权-->
+    <bean id="kmsAuthDataSource" class="com.meituan.service.inf.kms.client.KmsAuthDataSource">
+        <property name="appkey" value="${app.name}"/>
+    </bean>
+    <bean id="defaultAuthHandler" class="com.meituan.service.mobile.mtthrift.auth.DefaultAuthHandler">
+        <property name="authDataSource" ref="kmsAuthDataSource" />
+    </bean>
+</beans>

@@ -79,6 +79,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.meituan.pay</groupId>
+            <artifactId>pfs-sdk</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.meituan.funds.common</groupId>
+            <artifactId>simple-common</artifactId>
+            <version>1.0.11-RELEASE</version>
+        </dependency>
     </dependencies>
 
 

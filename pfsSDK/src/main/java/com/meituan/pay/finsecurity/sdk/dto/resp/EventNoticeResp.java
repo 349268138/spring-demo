@@ -1,3 +1,4 @@
+
 package com.meituan.pay.finsecurity.sdk.dto.resp;
 
 import com.facebook.swift.codec.ThriftField;
@@ -14,7 +15,7 @@ import org.apache.thrift.TException;
  * @date 2020/10/26
  */
 @ThriftStruct
-public class TradeDataResp {
+public class EventNoticeResp {
 
     /**
      * 冻结请求状态
@@ -24,7 +25,7 @@ public class TradeDataResp {
     /**
      * 冻结id
      */
-    private String data;
+    private Integer resultLevel;
 
     /**
      * 错误码
@@ -47,13 +48,13 @@ public class TradeDataResp {
     }
 
     @ThriftField(2)
-    public String getData() {
-        return data;
+    public Integer getResultLevel() {
+        return resultLevel;
     }
 
     @ThriftField
-    public void setData(String data) {
-        this.data = data;
+    public void setResultLevel(Integer resultLevel) {
+        this.resultLevel = resultLevel;
     }
 
     @ThriftField(3)
@@ -79,13 +80,13 @@ public class TradeDataResp {
     /**
      * 返回成功结果
      *
-     * @param data
+     * @param resultLevel
      * @return
      */
-    public static TradeDataResp genSuccessResponse(String data) {
-        TradeDataResp response = new TradeDataResp();
+    public static EventNoticeResp genSuccessResponse(Integer resultLevel) {
+        EventNoticeResp response = new EventNoticeResp();
         response.setStatus(StatusEnum.SUCCESS);
-        response.setData(data);
+        response.setResultLevel(resultLevel);
         return response;
     }
 
@@ -96,8 +97,8 @@ public class TradeDataResp {
      * @param errorMsg
      * @return
      */
-    public static TradeDataResp genFailResponse(String errorCode, String errorMsg) {
-        TradeDataResp response = new TradeDataResp();
+    public static EventNoticeResp genFailResponse(String errorCode, String errorMsg) {
+        EventNoticeResp response = new EventNoticeResp();
         response.setStatus(StatusEnum.FAIL);
         response.setErrorCode(errorCode);
         response.setErrorMsg(errorMsg);
@@ -111,7 +112,7 @@ public class TradeDataResp {
      * @return
      * @throws TException
      */
-    public static TradeDataResp handleException(Exception e) throws TException {
+    public static EventNoticeResp handleException(Exception e) throws TException {
         if (e instanceof CustomException) {
             return handleException((CustomException) e);
         } else if (e.getCause() instanceof CustomException) {
@@ -127,7 +128,7 @@ public class TradeDataResp {
      * @param ex
      * @return
      */
-    public static TradeDataResp handleException(CustomException ex) throws TException {
+    public static EventNoticeResp handleException(CustomException ex) throws TException {
 
         ErrorCodeEnum.ErrorType errorType = ex.getErrorCodeEnum().getErrorType();
         //参数错误或业务逻辑明确失败的，返回上游失败错误码和信息
@@ -143,7 +144,7 @@ public class TradeDataResp {
     public String toString() {
         final StringBuffer sb = new StringBuffer("TradeDataResp{");
         sb.append("status=").append(status);
-        sb.append(", data=").append(data);
+        sb.append(", resultLevel=").append(resultLevel);
         sb.append(", errorCode='").append(errorCode).append('\'');
         sb.append(", errorMsg='").append(errorMsg).append('\'');
         sb.append('}');

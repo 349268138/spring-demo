@@ -8,7 +8,8 @@ public enum ErrorCodeEnum {
 
     /**通过注解校验参数返回错误码，错误描述信息由注解校验返回**/
     SYS_ERROR("SYS_ERRPR", "系统异常，请稍候再试", ErrorType.INTERNAL_SYSTEM_ERROR),
-    PARAM_ERROR("PARAM_ERROR", "", ErrorType.PARAM_ERROR);
+    PARAM_ERROR("PARAM_ERROR", "", ErrorType.PARAM_ERROR),
+    QUERY_DATA_NOT_EXSIT("QUERY_DATA_NOT_EXSIT", "查询数据不存在", ErrorType.BIZ_ERROR);
 
     private String code;
     private String desc;

@@ -1,4 +1,4 @@
-package com.meituan.pay.finsecurity.service.dataquery;
+package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;

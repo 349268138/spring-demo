@@ -2,17 +2,14 @@ package com.meituan.pay.finsecurity.adapter;
 
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
-import com.meituan.pay.finsecurity.service.dataquery.DataQueryProcessorFactory;
-import com.meituan.pay.finsecurity.service.dataquery.RpcDataQueryProcessor;
+import com.meituan.pay.finsecurity.service.data.DataQueryProcessorFactory;
+import com.meituan.pay.finsecurity.service.data.RpcDataQueryProcessor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,9 @@
-package com.meituan.pay.finsecurity.adapter;
+package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.script.GroovyScript;
-import com.meituan.pay.finsecurity.service.data.DataQueryProcessor;
-import com.meituan.pay.finsecurity.service.data.DataQueryProcessorFactory;
 import deps.redis.clients.util.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -23,8 +21,8 @@ import java.util.Map;
  * @CreateDateon 2020/10/23.
  */
 @Service
-public class DataQueryServiceAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(DataQueryServiceAdapter.class);
+public class DataQueryService {
+    private static final Logger logger = LoggerFactory.getLogger(DataQueryService.class);
 
     @Autowired
     private DataQueryProcessorFactory dataQueryFactory;

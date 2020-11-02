@@ -2,6 +2,9 @@ package com.meituan.pay.finsecurity.dao.repository;
 
 import com.meituan.pay.finsecurity.po.TradeEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author wangjinping
  * @Description
@@ -9,7 +12,8 @@ import com.meituan.pay.finsecurity.po.TradeEvent;
  */
 public class TradeEventRepo {
 
-    public TradeEvent selectByCode(String code) {
-        return new TradeEvent();
-    };
+    public List<TradeEvent> selectByOnStatus() {
+        List<TradeEvent> tradeEventList = new ArrayList<>();
+        return tradeEventList;
+    }
 }

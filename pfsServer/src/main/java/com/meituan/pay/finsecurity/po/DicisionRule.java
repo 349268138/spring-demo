@@ -1,5 +1,8 @@
 package com.meituan.pay.finsecurity.po;
 
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
+import com.meituan.pay.finsecurity.po.enums.TypeEnum;
+
 /**
  * @author wangjinping
  * @Description
@@ -10,8 +13,9 @@ public class DicisionRule {
     private String eventId;
     private String name;
     private String alias;
-    private Integer type;
+    private TypeEnum type;
     private String expr;
+    private StatusEnum status;
 
     public Long getId() {
         return id;
@@ -45,11 +49,11 @@ public class DicisionRule {
         this.alias = alias;
     }
 
-    public Integer getType() {
+    public TypeEnum getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(TypeEnum type) {
         this.type = type;
     }
 
@@ -59,6 +63,14 @@ public class DicisionRule {
 
     public void setExpr(String expr) {
         this.expr = expr;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 
     @Override
@@ -73,7 +85,8 @@ public class DicisionRule {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (alias != null ? !alias.equals(that.alias) : that.alias != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
-        return expr != null ? expr.equals(that.expr) : that.expr == null;
+        if (expr != null ? !expr.equals(that.expr) : that.expr != null) return false;
+        return status == that.status;
     }
 
     @Override
@@ -84,6 +97,7 @@ public class DicisionRule {
         result = 31 * result + (alias != null ? alias.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (expr != null ? expr.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
@@ -96,6 +110,7 @@ public class DicisionRule {
         sb.append(", alias='").append(alias).append('\'');
         sb.append(", type=").append(type);
         sb.append(", expr='").append(expr).append('\'');
+        sb.append(", status=").append(status);
         sb.append('}');
         return sb.toString();
     }

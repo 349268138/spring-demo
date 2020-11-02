@@ -5,34 +5,24 @@ package com.meituan.pay.finsecurity.po.enums;
  * @date 2020/10/27
  * @destription
  */
-public enum DataAccessTypeEnum {
+public enum DataAccessTypeEnum implements CodeEnum{
 
-    RPC(1, "rpc"),
-    SQUIRREL(2, "squirrel");
+    RPC(1),
+    SQUIRREL(2);
 
     private int code;
-    private String desc;
 
-
-    DataAccessTypeEnum(int code, String desc) {
+    DataAccessTypeEnum(int code) {
         this.code = code;
-        this.desc = desc;
     }
 
+    @Override
     public int getCode() {
         return code;
     }
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public static DataAccessTypeEnum findValue(int code) {

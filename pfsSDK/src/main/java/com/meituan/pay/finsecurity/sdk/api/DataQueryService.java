@@ -2,6 +2,7 @@ package com.meituan.pay.finsecurity.sdk.api;
 
 import com.facebook.swift.service.ThriftMethod;
 import com.facebook.swift.service.ThriftService;
+import com.meituan.pay.finsecurity.sdk.dto.resp.TradeDataResp;
 import org.apache.thrift.TException;
 
 /**
@@ -13,5 +14,5 @@ import org.apache.thrift.TException;
 public interface DataQueryService {
 
     @ThriftMethod
-    String queryTradeData(String key) throws TException;
+    TradeDataResp queryTradeData(String key) throws TException;
 }

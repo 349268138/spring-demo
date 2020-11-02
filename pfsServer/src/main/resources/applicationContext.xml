@@ -49,4 +49,10 @@
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
 
     <context:component-scan base-package="com.meituan.pay.finsecurity.controller"/>
+    <context:component-scan base-package="com.meituan.pay.finsecurity.service"/>
+
+    <import resource="/spring/thrift-server.xml"/>
+    <import resource="/spring/spring-client.xml"/>
+    <import resource="/spring/spring-kms.xml"/>
+    <import resource="/spring/spring-mvc.xml"/>
 </beans>

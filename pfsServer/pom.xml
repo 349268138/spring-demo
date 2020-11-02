@@ -79,6 +79,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.meituan.pay</groupId>
+            <artifactId>pfs-sdk</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.meituan.databus</groupId>
+            <artifactId>dbusUtils_thrift0.8</artifactId>
+            <version>0.0.19</version>
+        </dependency>
+        <dependency>
+            <groupId>com.meituan.funds.common</groupId>
+            <artifactId>simple-common</artifactId>
+            <version>1.0.11-RELEASE</version>
+        </dependency>
     </dependencies>
 
 

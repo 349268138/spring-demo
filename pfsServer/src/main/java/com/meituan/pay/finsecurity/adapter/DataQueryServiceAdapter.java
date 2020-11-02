@@ -5,5 +5,5 @@ package com.meituan.pay.finsecurity.adapter;
  * @Description
  * @CreateDateon 2020/10/23.
  */
-public class TestAdapter {
+public class DataQueryServiceAdapter {
 }

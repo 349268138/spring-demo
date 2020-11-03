@@ -40,7 +40,7 @@ public class EventNoticeImpl implements EventNotice {
             response.setStatus(ResStatusEnum.FAIL);
             response.setErrorCode("errcode");
             response.setErrorMsg("errmsg");
-            LOGGER.info("事件数据同步发生异常：响应报文：{}", response.toString(), LoggerUtils.getStackTrace(e));
+            LOGGER.info("事件数据同步发生异常：响应报文:{}, 异常:{}", response.toString(), LoggerUtils.getStackTrace(e));
             return response;
         }
     }

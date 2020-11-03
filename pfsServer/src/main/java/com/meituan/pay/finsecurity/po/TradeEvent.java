@@ -1,5 +1,7 @@
 package com.meituan.pay.finsecurity.po;
 
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
+
 /**
  * @author wangjinping
  * @Description
@@ -11,6 +13,7 @@ public class TradeEvent {
     private String name;
     private String vector;
     private String extendedData;
+    private StatusEnum status;
 
     public Long getId() {
         return id;
@@ -52,6 +55,14 @@ public class TradeEvent {
         this.extendedData = extendedData;
     }
 
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,7 +74,8 @@ public class TradeEvent {
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (vector != null ? !vector.equals(that.vector) : that.vector != null) return false;
-        return extendedData != null ? extendedData.equals(that.extendedData) : that.extendedData == null;
+        if (extendedData != null ? !extendedData.equals(that.extendedData) : that.extendedData != null) return false;
+        return status == that.status;
     }
 
     @Override
@@ -73,6 +85,7 @@ public class TradeEvent {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (vector != null ? vector.hashCode() : 0);
         result = 31 * result + (extendedData != null ? extendedData.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
@@ -84,6 +97,7 @@ public class TradeEvent {
         sb.append(", name='").append(name).append('\'');
         sb.append(", vector='").append(vector).append('\'');
         sb.append(", extendedData='").append(extendedData).append('\'');
+        sb.append(", status=").append(status);
         sb.append('}');
         return sb.toString();
     }

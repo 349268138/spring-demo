@@ -3,6 +3,7 @@ package com.meituan.pay.finsecurity.adapter;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import com.meituan.pay.finsecurity.service.data.DataQueryProcessorFactory;
+import com.meituan.pay.finsecurity.service.data.TradeDataService;
 import com.meituan.pay.finsecurity.service.data.RpcDataQueryProcessor;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class DataQueryServiceAdapterIntegration {
 
     @InjectMocks
-    private DataQueryServiceAdapter dataQueryServiceAdapter;
+    private TradeDataService dataQueryService;
 
     @Mock
     private DataQueryProcessorFactory dataQueryFactory;
@@ -38,7 +39,7 @@ public class DataQueryServiceAdapterIntegration {
 
     @Test
     public void queryTradeDataTest() {
-        String tradeData = dataQueryServiceAdapter.queryTradeData(obtainDataRuleList(), obtainEventData());
+        String tradeData = dataQueryService.queryTradeData(obtainDataRuleList(), obtainEventData());
         Assert.assertNotNull(tradeData);
     }
 

@@ -28,9 +28,9 @@ public class RpcDataQueryProcessor implements DataQueryProcessor {
     private ConcurrentHashMap<String, ThriftClientProxy> thriftClientProxyHashMap = new ConcurrentHashMap<>();
 
     @Override
-    public String queryData(DataRule dataRule, String key) throws Exception {
-        DataQueryService dataQueryService = getProxyService(dataRule.getAddress());
+    public String queryData(DataRule dataRule, String key) {
         try {
+            DataQueryService dataQueryService = getProxyService(dataRule.getAddress());
             TradeDataResp resp = dataQueryService.queryTradeData(key);
             if (StatusEnum.SUCCESS.equals(resp.getStatus())) {
                 logger.info("query data success. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
@@ -38,7 +38,7 @@ public class RpcDataQueryProcessor implements DataQueryProcessor {
             }
             logger.error("query data fail. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
             throw new RuntimeException(String.format("query data fail. appkey: %s, key: %s", dataRule.getAddress(), key));
-        } catch (TException e) {
+        } catch (Exception e) {
             logger.error("query data error. appkey: {}, key: {}, exception: {}", dataRule.getAddress(), key, LoggerUtils.getStackTrace(e));
             throw new RuntimeException(String.format("query data error. appkey: %s, key: %s", dataRule.getAddress(), key), e);
         }

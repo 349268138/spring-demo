@@ -2,9 +2,7 @@ package com.meituan.pay.finsecurity.service.event;
 
 import com.meituan.pay.finsecurity.po.ContextData;
 import com.meituan.pay.finsecurity.po.EventRule;
-import com.meituan.pay.finsecurity.po.enums.EventResultEnum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,14 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventProcessor {
 
-    public EventResultEnum process(EventRule eventRule, ContextData contextData) {
+    public ProcessResultEnum process(EventRule eventRule, ContextData contextData) {
 //        String dataJson = JacksonUtils.toJson(contextData);
 //        for (DecisionRule decisionRule : decisionRuleList) {
 //            if (handleDecisionRule(decisionRule, dataJson) == EventResultEnum.INTERCEPT) {
 //                return EventResultEnum.INTERCEPT;
 //            }
 //        }
-        return EventResultEnum.PASS;
+        return ProcessResultEnum.PASS;
     }
 
 //    private EventResultEnum handleDecisionRule(DecisionRule decisionRule, String dataJson) {

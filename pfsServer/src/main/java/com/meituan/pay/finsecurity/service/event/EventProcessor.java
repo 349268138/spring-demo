@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventProcessor {
 
-    public ProcessResultEnum process(TradeEvent eventRule, ContextData contextData) {
+    public ProcessResultEnum process(TradeEvent tradeEvent, ContextData contextData) {
         String dataJson = JacksonUtils.toJson(contextData);
-        for (DecisionRule decisionRule : eventRule.getDecisionRuleList()) {
+        for (DecisionRule decisionRule : tradeEvent.getDecisionRuleList()) {
             if (handleDecisionRule(decisionRule, dataJson) == ProcessResultEnum.INTERCEPT) {
                 return ProcessResultEnum.INTERCEPT;
             }

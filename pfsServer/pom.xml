@@ -95,6 +95,16 @@
             <artifactId>simple-common</artifactId>
             <version>1.0.11-RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.sankuai.meituan</groupId>
+            <artifactId>mtconfig-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
 

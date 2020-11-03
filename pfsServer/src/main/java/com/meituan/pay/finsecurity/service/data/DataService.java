@@ -18,12 +18,12 @@ public class DataService {
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
     private Map<String, TradeEvent> eventDataMap = new HashMap<>();
 
-//    @PostConstruct
-//    public void initEventData(String eventCode) {
-//        eventDataMap.put(eventCode, obtaintradeEvent(eventCode));
-//    }
+    @PostConstruct
+    public void initEventData(String eventCode) {
+        eventDataMap.put(eventCode, obtainEventRule(eventCode));
+    }
 
-    public TradeEvent obtaintradeEvent(String eventCode) {
+    public TradeEvent obtainEventRule(String eventCode) {
 
         return null;
     }

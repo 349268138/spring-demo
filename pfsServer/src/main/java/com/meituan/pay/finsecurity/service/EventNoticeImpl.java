@@ -52,7 +52,7 @@ public class EventNoticeImpl implements EventNotice {
     private ContextData buildContext(EventNoticeReq req, String eventCode) {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
-        String tradeData = dataService.obtainTradeData(req.getEventCode());
+        String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);
         contextData.setTradeData(tradeData);
         contextData.setEventData(eventData);
         return contextData;

@@ -6,7 +6,6 @@ import com.meituan.pay.finsecurity.sdk.api.dto.EventNoticeReq;
 import com.meituan.pay.finsecurity.sdk.api.dto.EventNoticeResp;
 import com.meituan.pay.finsecurity.sdk.api.dto.ResStatusEnum;
 import com.meituan.pay.finsecurity.service.event.EventProcessor;
-import com.meituan.pay.finsecurity.service.event.EventProcessorFactory;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class EventNoticeImpl implements EventNotice {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventNoticeImpl.class);
-
-    @Autowired
-    private EventProcessorFactory eventProcessorFactory;
 
     @Autowired
     private EventProcessor eventProcessor;

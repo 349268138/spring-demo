@@ -10,7 +10,7 @@ import java.util.Objects;
 public class EventRule {
     private TradeEvent tradeEvent;
     private List<DataRule> dataRuleList;
-    private List<DicisionRule> dicisionRuleList;
+    private List<DecisionRule> decisionRuleList;
 
     public TradeEvent getTradeEvent() {
         return tradeEvent;
@@ -28,12 +28,12 @@ public class EventRule {
         this.dataRuleList = dataRuleList;
     }
 
-    public List<DicisionRule> getDicisionRuleList() {
-        return dicisionRuleList;
+    public List<DecisionRule> getDecisionRuleList() {
+        return decisionRuleList;
     }
 
-    public void setDicisionRuleList(List<DicisionRule> dicisionRuleList) {
-        this.dicisionRuleList = dicisionRuleList;
+    public void setDecisionRuleList(List<DecisionRule> decisionRuleList) {
+        this.decisionRuleList = decisionRuleList;
     }
 
     @Override
@@ -43,11 +43,11 @@ public class EventRule {
         EventRule eventRule = (EventRule) o;
         return Objects.equals(tradeEvent, eventRule.tradeEvent) &&
                 Objects.equals(dataRuleList, eventRule.dataRuleList) &&
-                Objects.equals(dicisionRuleList, eventRule.dicisionRuleList);
+                Objects.equals(decisionRuleList, eventRule.decisionRuleList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tradeEvent, dataRuleList, dicisionRuleList);
+        return Objects.hash(tradeEvent, dataRuleList, decisionRuleList);
     }
 }

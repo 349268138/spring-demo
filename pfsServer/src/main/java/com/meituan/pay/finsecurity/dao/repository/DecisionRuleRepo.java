@@ -10,7 +10,7 @@ import java.util.List;
  * @Description
  * @CreateDateon 2020/10/30.
  */
-public class DecisionRepo {
+public class DecisionRuleRepo {
 
     public List<DecisionRule> selectByEventId(Long eventId) {
         List<DecisionRule> decisionRuleList = new ArrayList<>();

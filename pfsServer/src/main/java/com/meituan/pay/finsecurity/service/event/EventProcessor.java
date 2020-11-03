@@ -4,7 +4,7 @@ import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.pay.finsecurity.constant.ScriptConstant;
 import com.meituan.pay.finsecurity.po.ContextData;
 import com.meituan.pay.finsecurity.po.DecisionRule;
-import com.meituan.pay.finsecurity.po.TradeEvent1;
+import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import com.meituan.pay.finsecurity.po.enums.TypeEnum;
 import com.meituan.pay.finsecurity.script.GroovyScript;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventProcessor {
 
-    public ProcessResultEnum process(TradeEvent1 eventRule, ContextData contextData) {
+    public ProcessResultEnum process(TradeEvent eventRule, ContextData contextData) {
         String dataJson = JacksonUtils.toJson(contextData);
         for (DecisionRule decisionRule : eventRule.getDecisionRuleList()) {
             if (handleDecisionRule(decisionRule, dataJson) == ProcessResultEnum.INTERCEPT) {

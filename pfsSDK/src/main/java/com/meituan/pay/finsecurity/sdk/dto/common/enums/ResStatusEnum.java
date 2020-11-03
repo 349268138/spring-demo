@@ -3,13 +3,8 @@ package com.meituan.pay.finsecurity.sdk.dto.common.enums;
 import com.facebook.swift.codec.ThriftEnum;
 import com.facebook.swift.codec.ThriftEnumValue;
 
-/**
- * @Author wangjinping
- * @ Date 2019/11/06 下午8:58
- * @ Description 转账到余额状态
- */
 @ThriftEnum
-public enum StatusEnum {
+public enum ResStatusEnum {
 
     SUCCESS(1, "成功"),
 
@@ -18,7 +13,7 @@ public enum StatusEnum {
     private Integer value;
     private String desc;
 
-    StatusEnum(Integer value, String desc) {
+    ResStatusEnum(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }

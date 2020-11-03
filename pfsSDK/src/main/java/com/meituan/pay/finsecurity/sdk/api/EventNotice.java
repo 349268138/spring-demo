@@ -2,8 +2,8 @@ package com.meituan.pay.finsecurity.sdk.api;
 
 import com.facebook.swift.service.ThriftMethod;
 import com.facebook.swift.service.ThriftService;
-import com.meituan.pay.finsecurity.sdk.api.dto.EventNoticeReq;
-import com.meituan.pay.finsecurity.sdk.api.dto.EventNoticeResp;
+import com.meituan.pay.finsecurity.sdk.dto.req.EventNoticeReq;
+import com.meituan.pay.finsecurity.sdk.dto.resp.EventNoticeResp;
 import org.apache.thrift.TException;
 
 /**

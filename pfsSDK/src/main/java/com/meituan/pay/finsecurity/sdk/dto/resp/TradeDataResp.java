@@ -3,7 +3,7 @@ package com.meituan.pay.finsecurity.sdk.dto.resp;
 import com.facebook.swift.codec.ThriftField;
 import com.facebook.swift.codec.ThriftStruct;
 import com.meituan.pay.finsecurity.sdk.dto.common.enums.ErrorCodeEnum;
-import com.meituan.pay.finsecurity.sdk.dto.common.enums.StatusEnum;
+import com.meituan.pay.finsecurity.sdk.dto.common.enums.ResStatusEnum;
 import com.meituan.pay.finsecurity.sdk.dto.exception.CustomException;
 import org.apache.thrift.TException;
 
@@ -19,7 +19,7 @@ public class TradeDataResp {
     /**
      * 冻结请求状态
      */
-    private StatusEnum status;
+    private ResStatusEnum status;
 
     /**
      * 冻结id
@@ -37,12 +37,12 @@ public class TradeDataResp {
     private String errorMsg;
 
     @ThriftField(1)
-    public StatusEnum getStatus() {
+    public ResStatusEnum getStatus() {
         return status;
     }
 
     @ThriftField
-    public void setStatus(StatusEnum status) {
+    public void setStatus(ResStatusEnum status) {
         this.status = status;
     }
 
@@ -84,7 +84,7 @@ public class TradeDataResp {
      */
     public static TradeDataResp genSuccessResponse(String data) {
         TradeDataResp response = new TradeDataResp();
-        response.setStatus(StatusEnum.SUCCESS);
+        response.setStatus(ResStatusEnum.SUCCESS);
         response.setData(data);
         return response;
     }
@@ -98,7 +98,7 @@ public class TradeDataResp {
      */
     public static TradeDataResp genFailResponse(String errorCode, String errorMsg) {
         TradeDataResp response = new TradeDataResp();
-        response.setStatus(StatusEnum.FAIL);
+        response.setStatus(ResStatusEnum.FAIL);
         response.setErrorCode(errorCode);
         response.setErrorMsg(errorMsg);
         return response;

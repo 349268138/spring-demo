@@ -3,11 +3,10 @@ package com.meituan.pay.finsecurity.service.data;
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.sdk.api.DataQueryService;
-import com.meituan.pay.finsecurity.sdk.dto.common.enums.StatusEnum;
+import com.meituan.pay.finsecurity.sdk.dto.common.enums.ResStatusEnum;
 import com.meituan.pay.finsecurity.sdk.dto.resp.TradeDataResp;
 import com.meituan.service.mobile.mtthrift.proxy.ThriftClientProxy;
 import org.apache.commons.lang.StringUtils;
-import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class RpcDataQueryProcessor implements DataQueryProcessor {
         try {
             DataQueryService dataQueryService = getProxyService(dataRule.getAddress());
             TradeDataResp resp = dataQueryService.queryTradeData(key);
-            if (StatusEnum.SUCCESS.equals(resp.getStatus())) {
+            if (ResStatusEnum.SUCCESS.equals(resp.getStatus())) {
                 logger.info("query data success. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
                 return resp.getData();
             }

@@ -1,4 +1,4 @@
-package com.meituan.pay.finsecurity.sdk.api.dto;
+package com.meituan.pay.finsecurity.sdk.dto.req;
 
 import com.facebook.swift.codec.ThriftField;
 import com.facebook.swift.codec.ThriftStruct;

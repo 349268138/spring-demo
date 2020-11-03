@@ -2,9 +2,9 @@ package com.meituan.pay.finsecurity.service;
 
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.sdk.api.EventNotice;
-import com.meituan.pay.finsecurity.sdk.api.dto.EventNoticeReq;
-import com.meituan.pay.finsecurity.sdk.api.dto.EventNoticeResp;
-import com.meituan.pay.finsecurity.sdk.api.dto.ResStatusEnum;
+import com.meituan.pay.finsecurity.sdk.dto.common.enums.ResStatusEnum;
+import com.meituan.pay.finsecurity.sdk.dto.req.EventNoticeReq;
+import com.meituan.pay.finsecurity.sdk.dto.resp.EventNoticeResp;
 import com.meituan.pay.finsecurity.service.event.EventProcessor;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;

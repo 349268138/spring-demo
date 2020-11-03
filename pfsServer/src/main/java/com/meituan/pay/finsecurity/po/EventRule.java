@@ -1,53 +1,104 @@
 package com.meituan.pay.finsecurity.po;
 
-import java.util.List;
-import java.util.Objects;
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
 
 /**
- * @author hhhb
- * @date 2020/11/3 2:32 下午
+ * @author wangjinping
+ * @Description
+ * @CreateDateon 2020/10/27.
  */
 public class EventRule {
-    private TradeEvent tradeEvent;
-    private List<DataRule> dataRuleList;
-    private List<DecisionRule> decisionRuleList;
+    private Long id;
+    private String code;
+    private String name;
+    private String vector;
+    private String extendedData;
+    private StatusEnum status;
 
-    public TradeEvent getTradeEvent() {
-        return tradeEvent;
+    public Long getId() {
+        return id;
     }
 
-    public void setTradeEvent(TradeEvent tradeEvent) {
-        this.tradeEvent = tradeEvent;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public List<DataRule> getDataRuleList() {
-        return dataRuleList;
+    public String getCode() {
+        return code;
     }
 
-    public void setDataRuleList(List<DataRule> dataRuleList) {
-        this.dataRuleList = dataRuleList;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public List<DecisionRule> getDecisionRuleList() {
-        return decisionRuleList;
+    public String getName() {
+        return name;
     }
 
-    public void setDecisionRuleList(List<DecisionRule> decisionRuleList) {
-        this.decisionRuleList = decisionRuleList;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getVector() {
+        return vector;
+    }
+
+    public void setVector(String vector) {
+        this.vector = vector;
+    }
+
+    public String getExtendedData() {
+        return extendedData;
+    }
+
+    public void setExtendedData(String extendedData) {
+        this.extendedData = extendedData;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EventRule eventRule = (EventRule) o;
-        return Objects.equals(tradeEvent, eventRule.tradeEvent) &&
-                Objects.equals(dataRuleList, eventRule.dataRuleList) &&
-                Objects.equals(decisionRuleList, eventRule.decisionRuleList);
+        if (!(o instanceof EventRule)) return false;
+
+        EventRule that = (EventRule) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (vector != null ? !vector.equals(that.vector) : that.vector != null) return false;
+        if (extendedData != null ? !extendedData.equals(that.extendedData) : that.extendedData != null) return false;
+        return status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tradeEvent, dataRuleList, decisionRuleList);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (vector != null ? vector.hashCode() : 0);
+        result = 31 * result + (extendedData != null ? extendedData.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TradeEvent{");
+        sb.append("id=").append(id);
+        sb.append(", code='").append(code).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", vector='").append(vector).append('\'');
+        sb.append(", extendedData='").append(extendedData).append('\'');
+        sb.append(", status=").append(status);
+        sb.append('}');
+        return sb.toString();
     }
 }

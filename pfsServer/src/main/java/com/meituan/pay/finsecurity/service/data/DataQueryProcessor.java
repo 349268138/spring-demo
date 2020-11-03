@@ -8,5 +8,5 @@ import com.meituan.pay.finsecurity.po.DataRule;
  * @CreateDateon 2020/10/27.
  */
 public interface DataQueryProcessor {
-    String queryData(DataRule dataRule, String key) throws Exception;
+    String queryData(DataRule dataRule, String key);
 }

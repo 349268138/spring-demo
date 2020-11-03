@@ -1,69 +1,47 @@
 package com.meituan.pay.finsecurity.service.event;
 
-import com.meituan.pay.finsecurity.po.DataRule;
-import com.meituan.pay.finsecurity.po.DicisionRule;
-import com.meituan.pay.finsecurity.po.TradeEvent;
-import com.meituan.pay.finsecurity.po.enums.ResultEnum;
-import com.meituan.pay.finsecurity.service.data.DataQueryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-
-import java.util.List;
+import com.meituan.funds.simple.util.JacksonUtils;
+import com.meituan.pay.finsecurity.constant.ScriptConstant;
+import com.meituan.pay.finsecurity.po.ContextData;
+import com.meituan.pay.finsecurity.po.DecisionRule;
+import com.meituan.pay.finsecurity.po.enums.EventResultEnum;
+import com.meituan.pay.finsecurity.po.enums.TypeEnum;
+import com.meituan.pay.finsecurity.script.GroovyScript;
+import org.springframework.stereotype.Service;
 
 /**
  * @author wangjinping
  * @Description
  * @CreateDateon 2020/10/30.
  */
-@Scope("prototype")
+@Service
 public class EventProcessor {
-    private TradeEvent tradeEvent;
-    private List<DataRule> dataRuleList;
-    private List<DicisionRule> dicisionRuleList;
 
-    @Autowired
-    private DataQueryService dataQueryService;
-
-    public ResultEnum process(String eventData) {
-        String tradeData = dataQueryService.queryTradeData(dataRuleList, eventData);
-        for (DicisionRule dicisionRule : dicisionRuleList) {
-            if (handleDicisionRule(dicisionRule) == ResultEnum.INTERCEPT) {
-                return ResultEnum.INTERCEPT;
+    public EventResultEnum process(ContextData contextData) {
+        String dataJson = JacksonUtils.toJson(contextData);
+        for (DecisionRule decisionRule : decisionRuleList) {
+            if (handleDecisionRule(decisionRule, dataJson) == EventResultEnum.INTERCEPT) {
+                return EventResultEnum.INTERCEPT;
             }
         }
         return null;
     }
 
-    private ResultEnum handleDicisionRule(DicisionRule dicisionRule) {
-        return ResultEnum.INTERCEPT;
+    private EventResultEnum handleDecisionRule(DecisionRule decisionRule, String dataJson) {
+        if (TypeEnum.INTERCEPT == decisionRule.getType()) {
+            return processInterceptType(dataJson, decisionRule);
+        }
+
+        return processDefaultType(decisionRule, dataJson);
     }
 
-//    private ContextData obtainContextData() {
-//
-//    }
-
-    public TradeEvent getTradeEvent() {
-        return tradeEvent;
+    private EventResultEnum processInterceptType(String dataJson, DecisionRule decisionRule) {
+        boolean result = (boolean) GroovyScript.script(ScriptConstant.CONTEXT_DATA, dataJson, decisionRule.getExpr());
+        return result ? EventResultEnum.PASS : EventResultEnum.INTERCEPT;
     }
 
-    public void setTradeEvent(TradeEvent tradeEvent) {
-        this.tradeEvent = tradeEvent;
-    }
+    private EventResultEnum processDefaultType(DecisionRule decisionRule, String dataJson) {
 
-    public List<DataRule> getDataRuleList() {
-        return dataRuleList;
+        return EventResultEnum.PASS;
     }
-
-    public void setDataRuleList(List<DataRule> dataRuleList) {
-        this.dataRuleList = dataRuleList;
-    }
-
-    public List<DicisionRule> getDicisionRuleList() {
-        return dicisionRuleList;
-    }
-
-    public void setDicisionRuleList(List<DicisionRule> dicisionRuleList) {
-        this.dicisionRuleList = dicisionRuleList;
-    }
-
 }

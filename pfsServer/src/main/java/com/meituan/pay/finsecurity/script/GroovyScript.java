@@ -16,19 +16,21 @@ public class GroovyScript {
         engine = manager.getEngineByName("groovy");
     }
 
-    public static String obtainKey(String eventData, String key) throws ScriptException {
-        //2、预编译脚本
-        CompiledScript dataScript = ((Compilable) engine).compile("import groovy.json.*;\n" +
-                "jsonSlurper = new JsonSlurper()\n" +
-                "eventData = jsonSlurper.parseText(eventData)");
+    public static Object script(String jsonData, String jsonName, String expr) {
+        try {
+            //1、预编译脚本
+            CompiledScript dataScript = ((Compilable) engine).compile(String.format("import groovy.json.*;\n jsonSlurper = new JsonSlurper()\n %s = jsonSlurper.parseText(%s)", jsonName, jsonName));
 
-        //3、绑定数据
-        Bindings bindings = engine.createBindings();
-        bindings.put("eventData", eventData);
-        dataScript.eval(bindings);
+            //2、绑定数据
+            Bindings bindings = engine.createBindings();
+            bindings.put(jsonName, jsonData);
+            dataScript.eval(bindings);
 
-        //4、执行脚本
-        CompiledScript script = ((Compilable) engine).compile(key);
-        return String.valueOf(script.eval(bindings));
+            //3、执行脚本
+            CompiledScript script = ((Compilable) engine).compile(expr);
+            return script.eval(bindings);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("excute script error. jsonData: %s, jsonName: %s, expr: %s", jsonData, jsonName, expr), e);
+        }
     }
 }

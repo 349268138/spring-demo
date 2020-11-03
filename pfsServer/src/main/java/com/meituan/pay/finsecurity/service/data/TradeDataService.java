@@ -2,6 +2,7 @@ package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
+import com.meituan.pay.finsecurity.constant.ScriptConstant;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.script.GroovyScript;
 import deps.redis.clients.util.CollectionUtils;
@@ -21,8 +22,8 @@ import java.util.Map;
  * @CreateDateon 2020/10/23.
  */
 @Service
-public class DataQueryService {
-    private static final Logger logger = LoggerFactory.getLogger(DataQueryService.class);
+public class TradeDataService {
+    private static final Logger logger = LoggerFactory.getLogger(TradeDataService.class);
 
     @Autowired
     private DataQueryProcessorFactory dataQueryFactory;
@@ -38,7 +39,7 @@ public class DataQueryService {
         }
     }
 
-    private String obtainTradeData(List<DataRule> dataRuleList, String eventData) throws Exception {
+    private String obtainTradeData(List<DataRule> dataRuleList, String eventData) {
         if (CollectionUtils.isEmpty(dataRuleList)) {
             return StringUtils.EMPTY;
         }
@@ -46,7 +47,7 @@ public class DataQueryService {
         Map<String, Map> tradeData = new HashMap<>();
         for (DataRule dataRule : dataRuleList) {
             DataQueryProcessor processor = dataQueryFactory.obtainProcessor(dataRule.getType());
-            String key = GroovyScript.obtainKey(eventData, dataRule.getKeyExpr());
+            String key = (String) GroovyScript.script(ScriptConstant.EVENT_DATA, eventData, dataRule.getKeyExpr());
             String data = processor.queryData(dataRule, key);
             tradeData.put(dataRule.getAlias(), JacksonUtils.jsonToMap(data));
         }

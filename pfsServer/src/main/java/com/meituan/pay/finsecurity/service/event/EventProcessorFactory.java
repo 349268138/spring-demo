@@ -1,14 +1,11 @@
 package com.meituan.pay.finsecurity.service.event;
 
 import com.meituan.pay.finsecurity.dao.repository.DataRuleRepo;
-import com.meituan.pay.finsecurity.dao.repository.DicisionRepo;
+import com.meituan.pay.finsecurity.dao.repository.DecisionRepo;
 import com.meituan.pay.finsecurity.dao.repository.TradeEventRepo;
 import com.meituan.pay.finsecurity.po.DataRule;
-import com.meituan.pay.finsecurity.po.DicisionRule;
+import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.po.TradeEvent;
-import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
-import com.meituan.pay.finsecurity.service.data.DataQueryProcessor;
-import com.meituan.pay.finsecurity.service.data.RpcDataQueryProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -34,7 +31,7 @@ public class EventProcessorFactory {
     @Autowired
     private DataRuleRepo dataRuleRepo;
     @Autowired
-    private DicisionRepo dicisionRepo;
+    private DecisionRepo decisionRepo;
 
     @PostConstruct
     public void init() {
@@ -54,11 +51,11 @@ public class EventProcessorFactory {
         List<TradeEvent> tradeEventList = tradeEventRepo.selectByOnStatus();
         for (TradeEvent tradeEvent : tradeEventList) {
             List<DataRule> dataRuleList = dataRuleRepo.selectByEventId(tradeEvent.getId());
-            List<DicisionRule> dicisionRuleList = dicisionRepo.selectByEventId(tradeEvent.getId());
+            List<DecisionRule> decisionRuleList = decisionRepo.selectByEventId(tradeEvent.getId());
             EventProcessor processor = applicationContext.getBean(EventProcessor.class);
             processor.setTradeEvent(tradeEvent);
             processor.setDataRuleList(dataRuleList);
-            processor.setDicisionRuleList(dicisionRuleList);
+            processor.setDecisionRuleList(decisionRuleList);
             eventProcessorMap.put(tradeEvent.getCode(), processor);
         }
         return eventProcessorMap;

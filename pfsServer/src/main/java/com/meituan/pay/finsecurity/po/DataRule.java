@@ -1,6 +1,7 @@
 package com.meituan.pay.finsecurity.po;
 
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
 
 /**
  * @author wangjinping
@@ -15,6 +16,7 @@ public class DataRule {
     private DataAccessTypeEnum type;
     private String address;
     private String keyExpr;
+    private StatusEnum status;
 
     public Long getId() {
         return id;
@@ -72,6 +74,14 @@ public class DataRule {
         this.keyExpr = keyExpr;
     }
 
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,7 +95,8 @@ public class DataRule {
         if (alias != null ? !alias.equals(dataRule.alias) : dataRule.alias != null) return false;
         if (type != dataRule.type) return false;
         if (address != null ? !address.equals(dataRule.address) : dataRule.address != null) return false;
-        return keyExpr != null ? keyExpr.equals(dataRule.keyExpr) : dataRule.keyExpr == null;
+        if (keyExpr != null ? !keyExpr.equals(dataRule.keyExpr) : dataRule.keyExpr != null) return false;
+        return status == dataRule.status;
     }
 
     @Override
@@ -97,6 +108,7 @@ public class DataRule {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (keyExpr != null ? keyExpr.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
@@ -110,6 +122,7 @@ public class DataRule {
         sb.append(", type=").append(type);
         sb.append(", address='").append(address).append('\'');
         sb.append(", keyExpr='").append(keyExpr).append('\'');
+        sb.append(", status=").append(status);
         sb.append('}');
         return sb.toString();
     }

@@ -38,12 +38,20 @@ public class DataService {
         }
     }
 
-    public TradeEvent obtaintradeEvent(String eventCode) {
+    public TradeEvent obtaintradeEvent(String eventCode) throws NullPointerException{
         return eventDataMap.get(eventCode);
     }
 
-    public String obtainTradeData(String eventData, String eventCode) {
-        TradeEvent tradeEvent = obtaintradeEvent(eventCode);
-        return tradeDataService.queryTradeData(tradeEvent.getDataRuleList(), eventData);
+    public String obtainTradeData(String eventData, String eventCode) throws Exception {
+        String tradeData = null;
+        TradeEvent tradeEvent = null;
+        try{
+            tradeEvent = obtaintradeEvent(eventCode);
+            tradeData = tradeDataService.queryTradeData(tradeEvent.getDataRuleList(), eventData);
+        } catch (NullPointerException npe) {
+            logger.error("当前不支持{}类型的事件", eventCode);
+            throw new RuntimeException();
+        }
+        return tradeData;
     }
 }

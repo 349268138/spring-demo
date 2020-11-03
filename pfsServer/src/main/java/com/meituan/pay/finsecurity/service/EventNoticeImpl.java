@@ -33,7 +33,7 @@ public class EventNoticeImpl implements EventNotice {
 
     @Override
     public EventNoticeResp eventNotice(EventNoticeReq req) throws TException {
-        LOGGER.info("事件数据同步：请求报文：{}", req.toString());
+        LOGGER.info("上游事件数据同步：请求报文：{}", req.toString());
         EventNoticeResp response = null;
         try {
             String eventCode = req.getEventCode();
@@ -41,15 +41,15 @@ public class EventNoticeImpl implements EventNotice {
             TradeEvent tradeEvent = dataService.obtaintradeEvent(eventCode);
             ProcessResultEnum processResultEnum = eventProcessor.process(tradeEvent, contextData);
             response = EventNoticeResp.genSuccessResponse(processResultEnum.getCode());
-            LOGGER.info("事件数据同步：响应报文：{}", response.toString());
+            LOGGER.info("上游事件数据同步：响应报文：{}", response.toString());
         } catch (Exception e) {
             response = EventNoticeResp.handleException(e);
-            LOGGER.info("事件数据同步发生异常：响应报文:{}, 异常:{}", response.toString(), LoggerUtils.getStackTrace(e));
+            LOGGER.info("上游事件数据同步发生异常：响应报文:{}, 异常:{}", response.toString(), LoggerUtils.getStackTrace(e));
         }
         return response;
     }
 
-    private ContextData buildContext(EventNoticeReq req, String eventCode) {
+    private ContextData buildContext(EventNoticeReq req, String eventCode) throws Exception {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
         String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);

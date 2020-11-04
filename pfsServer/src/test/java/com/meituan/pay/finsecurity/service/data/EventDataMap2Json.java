@@ -1,10 +1,7 @@
 package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.funds.simple.util.JacksonUtils;
-import com.meituan.pay.finsecurity.po.DataRule;
-import com.meituan.pay.finsecurity.po.DecisionRule;
-import com.meituan.pay.finsecurity.po.EventRule;
-import com.meituan.pay.finsecurity.po.TradeEvent;
+import com.meituan.pay.finsecurity.po.*;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import com.meituan.pay.finsecurity.po.enums.TypeEnum;
 import org.junit.Before;
@@ -18,7 +15,7 @@ import java.util.Map;
  * @author hhhb
  * @date 2020/11/4 4:25 下午
  */
-public class test {
+public class EventDataMap2Json {
     private Map<String, TradeEvent> eventDataMap = new HashMap<>();
     private TradeEvent tradeEvent = null;
 
@@ -26,13 +23,20 @@ public class test {
     public void setUp(){
         List<DataRule> dataRuleList = new ArrayList<>();;
         List<DecisionRule> decisionRuleList = new ArrayList<>();
+        List<Vector> vectorList = new ArrayList<>();
         EventRule eventRule = new EventRule();
         tradeEvent = new TradeEvent();
+
+        Vector vector = new Vector();
+        vector.setAlias("er_01");
+        vector.setName("事件规则01");
+        vector.setExpr("true");
+        vectorList.add(vector);
 
         eventRule.setId(1L);
         eventRule.setCode("fundsRequest");
         eventRule.setName("eventRule_01");
-        eventRule.setVector("{\"alias\":\"er_01\", \"name\":事件规则01\"\", \"expr\":\"true\"}");
+        eventRule.setVectorList(vectorList);
 
         DataRule dataRule = new DataRule();
         dataRule.setId(1L);

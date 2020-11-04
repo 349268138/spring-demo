@@ -1,6 +1,7 @@
 package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.funds.simple.util.JacksonUtils;
+import com.meituan.pay.finsecurity.constant.MccConstant;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.meituan.pay.finsecurity.adapter.MccAdapter;
 import org.apache.commons.lang3.StringUtils;
@@ -30,13 +31,13 @@ public class DataService {
 
     @PostConstruct
     public void initEventData() {
-        String eventDataMapJson =  mccAdapter.getString(MccAdapter.EVENTDATAMAP_JSON, "");
+        String eventDataMapJson =  mccAdapter.getString(MccConstant.EVENTDATAMAP_KEY, "");
         if(!StringUtils.isEmpty(eventDataMapJson)) {
             eventDataMap = JacksonUtils.jsonToBeanMap(eventDataMapJson, TradeEvent.class);
         }
     }
 
-    public TradeEvent obtaintradeEvent(String eventCode) throws NullPointerException{
+    public TradeEvent obtaintradeEvent(String eventCode){
         if(!eventDataMap.isEmpty()) {
             return eventDataMap.get(eventCode);
         }else {

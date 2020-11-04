@@ -30,7 +30,6 @@ public class EventNoticeImpl implements EventNotice {
     @Autowired
     private DataService dataService;
 
-
     @Override
     public EventNoticeResp eventNotice(EventNoticeReq req) throws TException {
         LOGGER.info("上游事件数据同步：请求报文：{}", req.toString());

@@ -1,5 +1,6 @@
 package com.meituan.pay.finsecurity.adapter;
 
+import com.meituan.pay.finsecurity.constant.MccConstant;
 import com.sankuai.meituan.config.MtConfigClient;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,12 +35,12 @@ public class MccAdapterTest {
         value = mccAdapter.getString("unexist_key", "hb");
         Assert.assertEquals(null, value);
 
-        when(mtConfigClient.getValue(MccAdapter.EVENTDATAMAP_JSON)).thenReturn("test");
-        value = mccAdapter.getString(MccAdapter.EVENTDATAMAP_JSON, "hb");
+        when(mtConfigClient.getValue(MccConstant.EVENTDATAMAP_KEY)).thenReturn("test");
+        value = mccAdapter.getString(MccConstant.EVENTDATAMAP_KEY, "hb");
         Assert.assertEquals("test", value);
 
         when(mtConfigClient.getValue(anyString())).thenThrow(new RuntimeException());
-        value = mccAdapter.getString(MccAdapter.EVENTDATAMAP_JSON, "hb");
+        value = mccAdapter.getString(MccConstant.EVENTDATAMAP_KEY, "hb");
         Assert.assertEquals("hb", value);
     }
 

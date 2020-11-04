@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 public class MccAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MccAdapter.class);
 
-    public static final String EVENTDATAMAP_JSON = "eventdata_map_json";
-
     @Autowired
     private MtConfigClient mtConfigClient;
 

@@ -16,7 +16,7 @@ public class GroovyScript {
         engine = manager.getEngineByName("groovy");
     }
 
-    public static Object script(String jsonData, String jsonName, String expr) {
+    public static Object script(String jsonName, String jsonData, String expr) {
         try {
             //1、预编译脚本
             CompiledScript dataScript = ((Compilable) engine).compile(String.format("import groovy.json.*;\n jsonSlurper = new JsonSlurper()\n %s = jsonSlurper.parseText(%s)", jsonName, jsonName));

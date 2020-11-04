@@ -30,7 +30,7 @@ public class MonitorDecisonProcessor implements DecisionProcessor {
     private void monitor(EventRule eventRule, DecisionRule decisionRule, String dataJson, int count) {
         MetricHelper pHelper = MetricHelper.build();
         for (Vector vector : eventRule.getVectorList()) {
-            String value = String.valueOf(GroovyScript.script(dataJson, ScriptConstant.CONTEXT_DATA, vector.getExpr()));
+            String value = String.valueOf(GroovyScript.script(ScriptConstant.CONTEXT_DATA, dataJson, vector.getExpr()));
             if (StringUtils.isEmpty(value)) {
                 continue;
             }

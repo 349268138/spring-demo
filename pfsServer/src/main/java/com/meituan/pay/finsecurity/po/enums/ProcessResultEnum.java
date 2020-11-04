@@ -1,8 +1,6 @@
 package com.meituan.pay.finsecurity.po.enums;
 
-/**
- * Created by zhoutianji on 18/6/20.
- */
+
 public enum ProcessResultEnum implements CodeEnum{
     PASS(1),
     INTERCEPT(2);

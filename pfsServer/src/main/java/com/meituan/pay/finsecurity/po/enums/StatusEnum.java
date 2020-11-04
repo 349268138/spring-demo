@@ -1,8 +1,6 @@
 package com.meituan.pay.finsecurity.po.enums;
 
-/**
- * Created by zhoutianji on 18/6/20.
- */
+
 public enum StatusEnum implements CodeEnum{
     ON(1),
     OFF(2);

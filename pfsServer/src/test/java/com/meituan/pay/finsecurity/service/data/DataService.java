@@ -1,4 +1,4 @@
-package com.meituan.pay.finsecurity.adapter.service.data;
+package com.meituan.pay.finsecurity.service.data;
 
 /**
  * @author hhhb

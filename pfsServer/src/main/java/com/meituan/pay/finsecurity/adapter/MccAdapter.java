@@ -26,7 +26,7 @@ public class MccAdapter {
             eventDataMapJson = mtConfigClient.getValue(key);
             return eventDataMapJson;
         } catch (Exception e) {
-            logger.error("Mcc获取配置异常，key: {}, exception: {}", EVENTDATAMAP_JSON, LoggerUtils.getStackTrace(e));
+            logger.error("Mcc获取配置异常，key: {}, exception: {}", key, LoggerUtils.getStackTrace(e));
         }
         return eventDataMapJson;
     }

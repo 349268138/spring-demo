@@ -10,7 +10,7 @@ import com.meituan.pay.finsecurity.po.enums.TypeEnum;
  */
 public class DecisionRule {
     private Long id;
-    private String eventId;
+    private Long eventId;
     private String name;
     private String alias;
     private TypeEnum type;
@@ -25,11 +25,11 @@ public class DecisionRule {
         this.id = id;
     }
 
-    public String getEventId() {
+    public Long getEventId() {
         return eventId;
     }
 
-    public void setEventId(String eventId) {
+    public void setEventId(Long eventId) {
         this.eventId = eventId;
     }
 

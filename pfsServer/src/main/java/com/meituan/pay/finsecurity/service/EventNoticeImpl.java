@@ -49,7 +49,7 @@ public class EventNoticeImpl implements EventNotice {
         return response;
     }
 
-    private ContextData buildContext(EventNoticeReq req, String eventCode) throws Exception {
+    private ContextData buildContext(EventNoticeReq req, String eventCode) {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
         String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);

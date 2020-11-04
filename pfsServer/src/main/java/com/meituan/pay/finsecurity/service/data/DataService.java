@@ -37,19 +37,16 @@ public class DataService {
     }
 
     public TradeEvent obtaintradeEvent(String eventCode) throws NullPointerException{
-        return eventDataMap.get(eventCode);
+        if(!eventDataMap.isEmpty()) {
+            return eventDataMap.get(eventCode);
+        }else {
+            throw new NullPointerException("EventDataMap is empty !");
+        }
     }
 
-    public String obtainTradeData(String eventData, String eventCode) throws Exception {
-        String tradeData = null;
-        TradeEvent tradeEvent = null;
-        try{
-            tradeEvent = obtaintradeEvent(eventCode);
-            tradeData = tradeDataService.queryTradeData(tradeEvent.getDataRuleList(), eventData);
-        } catch (NullPointerException npe) {
-            logger.error("当前不支持{}类型的事件", eventCode);
-            throw new RuntimeException();
-        }
+    public String obtainTradeData(String eventData, String eventCode) {
+        TradeEvent tradeEvent = obtaintradeEvent(eventCode);
+        String tradeData = tradeDataService.queryTradeData(tradeEvent.getDataRuleList(), eventData);
         return tradeData;
     }
 }

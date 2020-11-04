@@ -18,10 +18,9 @@ public class MccAdapter {
     @Autowired
     private MtConfigClient mtConfigClient;
 
-    public String getString(String key, String defaultValue) {
-        String eventDataMapJson = defaultValue;
+    public String getString(String key) {
         try{
-            eventDataMapJson = mtConfigClient.getValue(key);
+            return mtConfigClient.getValue(key);
         } catch (Exception e) {
             logger.error("Mcc获取配置异常，key: {}, exception: {}", key, LoggerUtils.getStackTrace(e));
         }

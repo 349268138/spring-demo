@@ -42,8 +42,10 @@ public class DataServiceTest {
 
     @Test
     public void obtainTradeEventTest(){
-        TradeEvent tradeEvent = dataService.obtaintradeEvent("fundsRequest");
-        System.out.println(tradeEvent.toString());
+        String eventCode = "fundsRequest";
+        TradeEvent tradeEvent = dataService.obtaintradeEvent(eventCode);
+        Assert.assertNotNull(tradeEvent);
+        Assert.assertEquals(tradeEvent.getEventRule().getCode(), eventCode);
     }
 
     @Test

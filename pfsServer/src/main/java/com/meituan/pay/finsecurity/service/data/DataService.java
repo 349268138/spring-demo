@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author hhhb
@@ -31,18 +32,18 @@ public class DataService {
 
     @PostConstruct
     public void initEventData() {
-        String eventDataMapJson =  mccAdapter.getString(MccConstant.EVENTDATAMAP_KEY, "");
+        String eventDataMapJson = mccAdapter.getString(MccConstant.EVENTDATAMAP_KEY);
         if(!StringUtils.isEmpty(eventDataMapJson)) {
             eventDataMap = JacksonUtils.jsonToBeanMap(eventDataMapJson, TradeEvent.class);
         }
     }
 
     public TradeEvent obtaintradeEvent(String eventCode){
-        if(!eventDataMap.isEmpty()) {
+        if(Objects.nonNull(eventDataMap.get(eventCode))) {
             return eventDataMap.get(eventCode);
-        }else {
-            throw new NullPointerException("EventDataMap is empty !");
         }
+
+        throw new RuntimeException(String.format("eventcode not exist. eventCode: %s", eventCode));
     }
 
     public String obtainTradeData(String eventData, String eventCode) {

@@ -1,4 +1,4 @@
-package finsecurity.service.event;
+package com.meituan.pay.finsecurity.adapter.service.event;
 
 /**
  * @author hhhb

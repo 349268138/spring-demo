@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <bean id="mtThriftPoolConfig" class="com.meituan.service.mobile.mtthrift.client.pool.MTThriftPoolConfig">
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="20"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxWait" value="300"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="false"/>
+    </bean>
+
+    <!--MCC-->
+    <bean id="mtConfigClient" class="com.sankuai.meituan.config.MtConfigClient" init-method="init"
+          destroy-method="destroy">
+        <!-- 1.0.0及后面版本使用-->
+        <property name="model" value="v2"/>
+        <!-- 配置实例的标识(id),必须在服务进程内全局唯一-->
+        <property name="id" value="com.sankuai.fundstransfer.finsecurity"/>
+        <!-- octo上申请的appkey-->
+        <property name="appkey" value="com.sankuai.fundstransfer.finsecurity"/>
+        <!-- 可选，扫描注解的根目录，默认全部扫描, jar包里面的也会扫描-->
+        <property name="scanBasePackage" value="com.meituan.pay.finsecurity"/>
+    </bean>
+    <!--MCC-->
+</beans>

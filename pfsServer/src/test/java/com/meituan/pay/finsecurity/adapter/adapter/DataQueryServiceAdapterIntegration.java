@@ -1,4 +1,4 @@
-package com.meituan.pay.finsecurity.adapter;
+package com.meituan.pay.finsecurity.adapter.adapter;
 
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;

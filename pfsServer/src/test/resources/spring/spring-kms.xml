@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <!--<util:properties id="kms" location="classpath:conf/${env.name}/config.properties" local-override="true"/>-->
+
+    <bean id="tradeKey" class="com.meituan.service.inf.kms.value.KMSStringValue">
+        <property name="appKey" value="${app.name}"/>
+        <property name="name" value="trade.key"/>
+    </bean>
+
+    <bean id="mwalletKey" class="com.meituan.service.inf.kms.value.KMSStringValue">
+        <property name="appKey" value="${app.name}"/>
+        <property name="name" value="mwallet.key"/>
+    </bean>
+
+</beans>

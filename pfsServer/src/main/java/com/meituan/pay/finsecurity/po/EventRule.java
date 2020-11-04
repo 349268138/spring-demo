@@ -2,6 +2,8 @@ package com.meituan.pay.finsecurity.po;
 
 import com.meituan.pay.finsecurity.po.enums.StatusEnum;
 
+import java.util.List;
+
 /**
  * @author wangjinping
  * @Description
@@ -11,7 +13,7 @@ public class EventRule {
     private Long id;
     private String code;
     private String name;
-    private String vector;
+    private List<Vector> vectorList;
     private String extendedData;
     private StatusEnum status;
 
@@ -39,12 +41,12 @@ public class EventRule {
         this.name = name;
     }
 
-    public String getVector() {
-        return vector;
+    public List<Vector> getVectorList() {
+        return vectorList;
     }
 
-    public void setVector(String vector) {
-        this.vector = vector;
+    public void setVectorList(List<Vector> vectorList) {
+        this.vectorList = vectorList;
     }
 
     public String getExtendedData() {
@@ -68,14 +70,15 @@ public class EventRule {
         if (this == o) return true;
         if (!(o instanceof EventRule)) return false;
 
-        EventRule that = (EventRule) o;
+        EventRule eventRule = (EventRule) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (vector != null ? !vector.equals(that.vector) : that.vector != null) return false;
-        if (extendedData != null ? !extendedData.equals(that.extendedData) : that.extendedData != null) return false;
-        return status == that.status;
+        if (id != null ? !id.equals(eventRule.id) : eventRule.id != null) return false;
+        if (code != null ? !code.equals(eventRule.code) : eventRule.code != null) return false;
+        if (name != null ? !name.equals(eventRule.name) : eventRule.name != null) return false;
+        if (vectorList != null ? !vectorList.equals(eventRule.vectorList) : eventRule.vectorList != null) return false;
+        if (extendedData != null ? !extendedData.equals(eventRule.extendedData) : eventRule.extendedData != null)
+            return false;
+        return status == eventRule.status;
     }
 
     @Override
@@ -83,7 +86,7 @@ public class EventRule {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (vector != null ? vector.hashCode() : 0);
+        result = 31 * result + (vectorList != null ? vectorList.hashCode() : 0);
         result = 31 * result + (extendedData != null ? extendedData.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
@@ -91,11 +94,11 @@ public class EventRule {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("TradeEvent{");
+        final StringBuffer sb = new StringBuffer("EventRule{");
         sb.append("id=").append(id);
         sb.append(", code='").append(code).append('\'');
         sb.append(", name='").append(name).append('\'');
-        sb.append(", vector='").append(vector).append('\'');
+        sb.append(", vectorList=").append(vectorList);
         sb.append(", extendedData='").append(extendedData).append('\'');
         sb.append(", status=").append(status);
         sb.append('}');

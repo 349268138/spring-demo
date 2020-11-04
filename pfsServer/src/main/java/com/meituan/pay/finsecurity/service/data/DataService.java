@@ -1,9 +1,8 @@
 package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.funds.simple.util.JacksonUtils;
-import com.meituan.pay.common.framework.JacksonUtil;
 import com.meituan.pay.finsecurity.po.TradeEvent;
-import com.meituan.pay.finsecurity.service.MccAdapter;
+import com.meituan.pay.finsecurity.adapter.MccAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author hhhb

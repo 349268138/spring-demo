@@ -1,20 +1,11 @@
-package com.meituan.pay.finsecurity.service;
+package com.meituan.pay.finsecurity.adapter;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.Sets;
-import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
-import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.sankuai.meituan.config.MtConfigClient;
-import org.apache.commons.collections.SetUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.util.*;
 
 /**
  * @author hhhb

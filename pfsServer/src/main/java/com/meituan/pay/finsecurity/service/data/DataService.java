@@ -22,7 +22,7 @@ import java.util.Objects;
 @Service
 public class DataService {
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
-    private Map<String, TradeEvent> eventDataMap = new HashMap<>();
+    private Map<String, TradeEvent> eventDataMap;
 
     @Autowired
     private TradeDataService tradeDataService;
@@ -32,10 +32,9 @@ public class DataService {
 
     @PostConstruct
     public void initEventData() {
-        String eventDataMapJson = mccAdapter.getString(MccConstant.EVENTDATAMAP_KEY);
-        if(!StringUtils.isEmpty(eventDataMapJson)) {
-            eventDataMap = JacksonUtils.jsonToBeanMap(eventDataMapJson, TradeEvent.class);
-        }
+        mccAdapter.initEventDataMap();
+        mccAdapter.initEventDataMapMccEvent();
+        eventDataMap = mccAdapter.getEventDataMap();
     }
 
     public TradeEvent obtaintradeEvent(String eventCode){

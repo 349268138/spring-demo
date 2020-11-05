@@ -27,8 +27,7 @@ public class MccAdapterIntegration {
 
     @Test
     public void initEventDataMapTest(){
-        mccAdapter.initEventDataMap();
-        mccAdapter.initEventDataMapMccEvent();
+        mccAdapter.init();
         eventDataMap = mccAdapter.getEventDataMap();
         Assert.assertNotNull(eventDataMap);
     }

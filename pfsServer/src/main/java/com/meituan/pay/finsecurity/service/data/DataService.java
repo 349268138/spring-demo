@@ -32,8 +32,6 @@ public class DataService {
 
     @PostConstruct
     public void initEventData() {
-        mccAdapter.initEventDataMap();
-        mccAdapter.initEventDataMapMccEvent();
         eventDataMap = mccAdapter.getEventDataMap();
     }
 

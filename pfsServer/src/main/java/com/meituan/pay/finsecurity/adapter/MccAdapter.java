@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -28,11 +29,17 @@ public class MccAdapter {
 
     private Map<String, TradeEvent> eventDataMap = Collections.emptyMap();
 
-    public void initEventDataMap() {
+    @PostConstruct
+    public void init() {
+        initEventDataMap();
+        initEventDataMapMccEvent();
+    }
+
+    private void initEventDataMap() {
         eventDataMap = convertUpdateEventDataMapJson(mtConfigClient.getValue(MccConstant.EVENTDATAMAP_KEY));
     }
 
-    public void initEventDataMapMccEvent() {
+    private void initEventDataMapMccEvent() {
         mtConfigClient.addListener(MccConstant.EVENTDATAMAP_KEY, ((key, oldValue, newValue) -> {
             try{
                 eventDataMap = convertUpdateEventDataMapJson(newValue);

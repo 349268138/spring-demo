@@ -2,15 +2,12 @@ package com.meituan.pay.finsecurity.service;
 
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.po.ContextData;
-import com.meituan.pay.finsecurity.po.EventRule;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import com.meituan.pay.finsecurity.sdk.api.EventNotice;
-import com.meituan.pay.finsecurity.sdk.dto.common.enums.ResStatusEnum;
 import com.meituan.pay.finsecurity.sdk.dto.req.EventNoticeReq;
 import com.meituan.pay.finsecurity.sdk.dto.resp.EventNoticeResp;
 import com.meituan.pay.finsecurity.service.data.DataService;
-import com.meituan.pay.finsecurity.sdk.dto.*;
 import com.meituan.pay.finsecurity.service.event.EventProcessor;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
@@ -36,7 +33,7 @@ public class EventNoticeImpl implements EventNotice {
         EventNoticeResp response = null;
         try {
             String eventCode = req.getEventCode();
-            ContextData contextData = buildContext(req, eventCode);
+            ContextData contextData = buildContext(req);
             TradeEvent tradeEvent = dataService.obtaintradeEvent(eventCode);
             ProcessResultEnum processResultEnum = eventProcessor.process(tradeEvent, contextData);
             response = EventNoticeResp.genSuccessResponse(processResultEnum.getCode());
@@ -48,7 +45,7 @@ public class EventNoticeImpl implements EventNotice {
         return response;
     }
 
-    private ContextData buildContext(EventNoticeReq req, String eventCode) {
+    private ContextData buildContext(EventNoticeReq req) {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
         String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);

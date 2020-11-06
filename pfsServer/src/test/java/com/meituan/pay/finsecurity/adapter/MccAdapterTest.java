@@ -96,7 +96,6 @@ public class MccAdapterTest {
         doReturn(JacksonUtils.toJson(eventDataMap)).when(mtConfigClient).getValue(MccConstant.EVENTDATAMAP_KEY);
         mccAdapter.init();
         Assert.assertFalse(mccAdapter.getEventDataMap().isEmpty());
-
     }
 
 }

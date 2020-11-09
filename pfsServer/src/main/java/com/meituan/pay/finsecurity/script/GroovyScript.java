@@ -1,5 +1,7 @@
 package com.meituan.pay.finsecurity.script;
 
+import com.meituan.pay.finsecurity.constant.ScriptConstant;
+
 import javax.script.*;
 
 /**
@@ -19,7 +21,7 @@ public class GroovyScript {
     public static Object script(String jsonName, String jsonData, String expr) {
         try {
             //1、预编译脚本
-            CompiledScript dataScript = ((Compilable) engine).compile(String.format("import groovy.json.*;\n jsonSlurper = new JsonSlurper()\n %s = jsonSlurper.parseText(%s)", jsonName, jsonName));
+            CompiledScript dataScript = ((Compilable) engine).compile(obtainScript(jsonName));
 
             //2、绑定数据
             Bindings bindings = engine.createBindings();
@@ -31,6 +33,16 @@ public class GroovyScript {
             return script.eval(bindings);
         } catch (Exception e) {
             throw new RuntimeException(String.format("excute script error. jsonData: %s, jsonName: %s, expr: %s", jsonData, jsonName, expr), e);
+        }
+    }
+
+    private static String obtainScript(String jsonName) {
+        if (!ScriptConstant.CONTEXT_DATA.equals(jsonName)) {
+            return String.format("import groovy.json.*;\n " +
+                    "jsonSlurper = new JsonSlurper()\n " +
+                    "%s = jsonSlurper.parseText(%s)", jsonName, jsonName);
+        } else {
+            return ScriptConstant.CONTEXT_SCRIPT;
         }
     }
 }

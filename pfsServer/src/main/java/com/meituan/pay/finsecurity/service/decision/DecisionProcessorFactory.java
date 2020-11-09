@@ -29,6 +29,6 @@ public class DecisionProcessorFactory {
             return alarmDecisonProcessor;
         }
 
-        throw new RuntimeException(String.format("unsupport decision type: %", type));
+        throw new RuntimeException(String.format("unsupport decision type: %s", type));
     }
 }

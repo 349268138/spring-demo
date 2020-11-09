@@ -31,7 +31,7 @@ public class MonitorDecisonProcessor implements DecisionProcessor {
         MetricHelper pHelper = MetricHelper.build();
         for (Vector vector : eventRule.getVectorList()) {
             String value = String.valueOf(GroovyScript.script(ScriptConstant.CONTEXT_DATA, dataJson, vector.getExpr()));
-            if (StringUtils.isEmpty(value)) {
+            if(ScriptConstant.NULL.equals(value)) {
                 continue;
             }
             pHelper.tag(vector.getAlias(), value);

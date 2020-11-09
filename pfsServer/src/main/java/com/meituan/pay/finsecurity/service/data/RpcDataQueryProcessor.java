@@ -43,7 +43,7 @@ public class RpcDataQueryProcessor implements DataQueryProcessor {
         }
     }
 
-    private DataQueryService getProxyService(String address) throws Exception {
+    protected DataQueryService getProxyService(String address) throws Exception {
         Optional<String[]> appkeyPortIp = getAppkeyPortIp(address);
         String mapKey = String.format("%s|%s|%s", appkeyPortIp.get()[0], appkeyPortIp.get()[1], appkeyPortIp.get()[2]);
         ThriftClientProxy proxy = thriftClientProxyHashMap.get(mapKey);
@@ -75,7 +75,7 @@ public class RpcDataQueryProcessor implements DataQueryProcessor {
     }
 
 
-    private ThriftClientProxy createThriftProxy(String remoteKey, String port, String ip, Class<?> serviceInterface) throws Exception {
+    protected ThriftClientProxy createThriftProxy(String remoteKey, String port, String ip, Class<?> serviceInterface) throws Exception {
         ThriftClientProxy proxy = new ThriftClientProxy();
         proxy.setRetryRequest(true);
         proxy.setAppKey(APPKEY);

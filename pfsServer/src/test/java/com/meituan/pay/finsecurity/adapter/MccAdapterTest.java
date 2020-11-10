@@ -4,6 +4,7 @@ import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.pay.finsecurity.constant.MccConstant;
 import com.meituan.pay.finsecurity.po.*;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
 import com.meituan.pay.finsecurity.po.enums.TypeEnum;
 import com.sankuai.meituan.config.MtConfigClient;
 import org.junit.Assert;
@@ -96,6 +97,69 @@ public class MccAdapterTest {
         doReturn(JacksonUtils.toJson(eventDataMap)).when(mtConfigClient).getValue(MccConstant.EVENTDATAMAP_KEY);
         mccAdapter.init();
         Assert.assertFalse(mccAdapter.getEventDataMap().isEmpty());
+    }
+
+    @Test
+    public void createTest(){
+        Map<String, TradeEvent> eventDataMap = new HashMap<>();
+
+        TradeEvent tradeEvent = new TradeEvent();
+
+        EventRule eventRule = new EventRule();
+        eventRule.setId(1L);
+        eventRule.setCode("payplatform_complete_event");
+        eventRule.setName("付款平台完成事件");
+        List<Vector> vectorList = new ArrayList<>();
+        Vector vectorPartnerId = new Vector();
+        vectorPartnerId.setAlias("partner");
+        vectorPartnerId.setName("业务线");
+        vectorPartnerId.setExpr("return eventData.partnerid");
+        vectorList.add(vectorPartnerId);
+        Vector vectorBusinessType = new Vector();
+        vectorBusinessType.setAlias("businessType");
+        vectorBusinessType.setName("业务类型");
+        vectorBusinessType.setExpr("return eventData.business_type");
+        vectorList.add(vectorBusinessType);
+        eventRule.setVectorList(vectorList);
+        tradeEvent.setEventRule(eventRule);
+
+        List<DataRule> dataRuleList = new ArrayList<>();
+        DataRule dataRule = new DataRule();
+        dataRule.setId(1L);
+        dataRule.setEventId(1L);
+        dataRule.setName("付款核心数据配置");
+        dataRule.setAlias("paycore");
+        dataRule.setAddress("com.sankuai.pay.fundstransfer.paycore:9006:localhost");
+        dataRule.setType(DataAccessTypeEnum.RPC);
+        dataRule.setKeyExpr("eventData.trade_no");
+        dataRuleList.add(dataRule);
+        tradeEvent.setDataRuleList(dataRuleList);
+
+        List<DecisionRule> decisionRuleList = new ArrayList<>();
+        DecisionRule decisionRule = new DecisionRule();
+        decisionRule.setId(1L);
+        decisionRule.setEventId(1L);
+        decisionRule.setAlias("monitor_complete");
+        decisionRule.setName("付款平台完成监控");
+        decisionRule.setExpr("if(eventData.status == 64 || eventData.status == 128 || eventData.status == 160) return 1 else return 0");
+        decisionRule.setStatus(StatusEnum.ON);
+        decisionRule.setType(TypeEnum.MONITOR);
+        decisionRuleList.add(decisionRule);
+
+        DecisionRule decisionRuleAlarm = new DecisionRule();
+        decisionRuleAlarm.setId(1L);
+        decisionRuleAlarm.setEventId(1L);
+        decisionRuleAlarm.setAlias("monitor_complete");
+        decisionRuleAlarm.setName("付款平台完成监控");
+        decisionRuleAlarm.setExpr("if((eventData.status == 64 && tradeData.paycore.inStatus == \"SUCCESS\") || (eventData.status == 128 && tradeData.paycore.inStatus == \"FAIL\")) return true else return false");
+        decisionRuleAlarm.setStatus(StatusEnum.ON);
+        decisionRuleAlarm.setType(TypeEnum.ALARM);
+        decisionRuleList.add(decisionRuleAlarm);
+
+        tradeEvent.setDecisionRuleList(decisionRuleList);
+
+        eventDataMap.put(eventRule.getCode(), tradeEvent);
+        System.out.println(JacksonUtils.toJson(eventDataMap));
     }
 
 }

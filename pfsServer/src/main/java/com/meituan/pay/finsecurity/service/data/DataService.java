@@ -22,28 +22,21 @@ import java.util.Objects;
 @Service
 public class DataService {
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
-    private Map<String, TradeEvent> eventDataMap;
-
     @Autowired
     private TradeDataService tradeDataService;
 
     @Autowired
     private MccAdapter mccAdapter;
 
-    @PostConstruct
-    public void initEventData() {
-        eventDataMap = mccAdapter.getEventDataMap();
-    }
-
     public TradeEvent obtaintradeEvent(String eventCode){
-        if(Objects.nonNull(eventDataMap.get(eventCode))) {
-            return eventDataMap.get(eventCode);
+        if(Objects.nonNull(mccAdapter.getEventDataMap().get(eventCode))) {
+            return mccAdapter.getEventDataMap().get(eventCode);
         }
 
         throw new RuntimeException(String.format("eventcode not exist. eventCode: %s", eventCode));
     }
 
-    public String obtainTradeData(String eventData, String eventCode) {
+    public String obtainTradeData(String eventCode, String eventData) {
         TradeEvent tradeEvent = obtaintradeEvent(eventCode);
         String tradeData = tradeDataService.queryTradeData(tradeEvent.getDataRuleList(), eventData);
         return tradeData;

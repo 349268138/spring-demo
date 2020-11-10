@@ -37,7 +37,6 @@ public class DataServiceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 //        when(mccAdapter.getString(anyString(),anyString())).thenReturn(MccConstant.EVENTDATAMAP_VALUE);
-        dataService.initEventData();
     }
 
     @Test

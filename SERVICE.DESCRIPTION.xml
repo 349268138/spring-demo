@@ -22,9 +22,9 @@
             <interfaceDescs>
                 <interfaceDesc>
                     <type>octo.thrift</type>
-                    <idlFile>pdcSDK/src/main/resources/thrift/EventThrift.thrift</idlFile>
+                    <idlFile>pfsSDK/src/main/resources/thrift/EventThrift.thrift</idlFile>
                     <searchPaths>
-                        <searchPath>pdcSDK/src/main/resources/thrift</searchPath>
+                        <searchPath>pfsSDK/src/main/resources/thrift</searchPath>
                     </searchPaths>
                 </interfaceDesc>
             </interfaceDescs>

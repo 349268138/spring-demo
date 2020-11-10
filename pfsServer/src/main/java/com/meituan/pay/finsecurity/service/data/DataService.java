@@ -1,18 +1,12 @@
 package com.meituan.pay.finsecurity.service.data;
 
-import com.meituan.funds.simple.util.JacksonUtils;
-import com.meituan.pay.finsecurity.constant.MccConstant;
-import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.meituan.pay.finsecurity.adapter.MccAdapter;
-import org.apache.commons.lang3.StringUtils;
+import com.meituan.pay.finsecurity.po.TradeEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -22,7 +16,6 @@ import java.util.Objects;
 @Service
 public class DataService {
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
-    private Map<String, TradeEvent> eventDataMap;
 
     @Autowired
     private TradeDataService tradeDataService;
@@ -30,14 +23,10 @@ public class DataService {
     @Autowired
     private MccAdapter mccAdapter;
 
-    @PostConstruct
-    public void initEventData() {
-        eventDataMap = mccAdapter.getEventDataMap();
-    }
 
     public TradeEvent obtaintradeEvent(String eventCode){
-        if(Objects.nonNull(eventDataMap.get(eventCode))) {
-            return eventDataMap.get(eventCode);
+        if(Objects.nonNull(mccAdapter.getEventDataMap())) {
+            return mccAdapter.getEventDataMap().get(eventCode);
         }
 
         throw new RuntimeException(String.format("eventcode not exist. eventCode: %s", eventCode));

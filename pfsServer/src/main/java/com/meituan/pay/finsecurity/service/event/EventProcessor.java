@@ -18,10 +18,10 @@ public class EventProcessor {
     @Autowired
     private DecisionProcessorFactory decisionProcessorFactory;
 
-    public ProcessResultEnum process(TradeEvent eventRule, ContextData contextData) {
+    public ProcessResultEnum process(TradeEvent tradeEvent, ContextData contextData) {
         String dataJson = JacksonUtils.toJson(contextData);
-        for (DecisionRule decisionRule : eventRule.getDecisionRuleList()) {
-            ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(eventRule.getEventRule(), decisionRule, dataJson);
+        for (DecisionRule decisionRule : tradeEvent.getDecisionRuleList()) {
+            ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(tradeEvent.getEventRule(), decisionRule, dataJson);
             if (result == ProcessResultEnum.INTERCEPT) {
                 return ProcessResultEnum.INTERCEPT;
             }

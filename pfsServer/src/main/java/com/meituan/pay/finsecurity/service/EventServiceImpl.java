@@ -4,7 +4,7 @@ import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.po.ContextData;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
-import com.meituan.pay.finsecurity.sdk.api.EventNotice;
+import com.meituan.pay.finsecurity.sdk.api.EventService;
 import com.meituan.pay.finsecurity.sdk.dto.req.EventNoticeReq;
 import com.meituan.pay.finsecurity.sdk.dto.resp.EventNoticeResp;
 import com.meituan.pay.finsecurity.service.data.DataService;
@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author hhhb
  * @date 2020/10/29 2:44 下午
  */
-public class EventNoticeImpl implements EventNotice {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventNoticeImpl.class);
+public class EventServiceImpl implements EventService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventServiceImpl.class);
 
     @Autowired
     private EventProcessor eventProcessor;
@@ -29,7 +29,7 @@ public class EventNoticeImpl implements EventNotice {
 
     @Override
     public EventNoticeResp eventNotice(EventNoticeReq req) throws TException {
-        LOGGER.info("上游事件数据同步：请求报文：{}", req.toString());
+        LOGGER.info("上游事件数据同步：请求报文：{}", req);
         EventNoticeResp response = null;
         try {
             String eventCode = req.getEventCode();
@@ -37,10 +37,10 @@ public class EventNoticeImpl implements EventNotice {
             TradeEvent tradeEvent = dataService.obtaintradeEvent(eventCode);
             ProcessResultEnum processResultEnum = eventProcessor.process(tradeEvent, contextData);
             response = EventNoticeResp.genSuccessResponse(processResultEnum.getCode());
-            LOGGER.info("上游事件数据同步：响应报文：{}", response.toString());
+            LOGGER.info("上游事件数据同步：请求报文：{}, 响应报文：{}", req, response);
         } catch (Exception e) {
             response = EventNoticeResp.handleException(e);
-            LOGGER.info("上游事件数据同步发生异常：响应报文:{}, 异常:{}", response.toString(), LoggerUtils.getStackTrace(e));
+            LOGGER.info("上游事件数据同步发生异常：请求报文：{}, 响应报文:{}, 异常:{}", req, response, LoggerUtils.getStackTrace(e));
         }
         return response;
     }
@@ -48,7 +48,7 @@ public class EventNoticeImpl implements EventNotice {
     private ContextData buildContext(EventNoticeReq req) {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
-        String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);
+        String tradeData = dataService.obtainTradeData( eventData,req.getEventCode());
         contextData.setTradeData(tradeData);
         contextData.setEventData(eventData);
         return contextData;

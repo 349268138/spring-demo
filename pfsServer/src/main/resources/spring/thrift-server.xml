@@ -13,10 +13,10 @@
         <property name="authDataSource" ref="kmsAuthDataSource" />
     </bean>
 
-    <bean id="EventNotice" class="com.meituan.pay.finsecurity.service.EventNoticeImpl"></bean>
+    <bean id="EventNotice" class="com.meituan.pay.finsecurity.service.EventServiceImpl"></bean>
     <bean id="EventNoticePublisher" class="com.meituan.service.mobile.mtthrift.proxy.ThriftServerPublisher"
           init-method="publish" destroy-method="destroy">
-        <property name="serviceInterface" value="com.meituan.pay.finsecurity.sdk.api.EventNotice"/> <!-- 接口类 -->
+        <property name="serviceInterface" value="com.meituan.pay.finsecurity.sdk.api.EventService"/> <!-- 接口类 -->
         <property name="serviceImpl" ref="EventNotice"/> <!-- 实现类 -->
         <property name="appKey" value="${app.name}"/>  <!-- 本地 appkey，建议重新注册一个 -->
         <property name="port" value="9077"/> <!-- Server 监听端口 -->

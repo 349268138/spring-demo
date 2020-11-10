@@ -1,6 +1,5 @@
 package com.meituan.pay.finsecurity.service;
 
-import com.meituan.pay.finsecurity.po.ContextData;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import com.meituan.pay.finsecurity.sdk.dto.req.EventNoticeReq;
@@ -14,10 +13,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -28,7 +23,7 @@ import static org.mockito.Mockito.when;
  */
 public class EventNoticeImplTest {
     @InjectMocks
-    EventNoticeImpl eventNoticeImpl;
+    EventServiceImpl eventNoticeImpl;
 
     @Mock
     private EventProcessor eventProcessor;
@@ -44,7 +39,7 @@ public class EventNoticeImplTest {
 
         req = new EventNoticeReq();
         req.setEventCode("fundsRequest");
-        req.setEventData("event_code");
+        req.setEventData("event_data");
         req.setEventTime(2333L);
         req.setRepeated(false);
 

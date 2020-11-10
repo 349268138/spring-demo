@@ -1,5 +1,6 @@
 package com.meituan.pay.finsecurity.service.data;
 
+import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.pay.finsecurity.adapter.MccAdapter;
 import com.meituan.pay.finsecurity.constant.MccConstant;
 import com.meituan.pay.finsecurity.po.TradeEvent;
@@ -11,10 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 /**
@@ -27,17 +28,16 @@ public class DataServiceTest {
     private DataService dataService;
 
     @Mock
-    private TradeDataService tradeDataService;
-
-    @Mock
     private MccAdapter mccAdapter;
 
+    @Mock
+    private TradeDataService tradeDataService;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-//        when(mccAdapter.getString(anyString(),anyString())).thenReturn(MccConstant.EVENTDATAMAP_VALUE);
-        dataService.initEventData();
+        Map<String, TradeEvent> eventDataMap = JacksonUtils.jsonToBeanMap(MccConstant.EVENTDATAMAP_VALUE, TradeEvent.class);
+        when(mccAdapter.getEventDataMap()).thenReturn(eventDataMap);
     }
 
     @Test
@@ -50,12 +50,9 @@ public class DataServiceTest {
 
     @Test
     public void obtainTradeDataTest(){
-        TradeEvent tradeEvent = dataService.obtaintradeEvent("fundsRequest");
-        when(dataService.obtaintradeEvent("fundsRequest")).thenReturn(tradeEvent);
-        when(dataService.obtainTradeData("eventData", "fundsRequest")).thenReturn("trade_data");
+        when(tradeDataService.queryTradeData(anyList(), eq("eventData"))).thenReturn("tradeData");
         String tradeData = dataService.obtainTradeData("eventData", "fundsRequest");
         Assert.assertNotNull(tradeData);
-
     }
 
 }

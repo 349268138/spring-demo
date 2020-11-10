@@ -11,7 +11,7 @@ import org.apache.thrift.TException;
  * @date 2020/10/28 5:36 下午
  */
 @ThriftService
-public interface EventNotice {
+public interface EventService {
 
     @ThriftMethod
     EventNoticeResp eventNotice(EventNoticeReq req) throws TException;

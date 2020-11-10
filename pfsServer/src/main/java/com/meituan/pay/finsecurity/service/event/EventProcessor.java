@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.List;
-
 /**
  * @author hhhb
  * @date 2020/11/2 5:17 下午
@@ -23,12 +21,12 @@ public class EventProcessor {
 
     public ProcessResultEnum process(TradeEvent tradeEvent, ContextData contextData) {
         String dataJson = JacksonUtils.toJson(contextData);
-        if (CollectionUtils.isEmpty(eventRule.getDecisionRuleList())) {
+        if (CollectionUtils.isEmpty(tradeEvent.getDecisionRuleList())) {
             return ProcessResultEnum.PASS;
         }
 
-        for (DecisionRule decisionRule : eventRule.getDecisionRuleList()) {
-            ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(eventRule.getEventRule(), decisionRule, dataJson);
+        for (DecisionRule decisionRule : tradeEvent.getDecisionRuleList()) {
+            ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(tradeEvent.getEventRule(), decisionRule, dataJson);
             if (result == ProcessResultEnum.INTERCEPT) {
                 return ProcessResultEnum.INTERCEPT;
             }

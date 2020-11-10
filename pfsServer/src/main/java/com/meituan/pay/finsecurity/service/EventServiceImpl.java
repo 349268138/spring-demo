@@ -48,7 +48,7 @@ public class EventServiceImpl implements EventService {
     private ContextData buildContext(EventNoticeReq req) {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
-        String tradeData = dataService.obtainTradeData( eventData,req.getEventCode());
+        String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);
         contextData.setTradeData(tradeData);
         contextData.setEventData(eventData);
         return contextData;

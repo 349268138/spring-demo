@@ -43,7 +43,7 @@ public class EventNoticeImplTest {
         req.setEventTime(2333L);
         req.setRepeated(false);
 
-        when(dataService.obtainTradeData(req.getEventData(), req.getEventCode())).thenReturn("trade_data");
+        when(dataService.obtainTradeData(req.getEventCode(), req.getEventData())).thenReturn("trade_data");
 
         TradeEvent tradeEvent = new TradeEvent();
         when(dataService.obtaintradeEvent(req.getEventCode())).thenReturn(tradeEvent);

@@ -51,8 +51,8 @@ public class DataServiceTest {
     public void obtainTradeDataTest(){
         TradeEvent tradeEvent = dataService.obtaintradeEvent("fundsRequest");
         when(dataService.obtaintradeEvent("fundsRequest")).thenReturn(tradeEvent);
-        when(dataService.obtainTradeData("eventData", "fundsRequest")).thenReturn("trade_data");
-        String tradeData = dataService.obtainTradeData("eventData", "fundsRequest");
+        when(dataService.obtainTradeData("fundsRequest", "eventData")).thenReturn("trade_data");
+        String tradeData = dataService.obtainTradeData("fundsRequest", "eventData");
         Assert.assertNotNull(tradeData);
 
     }

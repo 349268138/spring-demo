@@ -8,6 +8,9 @@ import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import com.meituan.pay.finsecurity.service.decision.DecisionProcessorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * @author hhhb
@@ -20,8 +23,12 @@ public class EventProcessor {
 
     public ProcessResultEnum process(TradeEvent tradeEvent, ContextData contextData) {
         String dataJson = JacksonUtils.toJson(contextData);
-        for (DecisionRule decisionRule : tradeEvent.getDecisionRuleList()) {
-            ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(tradeEvent.getEventRule(), decisionRule, dataJson);
+        if (CollectionUtils.isEmpty(eventRule.getDecisionRuleList())) {
+            return ProcessResultEnum.PASS;
+        }
+
+        for (DecisionRule decisionRule : eventRule.getDecisionRuleList()) {
+            ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(eventRule.getEventRule(), decisionRule, dataJson);
             if (result == ProcessResultEnum.INTERCEPT) {
                 return ProcessResultEnum.INTERCEPT;
             }

@@ -20,6 +20,6 @@ public class DataQueryProcessorFactory {
             return rpcDataQueryProcessor;
         }
 
-        throw new RuntimeException(String.format("unsupport data access type: %", type));
+        throw new RuntimeException(String.format("unsupport data access type: %s", type));
     }
 }

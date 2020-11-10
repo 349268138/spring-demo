@@ -36,8 +36,7 @@ public class DataServiceTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        Map<String, TradeEvent> eventDataMap = JacksonUtils.jsonToBeanMap(MccConstant.EVENTDATAMAP_VALUE, TradeEvent.class);
-        when(mccAdapter.getEventDataMap()).thenReturn(eventDataMap);
+//        when(mccAdapter.getString(anyString(),anyString())).thenReturn(MccConstant.EVENTDATAMAP_VALUE);
     }
 
     @Test
@@ -50,9 +49,12 @@ public class DataServiceTest {
 
     @Test
     public void obtainTradeDataTest(){
-        when(tradeDataService.queryTradeData(anyList(), eq("eventData"))).thenReturn("tradeData");
+        TradeEvent tradeEvent = dataService.obtaintradeEvent("fundsRequest");
+        when(dataService.obtaintradeEvent("fundsRequest")).thenReturn(tradeEvent);
+        when(dataService.obtainTradeData("eventData", "fundsRequest")).thenReturn("trade_data");
         String tradeData = dataService.obtainTradeData("eventData", "fundsRequest");
         Assert.assertNotNull(tradeData);
+
     }
 
 }

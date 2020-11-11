@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-eventServiceTest.xml")
-public class EventNoticeTest {
+public class EventNoticeIntegration {
 
     @Autowired
     private EventService eventService;

@@ -312,7 +312,7 @@
             <dependency>
                 <groupId>com.meituan.pay</groupId>
                 <artifactId>common-framework</artifactId>
-                <version>1.4-RELEASE</version>
+                <version>1.4.3-RELEASE</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.logging.log4j</groupId>

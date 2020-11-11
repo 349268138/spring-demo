@@ -7,24 +7,24 @@ build:
   tools:
     maven: 3.3.3
   run:
-    workDir: ./pdcServer/       # workDir是代码仓库的相对目录
+    workDir: ./pfsServer/       # workDir是代码仓库的相对目录
     cmd:
       - sh deploy/compile.sh
   target:
-    distDir: ./pdcServer/target/ # distDir是代码仓库的相对目录
+    distDir: ./pfsServer/target/ # distDir是代码仓库的相对目录
     files:          # files中的文件描述是相对distDir的
       - ./*.war
       - ../deploy
 autodeploy:
-    targetDir: /opt/meituan/mobile/pdcServer/
+    targetDir: /opt/meituan/mobile/pfsServer/
     env:
       JAVA_VERSION: jdk1.8.0_45
-      MODULE: pdcServer
+      MODULE: pfsServer
       TEST_URL: http://localhost:8091/monitor/alive
       CHECK_TIMES: 60
       WAIT_SECONDS: 3 # check脚本用到.dev环境启动较慢,可在发布项配置里修改
     run: sh deploy/run.sh
-    check: sh /opt/meituan/mobile/pdcServer/deploy/check.sh
+    check: sh /opt/meituan/mobile/pfsServer/deploy/check.sh
     checkRetry: 1 # 缺省值为1，可加大增加check命令执行次数，拉长检查时间
     checkInterval: 1s # 缺省值为1s，建议此数值不宜过大。
     daemonToolsStopTimeout: 30s # 等待程序响应退出的时间

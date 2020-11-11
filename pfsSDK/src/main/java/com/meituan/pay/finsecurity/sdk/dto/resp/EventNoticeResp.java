@@ -13,12 +13,12 @@ import org.apache.thrift.TException;
 public class EventNoticeResp {
 
     /**
-     * 冻结请求状态
+     * 调用结果
      */
     private ResStatusEnum status;
 
     /**
-     * 冻结id
+     * 处理结论（1通过,2拦截）
      */
     private Integer resultLevel;
 

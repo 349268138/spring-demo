@@ -29,7 +29,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventNoticeResp eventNotice(EventNoticeReq req) throws TException {
-        LOGGER.info("上游事件数据同步：请求报文：{}", req);
         EventNoticeResp response = null;
         try {
             String eventCode = req.getEventCode();
@@ -40,7 +39,7 @@ public class EventServiceImpl implements EventService {
             LOGGER.info("上游事件数据同步：请求报文：{}, 响应报文：{}", req, response);
         } catch (Exception e) {
             response = EventNoticeResp.handleException(e);
-            LOGGER.info("上游事件数据同步发生异常：请求报文：{}, 响应报文:{}, 异常:{}", req, response, LoggerUtils.getStackTrace(e));
+            LOGGER.error("上游事件数据同步发生异常：请求报文：{}, 响应报文:{}, 异常:{}", req, response, LoggerUtils.getStackTrace(e));
         }
         return response;
     }

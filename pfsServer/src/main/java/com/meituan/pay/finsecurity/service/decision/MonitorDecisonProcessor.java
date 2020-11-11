@@ -7,8 +7,10 @@ import com.meituan.pay.finsecurity.po.EventRule;
 import com.meituan.pay.finsecurity.po.Vector;
 import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import com.meituan.pay.finsecurity.script.GroovyScript;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author wangjinping
@@ -17,6 +19,7 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class MonitorDecisonProcessor implements DecisionProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(MonitorDecisonProcessor.class);
 
     @Override
     public ProcessResultEnum decide(EventRule eventRule, DecisionRule decisionRule, String dataJson) {
@@ -28,6 +31,11 @@ public class MonitorDecisonProcessor implements DecisionProcessor {
     }
 
     private void monitor(EventRule eventRule, DecisionRule decisionRule, String dataJson, int count) {
+        if (CollectionUtils.isEmpty(eventRule.getVectorList())) {
+            logger.error("eventRule vectorList not config. eventCode: {}", eventRule.getCode());
+            return;
+        }
+
         MetricHelper pHelper = MetricHelper.build();
         for (Vector vector : eventRule.getVectorList()) {
             String value = String.valueOf(GroovyScript.script(ScriptConstant.CONTEXT_DATA, dataJson, vector.getExpr()));

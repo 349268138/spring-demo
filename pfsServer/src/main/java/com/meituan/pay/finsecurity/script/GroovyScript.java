@@ -40,7 +40,7 @@ public class GroovyScript {
         if (ScriptConstant.CONTEXT_DATA.equals(jsonName)) {
             return ScriptConstant.CONTEXT_SCRIPT;
         } else {
-            return String.format( ScriptConstant.SCRIPT, jsonName, jsonName);
+            return String.format(ScriptConstant.SCRIPT, jsonName, jsonName);
         }
     }
 }

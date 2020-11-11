@@ -38,8 +38,8 @@ public class EventServiceImpl implements EventService {
             response = EventNoticeResp.genSuccessResponse(processResultEnum.getCode());
             LOGGER.info("上游事件数据同步：请求报文：{}, 响应报文：{}", req, response);
         } catch (Exception e) {
-            response = EventNoticeResp.handleException(e);
             LOGGER.error("上游事件数据同步发生异常：请求报文：{}, 响应报文:{}, 异常:{}", req, response, LoggerUtils.getStackTrace(e));
+            response = EventNoticeResp.handleException(e);
         }
         return response;
     }

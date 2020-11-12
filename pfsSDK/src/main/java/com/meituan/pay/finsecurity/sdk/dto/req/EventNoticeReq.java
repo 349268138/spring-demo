@@ -66,11 +66,11 @@ public class EventNoticeReq {
 
     @Override
     public String toString() {
-        return "EventNoticeResp{" +
-                "status=" + eventCode +
-                ", resultLevel=" + eventData +
-                ", errorCode='" + repeated + '\'' +
-                ", errorMsg='" + eventTime + '\'' +
+        return "EventNoticeReq{" +
+                "eventCode=" + eventCode +
+                ", eventData=" + eventData +
+                ", repeated='" + repeated + '\'' +
+                ", eventTime='" + eventTime + '\'' +
                 '}';
     }
 }

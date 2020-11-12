@@ -37,12 +37,10 @@ public class GroovyScript {
     }
 
     private static String obtainScript(String jsonName) {
-        if (!ScriptConstant.CONTEXT_DATA.equals(jsonName)) {
-            return String.format("import groovy.json.*;\n " +
-                    "jsonSlurper = new JsonSlurper()\n " +
-                    "%s = jsonSlurper.parseText(%s)", jsonName, jsonName);
-        } else {
+        if (ScriptConstant.CONTEXT_DATA.equals(jsonName)) {
             return ScriptConstant.CONTEXT_SCRIPT;
+        } else {
+            return String.format(ScriptConstant.SCRIPT, jsonName, jsonName);
         }
     }
 }

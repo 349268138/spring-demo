@@ -16,4 +16,8 @@ public class ScriptConstant {
             "contextData = jsonSlurper.parseText(contextData)\n " +
             "if(!StringUtils.isEmpty(contextData.eventData)) eventData = jsonSlurper.parseText(contextData.eventData)\n" +
             "if(!StringUtils.isEmpty(contextData.tradeData)) tradeData = jsonSlurper.parseText(contextData.tradeData)";
+
+    public static final String SCRIPT = "import groovy.json.*;\n " +
+            "jsonSlurper = new JsonSlurper()\n " +
+            "%s = jsonSlurper.parseText(%s)";
 }

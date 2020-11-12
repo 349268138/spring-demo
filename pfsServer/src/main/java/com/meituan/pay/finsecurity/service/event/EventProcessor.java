@@ -20,11 +20,11 @@ public class EventProcessor {
     private DecisionProcessorFactory decisionProcessorFactory;
 
     public ProcessResultEnum process(TradeEvent tradeEvent, ContextData contextData) {
-        String dataJson = JacksonUtils.toJson(contextData);
         if (CollectionUtils.isEmpty(tradeEvent.getDecisionRuleList())) {
             return ProcessResultEnum.PASS;
         }
 
+        String dataJson = JacksonUtils.toJson(contextData);
         for (DecisionRule decisionRule : tradeEvent.getDecisionRuleList()) {
             ProcessResultEnum result = decisionProcessorFactory.obtainProcessor(decisionRule.getType()).decide(tradeEvent.getEventRule(), decisionRule, dataJson);
             if (result == ProcessResultEnum.INTERCEPT) {

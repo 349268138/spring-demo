@@ -32,8 +32,8 @@ public class EventServiceImpl implements EventService {
         EventNoticeResp response = null;
         try {
             String eventCode = req.getEventCode();
-            ContextData contextData = buildContext(req);
             TradeEvent tradeEvent = dataService.obtaintradeEvent(eventCode);
+            ContextData contextData = buildContext(req, tradeEvent);
             ProcessResultEnum processResultEnum = eventProcessor.process(tradeEvent, contextData);
             response = EventNoticeResp.genSuccessResponse(processResultEnum.getCode());
             LOGGER.info("上游事件数据同步：请求报文：{}, 响应报文：{}", req, response);
@@ -44,10 +44,10 @@ public class EventServiceImpl implements EventService {
         return response;
     }
 
-    private ContextData buildContext(EventNoticeReq req) {
+    private ContextData buildContext(EventNoticeReq req, TradeEvent tradeEvent) {
         ContextData contextData = new ContextData();
         String eventData = req.getEventData();
-        String tradeData = dataService.obtainTradeData(req.getEventCode(), eventData);
+        String tradeData = dataService.obtainTradeData(tradeEvent.getDataRuleList(), eventData);
         contextData.setTradeData(tradeData);
         contextData.setEventData(eventData);
         return contextData;

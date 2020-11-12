@@ -1,16 +1,14 @@
 package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.pay.finsecurity.adapter.MccAdapter;
+import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.TradeEvent;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,9 +32,8 @@ public class DataService {
         throw new RuntimeException(String.format("eventcode not exist. eventCode: %s", eventCode));
     }
 
-    public String obtainTradeData(String eventCode, String eventData) {
-        TradeEvent tradeEvent = obtaintradeEvent(eventCode);
-        String tradeData = tradeDataService.queryTradeData(tradeEvent.getDataRuleList(), eventData);
+    public String obtainTradeData(List<DataRule> dataRuleList, String eventData) {
+        String tradeData = tradeDataService.queryTradeData(dataRuleList, eventData);
         return tradeData;
     }
 }

@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.anyList;
@@ -51,7 +52,7 @@ public class DataServiceTest {
     @Test
     public void obtainTradeDataTest(){
         when(tradeDataService.queryTradeData(anyList(), eq("eventData"))).thenReturn("tradeData");
-        String tradeData = dataService.obtainTradeData("fundsRequest","eventData");
+        String tradeData = dataService.obtainTradeData(new LinkedList<>(),"eventData");
         Assert.assertNotNull(tradeData);
     }
 

@@ -86,7 +86,7 @@
         <dependency>
             <groupId>com.meituan.pay</groupId>
             <artifactId>pfs-sdk</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.1-RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

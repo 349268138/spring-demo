@@ -137,7 +137,7 @@ public class EventNoticeResp {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("TradeDataResp{");
+        final StringBuffer sb = new StringBuffer("EventNoticeResp{");
         sb.append("status=").append(status);
         sb.append(", resultLevel=").append(resultLevel);
         sb.append(", errorCode='").append(errorCode).append('\'');

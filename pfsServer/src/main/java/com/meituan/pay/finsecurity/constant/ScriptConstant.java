@@ -11,9 +11,13 @@ public class ScriptConstant {
 
     public static final String NULL = "null";
 
-    public static final String CONTEXT_SCRIPT = "import groovy.json.*;\n " +
+    public static final String CONTEXT_SCRIPT = "import groovy.json.*;import org.springframework.util.StringUtils;\n " +
             "jsonSlurper = new JsonSlurper()\n " +
             "contextData = jsonSlurper.parseText(contextData)\n " +
-            "if(contextData.eventData != null) eventData = jsonSlurper.parseText(contextData.eventData)\n" +
-            "if(contextData.tradeData != null) tradeData = jsonSlurper.parseText(contextData.tradeData)";
+            "if(!StringUtils.isEmpty(contextData.eventData)) eventData = jsonSlurper.parseText(contextData.eventData)\n" +
+            "if(!StringUtils.isEmpty(contextData.tradeData)) tradeData = jsonSlurper.parseText(contextData.tradeData)";
+
+    public static final String SCRIPT = "import groovy.json.*;\n " +
+            "jsonSlurper = new JsonSlurper()\n " +
+            "%s = jsonSlurper.parseText(%s)";
 }

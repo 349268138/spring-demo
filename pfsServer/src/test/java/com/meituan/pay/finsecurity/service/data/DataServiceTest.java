@@ -2,7 +2,6 @@ package com.meituan.pay.finsecurity.service.data;
 
 import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.pay.finsecurity.adapter.MccAdapter;
-import com.meituan.pay.finsecurity.constant.MccConstant;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.anyList;
@@ -36,7 +36,9 @@ public class DataServiceTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-//        when(mccAdapter.getString(anyString(),anyString())).thenReturn(MccConstant.EVENTDATAMAP_VALUE);
+        Map<String, TradeEvent> eventDataMap = JacksonUtils.jsonToBeanMap("{\"fundsRequest\":{\"dataRuleList\":[{\"address\":\"com.sankuai.pay.fundstransfer.paycore:9006:localhost\",\"alias\":\"paycore\",\"eventId\":1,\"id\":1,\"keyExpr\":\"eventData.trade_no\",\"name\":\"付款核心数据配置\",\"type\":\"RPC\"}],\"decisionRuleList\":[{\"alias\":\"decisionRule_01\",\"eventId\":1,\"expr\":\"true\",\"id\":1,\"name\":\"决策规则_01\",\"type\":\"ALARM\"}],\"eventRule\":{\"code\":\"fundsRequest\",\"id\":1,\"name\":\"eventRule_01\",\"vectorList\":[{\"alias\":\"er_01\",\"expr\":\"true\",\"name\":\"事件规则01\"}]}}}"
+                , TradeEvent.class);
+        when(mccAdapter.getEventDataMap()).thenReturn(eventDataMap);
     }
 
     @Test
@@ -49,12 +51,9 @@ public class DataServiceTest {
 
     @Test
     public void obtainTradeDataTest(){
-        TradeEvent tradeEvent = dataService.obtaintradeEvent("fundsRequest");
-        when(dataService.obtaintradeEvent("fundsRequest")).thenReturn(tradeEvent);
-        when(dataService.obtainTradeData("fundsRequest", "eventData")).thenReturn("trade_data");
-        String tradeData = dataService.obtainTradeData("fundsRequest", "eventData");
+        when(tradeDataService.queryTradeData(anyList(), eq("eventData"))).thenReturn("tradeData");
+        String tradeData = dataService.obtainTradeData(new LinkedList<>(),"eventData");
         Assert.assertNotNull(tradeData);
-
     }
 
 }

@@ -21,7 +21,7 @@ public class EventDataMap2Json {
 
     @Before
     public void setUp(){
-        List<DataRule> dataRuleList = new ArrayList<>();;
+        List<DataRule> dataRuleList = new ArrayList<>();
         List<DecisionRule> decisionRuleList = new ArrayList<>();
         List<Vector> vectorList = new ArrayList<>();
         EventRule eventRule = new EventRule();

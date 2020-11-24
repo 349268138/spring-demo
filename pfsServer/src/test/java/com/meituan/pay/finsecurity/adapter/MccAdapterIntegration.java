@@ -1,6 +1,5 @@
 package com.meituan.pay.finsecurity.adapter;
 
-import com.meituan.pay.finsecurity.constant.MccConstant;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class MccAdapterIntegration {
     private Map<String, TradeEvent> eventDataMap = Collections.emptyMap();
 
     @Test
-    public void initEventDataMapTest(){
+    public void initEventDataMapTest() {
         mccAdapter.init();
         eventDataMap = mccAdapter.getEventDataMap();
         Assert.assertNotNull(eventDataMap);

@@ -19,8 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
 
 /**
  * @author hhhb
@@ -39,7 +38,7 @@ public class MccAdapterTest {
     }
 
     @Test
-    public void initEventDataMapTest(){
+    public void initEventDataMapTest() {
         Map<String, TradeEvent> eventDataMap = new HashMap<>();
         TradeEvent tradeEvent = null;
 
@@ -58,7 +57,8 @@ public class MccAdapterTest {
             Assert.assertTrue(e instanceof RuntimeException);
         }
 
-        List<DataRule> dataRuleList = new ArrayList<>();;
+        List<DataRule> dataRuleList = new ArrayList<>();
+        ;
         List<DecisionRule> decisionRuleList = new ArrayList<>();
         List<Vector> vectorList = new ArrayList<>();
         EventRule eventRule = new EventRule();
@@ -100,7 +100,7 @@ public class MccAdapterTest {
     }
 
     @Test
-    public void createTest(){
+    public void createTest() {
         Map<String, TradeEvent> eventDataMap = new HashMap<>();
 
         TradeEvent tradeEvent = new TradeEvent();

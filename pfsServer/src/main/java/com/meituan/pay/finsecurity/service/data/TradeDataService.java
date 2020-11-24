@@ -48,6 +48,9 @@ public class TradeDataService {
         for (DataRule dataRule : dataRuleList) {
             DataQueryProcessor processor = dataQueryFactory.obtainProcessor(dataRule.getType());
             String key = (String) GroovyScript.script(ScriptConstant.EVENT_DATA, eventData, dataRule.getKeyExpr());
+            if (StringUtils.isEmpty(key)) {
+                continue;
+            }
             String data = processor.queryData(dataRule, key);
             tradeData.put(dataRule.getAlias(), JacksonUtils.jsonToMap(data));
         }

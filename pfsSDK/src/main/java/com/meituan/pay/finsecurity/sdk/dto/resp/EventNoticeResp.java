@@ -13,12 +13,12 @@ import org.apache.thrift.TException;
 public class EventNoticeResp {
 
     /**
-     * 冻结请求状态
+     * 调用结果
      */
     private ResStatusEnum status;
 
     /**
-     * 冻结id
+     * 处理结论（1通过,2拦截）
      */
     private Integer resultLevel;
 
@@ -137,7 +137,7 @@ public class EventNoticeResp {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("TradeDataResp{");
+        final StringBuffer sb = new StringBuffer("EventNoticeResp{");
         sb.append("status=").append(status);
         sb.append(", resultLevel=").append(resultLevel);
         sb.append(", errorCode='").append(errorCode).append('\'');

@@ -1,6 +1,8 @@
 package com.meituan.pay.finsecurity.service;
 
+import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.TradeEvent;
+import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import com.meituan.pay.finsecurity.po.enums.ProcessResultEnum;
 import com.meituan.pay.finsecurity.sdk.dto.req.EventNoticeReq;
 import com.meituan.pay.finsecurity.sdk.dto.resp.EventNoticeResp;
@@ -13,6 +15,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -43,7 +48,18 @@ public class EventNoticeImplTest {
         req.setEventTime(2333L);
         req.setRepeated(false);
 
-        when(dataService.obtainTradeData(req.getEventCode(), req.getEventData())).thenReturn("trade_data");
+        List<DataRule> dataRuleList = new ArrayList<>();
+        DataRule dataRule = new DataRule();
+        dataRule.setId(1L);
+        dataRule.setEventId(1L);
+        dataRule.setName("付款核心数据配置");
+        dataRule.setAlias("paycore");
+        dataRule.setAddress("com.sankuai.pay.fundstransfer.paycore:9006:localhost");
+        dataRule.setType(DataAccessTypeEnum.RPC);
+        dataRule.setKeyExpr("eventData.trade_no");
+        dataRuleList.add(dataRule);
+
+        when(dataService.obtainTradeData(dataRuleList, req.getEventData())).thenReturn("trade_data");
 
         TradeEvent tradeEvent = new TradeEvent();
         when(dataService.obtaintradeEvent(req.getEventCode())).thenReturn(tradeEvent);

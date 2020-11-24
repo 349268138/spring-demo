@@ -17,12 +17,12 @@ import org.apache.thrift.TException;
 public class TradeDataResp {
 
     /**
-     * 冻结请求状态
+     * 调用结果
      */
     private ResStatusEnum status;
 
     /**
-     * 冻结id
+     * 数据
      */
     private String data;
 

@@ -11,7 +11,7 @@
 
     <groupId>com.meituan.pay</groupId>
     <artifactId>pfs-server</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-RELEASE</version>
     <name>pfsServer</name>
     <packaging>war</packaging>
 

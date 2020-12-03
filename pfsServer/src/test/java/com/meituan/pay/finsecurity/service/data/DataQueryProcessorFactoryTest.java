@@ -20,6 +20,9 @@ public class DataQueryProcessorFactoryTest {
     @Mock
     private RpcDataQueryProcessor rpcDataQueryProcessor;
 
+    @Mock
+    private SquirrelDataQueryProcessor squirrelDataQueryProcessor;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -29,12 +32,15 @@ public class DataQueryProcessorFactoryTest {
     public void obtainProcessorSuccess() {
         DataQueryProcessor dataQueryProcessor = dataQueryProcessorFactory.obtainProcessor(DataAccessTypeEnum.RPC);
         Assert.assertTrue(dataQueryProcessor instanceof RpcDataQueryProcessor);
+
+        dataQueryProcessor = dataQueryProcessorFactory.obtainProcessor(DataAccessTypeEnum.SQUIRREL);
+        Assert.assertTrue(dataQueryProcessor instanceof SquirrelDataQueryProcessor);
     }
 
     @Test
     public void obtainProcessorError() {
         try {
-            dataQueryProcessorFactory.obtainProcessor(DataAccessTypeEnum.SQUIRREL);
+            dataQueryProcessorFactory.obtainProcessor(null);
             Assert.fail();
         } catch (Exception e) {
             Assert.assertTrue(e.getMessage().contains("unsupport data access"));

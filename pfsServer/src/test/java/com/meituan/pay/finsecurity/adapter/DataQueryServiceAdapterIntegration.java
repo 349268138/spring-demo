@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.meituan.pay.finsecurity.constant.TradeDataConstant.*;
+import static com.meituan.pay.finsecurity.constant.EventDataConstant.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -60,11 +60,11 @@ public class DataQueryServiceAdapterIntegration {
 
     private String obtainEventData(String code) {
         if(code.equals("paycore")) {
-            return PAYCORE_TRADEDATA;
+            return PAYCORE_EVENTDATA;
         }else if(code.equals("transfer")) {
-            return TRANSFER_TRADEDATA;
+            return TRANSFER_EVENTDATA;
         }else if(code.equals("split")){
-            return SPLIT_TRADEDATA;
+            return SPLIT_EVENTDATA;
         }else
             return null;
     }

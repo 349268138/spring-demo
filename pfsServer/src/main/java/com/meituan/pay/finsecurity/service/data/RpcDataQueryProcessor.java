@@ -32,14 +32,14 @@ public class RpcDataQueryProcessor implements DataQueryProcessor {
             DataQueryService dataQueryService = getProxyService(dataRule.getAddress());
             TradeDataResp resp = dataQueryService.queryTradeData(key);
             if (ResStatusEnum.SUCCESS.equals(resp.getStatus())) {
-                logger.info("query data success. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
+                logger.info("rpc query data success. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
                 return resp.getData();
             }
-            logger.error("query data fail. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
+            logger.error("rpc query data fail. appkey: {}, key: {}, resp: {}", dataRule.getAddress(), key, resp);
             throw new RuntimeException(String.format("query data fail. appkey: %s, key: %s", dataRule.getAddress(), key));
         } catch (Exception e) {
-            logger.error("query data error. appkey: {}, key: {}, exception: {}", dataRule.getAddress(), key, LoggerUtils.getStackTrace(e));
-            throw new RuntimeException(String.format("query data error. appkey: %s, key: %s", dataRule.getAddress(), key), e);
+            logger.error("rpc query data error. appkey: {}, key: {}, exception: {}", dataRule.getAddress(), key, LoggerUtils.getStackTrace(e));
+            throw new RuntimeException(String.format("rpc query data error. appkey: %s, key: %s", dataRule.getAddress(), key), e);
         }
     }
 

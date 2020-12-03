@@ -15,9 +15,16 @@ public class DataQueryProcessorFactory {
     @Autowired
     private RpcDataQueryProcessor rpcDataQueryProcessor;
 
+    @Autowired
+    private SquirrelDataQueryProcessor squirrelDataQueryProcessor;
+
     public DataQueryProcessor obtainProcessor(DataAccessTypeEnum type) {
         if (DataAccessTypeEnum.RPC.equals(type)) {
             return rpcDataQueryProcessor;
+        }
+
+        if (DataAccessTypeEnum.SQUIRREL.equals(type)) {
+            return squirrelDataQueryProcessor;
         }
 
         throw new RuntimeException(String.format("unsupport data access type: %s", type));

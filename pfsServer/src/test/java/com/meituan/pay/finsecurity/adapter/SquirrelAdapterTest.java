@@ -12,11 +12,11 @@ import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.AssertTrue;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyObject;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -109,6 +109,62 @@ public class SquirrelAdapterTest {
             Assert.fail();
         } catch (Exception e) {
             Assert.assertTrue(e.getMessage().contains("squirrel hincrBy error"));
+        }
+    }
+
+    @Test
+    public void mGetSuccessTest() {
+        when(redisStoreClient.multiGet(any())).thenReturn(Collections.EMPTY_MAP);
+        Assert.assertTrue(squirrelAdapter.mGet(any(), anyList()).equals(JacksonUtils.toJson(Collections.EMPTY_MAP)));
+    }
+
+    @Test
+    public void mGetErrorTest() {
+        RuntimeException runtimeException = new RuntimeException();
+        when(redisStoreClient.multiGet(any())).thenThrow(runtimeException);
+        try {
+            List<String> keys = new ArrayList<>();
+            keys.add("");
+            squirrelAdapter.mGet("", keys);
+            Assert.fail();
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage().contains("squirrel multiGet error"));
+        }
+    }
+
+    @Test
+    public void incrBySuccessTest() {
+        when(redisStoreClient.incrBy(any(), anyLong())).thenReturn(1L);
+        Assert.assertTrue(squirrelAdapter.incrBy("", "", 1).equals(1L));
+    }
+
+    @Test
+    public void incrByErrorTest() {
+        RuntimeException runtimeException = new RuntimeException();
+        when(redisStoreClient.incrBy(any(), anyLong())).thenThrow(runtimeException);
+        try {
+            squirrelAdapter.incrBy("", "", 1);
+            Assert.fail();
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage().contains("squirrel incrBy error"));
+        }
+    }
+
+    @Test
+    public void hGetBySuccessTest() {
+        when(redisStoreClient.hget(any(), any())).thenReturn("1");
+        Assert.assertTrue(squirrelAdapter.hGet("", "", "").equals("1"));
+    }
+
+    @Test
+    public void hGetByErrorTest() {
+        RuntimeException runtimeException = new RuntimeException();
+        when(redisStoreClient.hget(any(), any())).thenThrow(runtimeException);
+        try {
+            squirrelAdapter.hGet("", "", "");
+            Assert.fail();
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage().contains("squirrel hGet error"));
         }
     }
 }

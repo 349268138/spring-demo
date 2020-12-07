@@ -3,8 +3,8 @@ package com.meituan.pay.finsecurity.adapter;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import com.meituan.pay.finsecurity.service.data.DataQueryProcessorFactory;
-import com.meituan.pay.finsecurity.service.data.TradeDataService;
 import com.meituan.pay.finsecurity.service.data.RpcDataQueryProcessor;
+import com.meituan.pay.finsecurity.service.data.TradeDataService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.meituan.pay.finsecurity.constant.EventDataConstant.*;
+import static com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum.SQUIRREL;
 import static org.mockito.Mockito.when;
 
 /**
@@ -31,6 +32,7 @@ public class DataQueryServiceAdapterIntegration {
     @Mock
     private DataQueryProcessorFactory dataQueryFactory;
 
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -44,16 +46,22 @@ public class DataQueryServiceAdapterIntegration {
         Assert.assertNotNull(tradeData);
     }
 
+    @Test
+    public void queryTradeDataTest2() {
+        String tradeData = dataQueryFactory.obtainProcessor(SQUIRREL).queryData(obtainDataRuleList().get(0), "2631008701");
+        Assert.assertNotNull(tradeData);
+    }
+
     private List<DataRule> obtainDataRuleList() {
         List<DataRule> dataRuleList = new ArrayList<>();
         DataRule dataRule = new DataRule();
         dataRule.setId(1L);
         dataRule.setEventId(1L);
-        dataRule.setName("付款核心数据配置");
-        dataRule.setAlias("paycore");
-        dataRule.setAddress("com.sankuai.pay.fundstransfer.paycore:9006:localhost");
-        dataRule.setType(DataAccessTypeEnum.RPC);
-        dataRule.setKeyExpr("eventData.trade_no");
+        dataRule.setName("squirrel数据配置");
+        dataRule.setAlias("squirrel");
+        dataRule.setAddress("Hash:fin_security");
+        dataRule.setType(SQUIRREL);
+        dataRule.setKeyExpr("eventData.partnerid + “-” + eventData.pay_to_card_biz_req_code");
         dataRuleList.add(dataRule);
         return dataRuleList;
     }

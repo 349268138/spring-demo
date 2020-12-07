@@ -1,34 +1,21 @@
 package com.meituan.pay.finsecurity.script;
 
 import com.meituan.pay.finsecurity.constant.ScriptConstant;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * @author wangjinping
- * @Description
- * @CreateDateon 2020/11/4.
+ * @author hhhb
+ * @date 2020/12/7 5:45 下午
  */
-public class GroovyScriptTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:applicationContext-SquirrelAdapterIntegration.xml")
+public class GroovyScriptIntegration {
 
-    @Test
-    public void scriptSuccessTest() {
-        String expr = "return eventData.id";
-        Long expectedId = 2340516932L;
-        Long actualId = Long.parseLong(GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr).toString());
-        Assert.assertEquals(expectedId, actualId);
-    }
-
-    @Test
-    public void scriptErrorTest() {
-        String expr = "return eventData1.id";
-        try {
-            GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr);
-            Assert.fail();
-        } catch (Exception e) {
-            Assert.assertTrue(e.getMessage().contains("excute script error"));
-        }
-    }
+//    @Autowired
+//    private SquirrelAdapter squirrelAdapter;
 
     private String obtainJsonData() {
 //        return "{\"id\":2340516932,\"partnerid\":0,\"business_type\":1,\"split_funds_records\":null,\"merchantno\":\"22010191646623441\",\"mohash\":2526105,\"notifyurl\":\"thrift://com.sankuai.pay.merchantproduct.mwalletcore:3426\",\"name\":\"于娓\",\"acctype\":2,\"money\":456577,\"city\":320300,\"bank\":3,\"branchid\":53748,\"branchname\":\"中国邮政储蓄银行股份有限公司徐州市分行营业部\",\"account\":0,\"fkaccount\":19,\"fixchannel\":0,\"channel\":0,\"comment\":\"\",\"reason\":\"\",\"status\":64,\"notifystatus\":0,\"addtime\":1603095393,\"sendtime\":1603095393,\"recvtime\":1603095395,\"succtime\":1603095396,\"failtime\":0,\"notifytime\":0,\"modtime\":1603095395,\"priority\":1603102593,\"extended_data\":\"{\\\"transIdForCheckingAccount\\\":\\\"\\\",\\\"feeBizCode\\\":\\\"2005\\\",\\\"isTransfer\\\":false,\\\"billMerchantOrderId\\\":\\\"22010191646623441\\\",\\\"batchTransferInfoList\\\":\\\"[]\\\",\\\"withdrawReqType\\\":0,\\\"needNotifyClearingCenter\\\":true,\\\"unwithdrawToPayTransferWay\\\":\\\"actTransfer\\\",\\\"needNotifyTradeDataCenter\\\":true,\\\"billTradeType\\\":\\\"ZJ03\\\",\\\"billTradeId\\\":\\\"2340516932\\\",\\\"noAvailableCountMoney\\\":0,\\\"final_pay_company_code\\\":\\\"QDB\\\",\\\"billTradeChannel\\\":\\\"QD02\\\",\\\"hasSend\\\":\\\"1\\\",\\\"phyChannelCode\\\":\\\"netsunionAcs\\\",\\\"phyChannelName\\\":\\\"网联ACS全渠道\\\",\\\"logicalChannelAccountNo\\\":\\\"991100000111\\\",\\\"logicalChannelId\\\":181,\\\"payCoreMtpp\\\":\\\"mtpp_1095129106_11560614217\\\",\\\"billAccountTime\\\":0}\",\"card_id\":236548639,\"trade_no\":\"1602748863780\",\"iph_pay_merchant_no\":12000102584584,\"queuing_type\":0,\"pay_to_card_biz_req_code\":2005,\"pay_prod_type\":1,\"pay_to_card_account_type\":101,\"from_sub_account_id\":0,\"fee_code\":\"\",\"order_time\":1603095393000,\"fee\":0,\"return_fee\":1,\"start_pay_date\":0,\"error_code\":\"FT2O0000\",\"error_msg\":\"付款成功\"}";
@@ -37,20 +24,15 @@ public class GroovyScriptTest {
 
     }
 
-//    @Test
-//    public void scriptTest() {
-////        String expr = "if(eventData.business_type != 1) return true; if(eventData.trade_no.equals(\"\")) return true; if((eventData.money == tradeData.paycore.payTask.toMoney && eventData.money == tradeData.paycore.accountInvokeLogList[0].toMoney) && (eventData.fee == tradeData.paycore.payTask.feeMoney && eventData.fee == tradeData.paycore.accountInvokeLogList[0].feeMoney)) return true else return false";
-//        String expr = "if(eventData.status == 64 || eventData.status == 128 || eventData.status == 160) return 1 else return 0";
-//        int result = (int) GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr);
-//        System.out.println(result);
-//    }
-
     @Test
     public void scriptTest() {
-//        String expr = "if(eventData.business_type != 1) return true; if(eventData.trade_no.equals(\"\")) return true; if((eventData.money == tradeData.paycore.payTask.toMoney && eventData.money == tradeData.paycore.accountInvokeLogList[0].toMoney) && (eventData.fee == tradeData.paycore.payTask.feeMoney && eventData.fee == tradeData.paycore.accountInvokeLogList[0].feeMoney)) return true else return false";
-//        String expr = "if(eventData.business_type != 1) return true; if(eventData.trade_no.equals(\"\")) return true; if((eventData.money == tradeData.paycore.payTask.toMoney && eventData.money == tradeData.paycore.accountInvokeLogList[0].toMoney) && (eventData.fee == tradeData.paycore.payTask.feeMoney && eventData.fee == tradeData.paycore.accountInvokeLogList[0].feeMoney)) return true else return false";
+//        SquirrelAdapter squirrelAdapter = SpringContextUtils.getBean(SquirrelAdapter.class);
+//        System.out.println(squirrelAdapter.hGetAll("fin_security", "2631008701"));
         String expr =
-                "if(eventData.business_type == 1 && eventData.status == 64) {def key = new Date().format(\"yyyyMMdd\")+ '_' + eventData.partnerid + '_' + eventData.pay_to_card_biz_req_code; squirrelAdapter.hincrBy(fin_security, key, todayCount, 1); squirrelAdapter.hincrBy(fin_security, key, todayMoney, eventData.money);}";
+                        "import com.meituan.pay.finsecurity.adapter.SquirrelAdapter;" +
+                        "import com.meituan.pay.finsecurity.utils.SpringContextUtils;" +
+                        "SquirrelAdapter squirrelAdapter = SpringContextUtils.getBean(SquirrelAdapter.class);\n " +
+                        "\n if(eventData.business_type == 1 && eventData.status == 64) {def key = new Date().format(\"yyyyMMdd\")+ '_' + eventData.partnerid + '_' + eventData.pay_to_card_biz_req_code; squirrelAdapter.hincrBy(\"fin_security\", key, \"todayCount\", 1); squirrelAdapter.hincrBy(\"fin_security\", key, \"todayMoney\", eventData.money); return key;} else return \"\"";
         String result = (String) GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr);
         System.out.println(result);
     }

@@ -9,7 +9,7 @@ import java.util.List;
  * @Description
  * @CreateDateon 2020/10/27.
  */
-public class EventRule {
+public class EventRule1 {
     private Long id;
     private String code;
     private String name;
@@ -68,9 +68,9 @@ public class EventRule {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EventRule)) return false;
+        if (!(o instanceof EventRule1)) return false;
 
-        EventRule eventRule = (EventRule) o;
+        EventRule1 eventRule = (EventRule1) o;
 
         if (id != null ? !id.equals(eventRule.id) : eventRule.id != null) return false;
         if (code != null ? !code.equals(eventRule.code) : eventRule.code != null) return false;

@@ -8,7 +8,7 @@ import com.meituan.pay.finsecurity.po.enums.TypeEnum;
  * @Description
  * @CreateDateon 2020/10/27.
  */
-public class DecisionRule {
+public class DecisionRule1 {
     private Long id;
     private Long eventId;
     private String name;
@@ -76,9 +76,9 @@ public class DecisionRule {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DecisionRule)) return false;
+        if (!(o instanceof DecisionRule1)) return false;
 
-        DecisionRule that = (DecisionRule) o;
+        DecisionRule1 that = (DecisionRule1) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;

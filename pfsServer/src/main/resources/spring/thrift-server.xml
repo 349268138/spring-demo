@@ -20,6 +20,6 @@
         <property name="serviceImpl" ref="EventNotice"/> <!-- 实现类 -->
         <property name="appKey" value="${app.name}"/>  <!-- 本地 appkey，建议重新注册一个 -->
         <property name="port" value="9077"/> <!-- Server 监听端口 -->
-        <!--        <property name="authHandler" ref="defaultAuthHandler" /> &lt;!&ndash; 必须设置authHandler属性鉴权才会生效 &ndash;&gt;-->
+        <property name="authHandler" ref="defaultAuthHandler" /> <!-- 必须设置authHandler属性鉴权才会生效 -->
     </bean>
 </beans>

@@ -1,7 +1,11 @@
 package com.meituan.pay.finsecurity.dao.repository;
 
+import com.meituan.pay.finsecurity.dao.mapper.DataRuleMapper;
 import com.meituan.pay.finsecurity.po.DataRule;
-import org.springframework.stereotype.Repository;
+import com.meituan.pay.finsecurity.po.DataRuleExample;
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +15,15 @@ import java.util.List;
  * @Description
  * @CreateDateon 2020/10/30.
  */
-@Repository
+@Component
 public class DataRuleRepo {
 
+    @Autowired
+    private DataRuleMapper dataRuleMapper;
+
     public List<DataRule> selectByEventId(Long eventId) {
-        List<DataRule> dataRuleList = new ArrayList<>();
-        return dataRuleList;
+        DataRuleExample example = new DataRuleExample();
+        example.createCriteria().andEventIdEqualTo(eventId).andStatusEqualTo(StatusEnum.ON);
+        return dataRuleMapper.selectByExample(example);
     }
 }

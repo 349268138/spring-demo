@@ -1,7 +1,6 @@
 package com.meituan.pay.finsecurity.dao.repository;
 
 import com.meituan.pay.finsecurity.po.DecisionRule;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +10,35 @@ import java.util.List;
  * @Description
  * @CreateDateon 2020/10/30.
  */
-@Repository
+@Component
 public class DecisionRuleRepo {
 
+    @Autowired
+    private DecisionRuleMapper decisionRuleMapper;
+
     public List<DecisionRule> selectByEventId(Long eventId) {
-        List<DecisionRule> decisionRuleList = new ArrayList<>();
-        return decisionRuleList;
+        DecisionRuleExample example = new DecisionRuleExample();
+        example.createCriteria().andEventIdEqualTo(eventId);
+        return decisionRuleMapper.selectByExample(example);
+    }
+
+    public List<DecisionRule> selectByEventIdAndOnStatus(Long eventId) {
+        DecisionRuleExample example = new DecisionRuleExample();
+        example.createCriteria().andEventIdEqualTo(eventId).andStatusEqualTo(StatusEnum.ON);
+        return decisionRuleMapper.selectByExample(example);
+    }
+
+    public List<DecisionRule> getAllByPage(int pageNum, int pageSize) {
+        DecisionRuleExample example = new DecisionRuleExample();
+        PageHelper.startPage(pageNum, pageSize, false, true);
+        return decisionRuleMapper.selectByExample(example);
+    }
+
+    public int insertBySelective(DecisionRule decisionRule) {
+        return decisionRuleMapper.insertSelective(decisionRule);
+    }
+
+    public int updateByIdSelective(DecisionRule decisionRule) {
+        return decisionRuleMapper.updateByPrimaryKeySelective(decisionRule);
     }
 }

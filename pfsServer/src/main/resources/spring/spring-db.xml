@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <tx:annotation-driven/>
+
+    <util:properties id="db" location="classpath:conf/${env.name}/db.properties" local-override="true"/>
+
+    <context:component-scan base-package="com.meituan.pay.finsecurity.dao.repository"/>
+
+    <bean id="dataSource" class="com.dianping.zebra.group.jdbc.GroupDataSource" init-method="init"
+          destroy-method="close">
+        <!-- 必配。指定唯一确定数据库的key-->
+        <property name="jdbcRef" value="#{db['security.jdbcRef']}"/>
+        <!-- 必配。指定底层使用的连接池类型，支持"c3p0","tomcat-jdbc","druid","dbcp2"和"dbcp"，推荐使用"tomcat-jdbc"，默认值为"c3p0" -->
+        <property name="poolType" value="dbcp2"/>
+        <!-- 选配。指定连接池的最小连接数，默认值是5。 -->
+        <property name="minPoolSize" value="10"/>
+        <!-- 选配。指定连接池的最大连接数，默认值是20。 -->
+        <property name="maxPoolSize" value="60"/>
+        <property name="initialPoolSize" value="5"/>
+        <!-- 选配。指定连接池的获取连接的超时时间，默认值是1000。 -->
+        <property name="checkoutTimeout" value="200"/>
+        <property name="minEvictableIdleTimeMillis" value="21600000"/>
+        <property name="extraJdbcUrlParams" value="zeroDateTimeBehavior=convertToNull&amp;loginTimeout=100&amp;characterEncoding=UTF8&amp;socketTimeout=3000&amp;connectTimeout=3000&amp;allowMultiQueries=true"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <bean class="com.dianping.zebra.dao.mybatis.ZebraMapperScannerConfigurer">
+        <property name="basePackage" value="com.meituan.pay.finsecurity.dao.mapper" />
+    </bean>
+</beans>

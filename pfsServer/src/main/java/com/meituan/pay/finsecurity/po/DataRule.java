@@ -57,7 +57,7 @@ public class DataRule {
     public void setType(DataAccessTypeEnum type) {
         this.type = type;
     }
-    
+
     public String getAddress() {
         return address;
     }

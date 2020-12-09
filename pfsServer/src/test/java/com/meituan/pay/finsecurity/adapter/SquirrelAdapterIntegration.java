@@ -1,7 +1,6 @@
 package com.meituan.pay.finsecurity.adapter;
 
 import com.meituan.pay.finsecurity.constant.SquirrelConstant;
-import com.meituan.pay.finsecurity.po.TradeEvent;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -12,9 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wangjinping
@@ -45,14 +42,24 @@ public class SquirrelAdapterIntegration {
 
     @Test
     public void test003HSetTest() {
-        long result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "2631008701", "averageMoney", new Long(67826965));
+        long result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "26310-8701", "averageMoney", new Long(67826965));
         Assert.assertTrue(result >= 0);
 
 
-        result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "2631008701", "averageCount", 1309876);
+        result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "26310-8701", "averageCount", 1309876);
         Assert.assertTrue(result >= 0);
 
-        result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "2631008701", "maxMoney", 9200);
+        result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "26310-8701", "maxMoney", 9200);
+        Assert.assertTrue(result >= 0);
+    }
+
+    @Test
+    public void test003HSetTest1() {
+        long result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "20201207_26310_8701", "todayMoney", new Long(2020));
+        Assert.assertTrue(result >= 0);
+
+
+        result = squirrelAdapter.hSet(SquirrelConstant.FIN_SECURITY_CATEGORY, "20201207_26310_8701", "todayCount", 1207);
         Assert.assertTrue(result >= 0);
     }
 

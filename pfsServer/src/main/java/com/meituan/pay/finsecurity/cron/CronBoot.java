@@ -21,7 +21,7 @@ public class CronBoot {
     private TradeEventService tradeEventService;
 
     @Crane("refresh_tradeEvent_cache")
-    public void refreshTradeEventCache() throws Exception {
+    public void refreshTradeEventCache() {
         try {
             tradeEventService.refreshTradeEvent();
         } catch (Exception e) {

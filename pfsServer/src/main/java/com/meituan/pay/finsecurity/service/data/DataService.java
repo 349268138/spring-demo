@@ -1,6 +1,5 @@
 package com.meituan.pay.finsecurity.service.data;
 
-import com.meituan.pay.finsecurity.adapter.MccAdapter;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.TradeEvent;
 import org.slf4j.Logger;
@@ -21,12 +20,15 @@ public class DataService {
     @Autowired
     private TradeDataService tradeDataService;
 
+//    @Autowired
+//    private MccAdapter mccAdapter;
+
     @Autowired
-    private MccAdapter mccAdapter;
+    private TradeEventService tradeEventService;
 
     public TradeEvent obtaintradeEvent(String eventCode){
-        if(Objects.nonNull(mccAdapter.getEventDataMap().get(eventCode))) {
-            return mccAdapter.getEventDataMap().get(eventCode);
+        if(Objects.nonNull(tradeEventService.obtainTradeEventMapCache().get(eventCode))) {
+            return tradeEventService.obtainTradeEventMapCache().get(eventCode);
         }
 
         throw new RuntimeException(String.format("eventcode not exist. eventCode: %s", eventCode));

@@ -1,13 +1,5 @@
 package com.meituan.pay.finsecurity.dao.repository;
 
-import com.dianping.zebra.group.router.ZebraForceMasterHelper;
-import com.meituan.pay.finsecurity.dao.mapper.DecisionRuleRepo;
-import com.meituan.pay.finsecurity.po.DecisionRule;
-import com.meituan.pay.finsecurity.po.DecisionRuleExample;
-import com.meituan.pay.finsecurity.po.enums.StatusEnum;
-import com.meituan.pay.finsecurity.po.enums.TypeEnum;
-import deps.redis.clients.util.CollectionUtils;
-import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-
 /**
  * @author wangjinping
  * @date 11/26/2020 13:56 PM
@@ -25,7 +15,7 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/spring-db.xml")
-public class DecisionRuleRepoIntegration {
+public class DecisionRuleRepositoryIntegration {
 
     @Autowired
     private DecisionRuleRepo decisionRuleRepo;

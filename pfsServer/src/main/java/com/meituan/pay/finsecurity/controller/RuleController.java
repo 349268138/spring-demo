@@ -32,17 +32,16 @@ public class RuleController {
     public String decisionSearch(DecisionRule decisionRule,@RequestParam(value = "pageNum") int pageNum,@RequestParam(value = "pageSize") int pageSize){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
-//            List<DecisionRule> decisionRuleList = decisionRuleRepo.getAllByPage(decisionRule.getId(), decisionRule.getEventId(), decisionRule.getAlias(), decisionRule.getName(), pageNum, pageSize);
             List<DecisionRule> decisionRuleList = new ArrayList<>(); // todo
             decisionRuleMap.put("code", 0);
             decisionRuleMap.put("msg", "");
             decisionRuleMap.put("data", decisionRuleList);
-            logger.info("decisionRule query succeeded, decisionRuleMap : {}", decisionRuleMap);
+            logger.info("decisionRule query succeeded, decisionRuleMap: {}", decisionRuleMap);
         } catch (Exception e) {
             decisionRuleMap.put("code", 1);
             decisionRuleMap.put("msg", e.getMessage());
             decisionRuleMap.put("data", null);
-            logger.error("decisionRule query failed, exception : {}, decisionRuleMap : {}", LoggerUtils.getStackTrace(e), decisionRuleMap);
+            logger.error("decisionRule query failed, exception: {}, decisionRuleMap : {}", LoggerUtils.getStackTrace(e), decisionRuleMap);
         }
         return JacksonUtils.toJson(decisionRuleMap);
 
@@ -57,12 +56,12 @@ public class RuleController {
             decisionRuleMap.put("code", 0);
             decisionRuleMap.put("msg", "");
             decisionRuleMap.put("data", decisionRule.getId());
-            logger.info("decisionRule add succeeded: {}", decisionRuleMap);
+            logger.info("decisionRule add succeeded, decisionRuleMap: {}", decisionRuleMap);
         } catch (Exception e) {
             decisionRuleMap.put("code", 1);
             decisionRuleMap.put("msg", e.getMessage());
             decisionRuleMap.put("data", null);
-            logger.error("decisionRule add failed, exception : {}, decisionRuleMap : {}", LoggerUtils.getStackTrace(e), decisionRuleMap);
+            logger.error("decisionRule add failed, exception: {}, decisionRuleMap: {}", LoggerUtils.getStackTrace(e), decisionRuleMap);
         }
         return JacksonUtils.toJson(decisionRuleMap);
     }
@@ -70,7 +69,6 @@ public class RuleController {
     @RequestMapping(value = "api/decision-update")
     public String decisionUpdate(DecisionRule decisionRule){
         Map<String, Object> decisionRuleMap = new HashMap<>();
-
         try{
             decisionRuleRepo.updateByIdSelective(decisionRule);
             decisionRuleMap.put("code", 0);

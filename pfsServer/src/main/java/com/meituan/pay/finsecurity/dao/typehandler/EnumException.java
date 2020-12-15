@@ -1,7 +1,7 @@
 package com.meituan.pay.finsecurity.dao.typehandler;
 
 /**
- * Created by Dreampie on 16/2/4.
+ * Created by wangjinping on 20/12/11.
  */
 public class EnumException extends RuntimeException {
     public EnumException() {

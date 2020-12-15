@@ -20,20 +20,6 @@
     classpath*:jetty/boot.properties,
     classpath*:META-INF/app.properties"/>
 
-    <!--<util:properties id="properties" location="classpath:conf/${env.name}/env.properties"/>-->
-    <!--<context:property-placeholder properties-ref="properties"/>-->
-
-    <!--<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
-        <!--<property name="locations">-->
-            <!--<list>-->
-                <!--<value>classpath:env.properties</value>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
-    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="properties" ref="properties"/>-->
-    <!--</bean>-->
-
     <bean id="rpcUserMergeQueryService" class="com.meituan.service.mobile.mtthrift.proxy.ThriftClientProxy"
           destroy-method="destroy" lazy-init="false">
         <property name="serviceInterface" value="com.sankuai.wpt.user.merge.query.thrift.message.UserMergeQueryService"/>

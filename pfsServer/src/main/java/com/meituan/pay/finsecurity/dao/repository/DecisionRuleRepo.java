@@ -49,4 +49,10 @@ public class DecisionRuleRepo {
     public int updateByIdSelective(DecisionRule decisionRule) {
         return decisionRuleMapper.updateByPrimaryKeySelective(decisionRule);
     }
+
+    public List<DecisionRule> selectByEventId(Long eventId) {
+        DecisionRuleExample example = new DecisionRuleExample();
+        example.createCriteria().andEventIdEqualTo(eventId);
+        return decisionRuleMapper.selectByExample(example);
+    }
 }

@@ -98,6 +98,13 @@ public class DecisionRuleRepoTest {
         Assert.assertTrue(affectLine != 0);
     }
 
+    @Test
+    public void test004SelectByEventId() {
+        DecisionRule decisionRule = new DecisionRule();
+        List<DecisionRule> decisionRuleList = decisionRuleRepo.selectExampleByPage(decisionRule, 1, 10);
+        Assert.assertTrue(!CollectionUtils.isEmpty(decisionRuleRepo.selectByEventId(decisionRuleList.get(0).getEventId())));
+    }
+
     private DecisionRule obtainDecisionRule() {
         DecisionRule decisionRule = new DecisionRule();
         decisionRule.setId(System.currentTimeMillis());

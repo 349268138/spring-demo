@@ -25,4 +25,9 @@ public class EventRuleRepo {
         example.createCriteria().andStatusEqualTo(StatusEnum.ON);
         return eventRuleMapper.selectByExample(example);
     }
+
+    public List<EventRule> selectAll() {
+        EventRuleExample example = new EventRuleExample();
+        return eventRuleMapper.selectByExample(example);
+    }
 }

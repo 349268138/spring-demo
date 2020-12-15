@@ -3,7 +3,6 @@ package com.meituan.pay.finsecurity.dao.mapper;
 import com.dianping.zebra.group.router.ZebraForceMasterHelper;
 import com.meituan.pay.finsecurity.po.DataRule;
 import com.meituan.pay.finsecurity.po.DataRuleExample;
-import com.meituan.pay.finsecurity.po.Vector;
 import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import com.meituan.pay.finsecurity.po.enums.StatusEnum;
 import deps.redis.clients.util.CollectionUtils;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

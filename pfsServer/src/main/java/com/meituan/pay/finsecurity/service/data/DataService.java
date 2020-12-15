@@ -20,9 +20,6 @@ public class DataService {
     @Autowired
     private TradeDataService tradeDataService;
 
-//    @Autowired
-//    private MccAdapter mccAdapter;
-
     @Autowired
     private TradeEventService tradeEventService;
 

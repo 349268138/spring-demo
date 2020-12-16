@@ -81,12 +81,12 @@ public class RuleControllerTest {
 
     @Test
     public void test004DecisionDelete() {
-        when(decisionRuleRepo.updateByIdSelective(any(DecisionRule.class))).thenReturn(1);
+        when(decisionRuleRepo.deleteByPrimaryKey(any())).thenReturn(1);
         Map<String, Object> result = JacksonUtils.jsonToMap(ruleController.decisionDelete(new DecisionRule()));
         Assert.assertTrue("0".equals(String.valueOf(result.get("code"))));
 
         RuntimeException runtimeException = new RuntimeException("updateByIdSelective error");
-        when(decisionRuleRepo.updateByIdSelective(any(DecisionRule.class))).thenThrow(runtimeException);
+        when(decisionRuleRepo.deleteByPrimaryKey(any())).thenThrow(runtimeException);
         result = JacksonUtils.jsonToMap(ruleController.decisionDelete(new DecisionRule()));
         Assert.assertTrue("1".equals(String.valueOf(result.get("code"))));
     }

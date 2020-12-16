@@ -85,8 +85,7 @@ public class RuleController {
     public String decisionDelete(DecisionRule decisionRule){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
-            decisionRule.setStatus(StatusEnum.OFF);
-            decisionRuleRepo.updateByIdSelective(decisionRule);
+            decisionRuleRepo.deleteByPrimaryKey(decisionRule.getId());
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule delete succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {

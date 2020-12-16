@@ -57,4 +57,8 @@ public class DecisionRuleRepo {
         example.createCriteria().andEventIdEqualTo(eventId);
         return decisionRuleMapper.selectByExample(example);
     }
+
+    public int deleteByPrimaryKey(Long id) {
+        return decisionRuleMapper.deleteByPrimaryKey(id);
+    }
 }

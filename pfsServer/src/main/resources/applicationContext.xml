@@ -55,6 +55,7 @@
     <context:component-scan base-package="com.meituan.pay.finsecurity.service"/>
     <context:component-scan base-package="com.meituan.pay.finsecurity.adapter"/>
     <context:component-scan base-package="com.meituan.pay.finsecurity.cron"/>
+    <context:component-scan base-package="com.meituan.pay.finsecurity.utils"/>
 
 
     <import resource="/spring/thrift-server.xml"/>

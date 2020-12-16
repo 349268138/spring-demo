@@ -13,5 +13,4 @@
     classpath*:META-INF/app.properties"/>
 
     <import resource="classpath:spring-web/common-web.xml"/>
-    <context:component-scan base-package="com.meituan.pay.finsecurity.utils"/>
 </beans>

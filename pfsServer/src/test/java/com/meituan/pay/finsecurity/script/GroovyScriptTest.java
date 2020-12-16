@@ -14,7 +14,7 @@ public class GroovyScriptTest {
     @Test
     public void scriptSuccessTest() {
         String expr = "return eventData.id";
-        Long expectedId = 2340516932L;
+        Long expectedId = 2147486562L;
         Long actualId = Long.parseLong(GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr).toString());
         Assert.assertEquals(expectedId, actualId);
     }
@@ -44,14 +44,4 @@ public class GroovyScriptTest {
 //        int result = (int) GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr);
 //        System.out.println(result);
 //    }
-
-    @Test
-    public void scriptTest() {
-//        String expr = "if(eventData.business_type != 1) return true; if(eventData.trade_no.equals(\"\")) return true; if((eventData.money == tradeData.paycore.payTask.toMoney && eventData.money == tradeData.paycore.accountInvokeLogList[0].toMoney) && (eventData.fee == tradeData.paycore.payTask.feeMoney && eventData.fee == tradeData.paycore.accountInvokeLogList[0].feeMoney)) return true else return false";
-//        String expr = "if(eventData.business_type != 1) return true; if(eventData.trade_no.equals(\"\")) return true; if((eventData.money == tradeData.paycore.payTask.toMoney && eventData.money == tradeData.paycore.accountInvokeLogList[0].toMoney) && (eventData.fee == tradeData.paycore.payTask.feeMoney && eventData.fee == tradeData.paycore.accountInvokeLogList[0].feeMoney)) return true else return false";
-        String expr =
-                "if(eventData.business_type == 1 && eventData.status == 64) {def key = new Date().format(\"yyyyMMdd\")+ '_' + eventData.partnerid + '_' + eventData.pay_to_card_biz_req_code; squirrelAdapter.hincrBy(fin_security, key, todayCount, 1); squirrelAdapter.hincrBy(fin_security, key, todayMoney, eventData.money);}";
-        String result = (String) GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr);
-        System.out.println(result);
-    }
 }

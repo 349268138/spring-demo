@@ -8,8 +8,8 @@ import com.meituan.pay.finsecurity.dao.repository.DecisionRuleRepo;
 import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
 import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.po.EventRule;
-import com.sankuai.meituan.auth.util.UserUtils;
-import com.sankuai.meituan.auth.vo.User;
+//import com.sankuai.meituan.auth.util.UserUtils;
+//import com.sankuai.meituan.auth.vo.User;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,11 +142,12 @@ public class RuleController {
     }
 
     private String obtainUser() {
-        User user = UserUtils.getUser();
-        if (Objects.isNull(user)) {
-            return StringUtils.EMPTY;
-        }
+//        User user = UserUtils.getUser();
+//        if (Objects.isNull(user)) {
+//            return StringUtils.EMPTY;
+//        }
 
-        return String.format("id: %s, name: %s", user.getId(), user.getName());
+//        return String.format("id: %s, name: %s", user.getId(), user.getName());
+        return "";
     }
 }

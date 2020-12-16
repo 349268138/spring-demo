@@ -94,7 +94,7 @@ public class SquirrelAdapterTest {
     @Test
     public void hSetSuccessTest() {
         when(redisStoreClient.hset(any(), any(), anyObject())).thenReturn(1L);
-        Assert.assertTrue(squirrelAdapter.hincrBy("", "", "", 1).equals(1L));
+        Assert.assertEquals(1L, squirrelAdapter.hSet("","", "", 1));
     }
 
     @Test
@@ -105,7 +105,7 @@ public class SquirrelAdapterTest {
             squirrelAdapter.hSet("", "", "", 1);
             Assert.fail();
         } catch (Exception e) {
-            Assert.assertTrue(e.getMessage().contains("squirrel hincrBy error"));
+            Assert.assertTrue(e.getMessage().contains("squirrel hSet error"));
         }
     }
 

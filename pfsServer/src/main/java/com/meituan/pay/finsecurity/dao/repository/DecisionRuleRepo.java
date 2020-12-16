@@ -1,6 +1,7 @@
 package com.meituan.pay.finsecurity.dao.repository;
 
 import com.dianping.cat.util.StringUtils;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.meituan.pay.finsecurity.dao.mapper.DecisionRuleMapper;
 import com.meituan.pay.finsecurity.po.DecisionRule;
@@ -22,7 +23,7 @@ public class DecisionRuleRepo {
     @Autowired
     private DecisionRuleMapper decisionRuleMapper;
 
-    public List<DecisionRule> selectExampleByPage(DecisionRule decisionRule, int pageNum, int pageSize) {
+    public Page selectExampleByPage(DecisionRule decisionRule, int pageNum, int pageSize) {
         DecisionRuleExample example = new DecisionRuleExample();
         DecisionRuleExample.Criteria criteria = example.createCriteria();
         if (Objects.nonNull(decisionRule.getId())) {
@@ -38,8 +39,9 @@ public class DecisionRuleRepo {
             criteria.andNameEqualTo(decisionRule.getName());
         }
 
-        PageHelper.startPage(pageNum, pageSize, false, true);
-        return decisionRuleMapper.selectByExample(example);
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        decisionRuleMapper.selectByExample(example);
+        return page;
     }
 
     public int insertBySelective(DecisionRule decisionRule) {

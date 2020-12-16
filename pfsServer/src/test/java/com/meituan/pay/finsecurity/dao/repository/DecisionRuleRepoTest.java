@@ -1,5 +1,7 @@
 package com.meituan.pay.finsecurity.dao.repository;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.meituan.pay.finsecurity.dao.mapper.DecisionRuleMapper;
 import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.po.enums.StatusEnum;
@@ -13,22 +15,28 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.powermock.api.mockito.PowerMockito.doReturn;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
  * @author wangjinping
  * @date 11/26/2020 13:56 PM
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@PowerMockIgnore("javax.management.*")
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({PageHelper.class})
 public class DecisionRuleRepoTest {
     @InjectMocks
     private DecisionRuleRepo decisionRuleRepo;
@@ -37,7 +45,7 @@ public class DecisionRuleRepoTest {
     private DecisionRuleMapper decisionRuleMapper;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
         List<DecisionRule> decisionRuleList = new ArrayList<>();
@@ -48,6 +56,11 @@ public class DecisionRuleRepoTest {
         decisionRule.setAlias("1");
         decisionRuleList.add(decisionRule);
         when(decisionRuleMapper.selectByExample(any())).thenReturn(decisionRuleList);
+
+        mockStatic(PageHelper.class);
+        Page page = new Page();
+        page.add(decisionRule);
+        doReturn(page).when(PageHelper.class, "startPage", anyInt(), anyInt());
 
         when(decisionRuleMapper.insertSelective(any())).thenReturn(1);
 

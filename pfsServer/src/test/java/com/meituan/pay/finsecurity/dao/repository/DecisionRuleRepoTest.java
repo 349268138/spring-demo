@@ -65,6 +65,8 @@ public class DecisionRuleRepoTest {
         when(decisionRuleMapper.insertSelective(any())).thenReturn(1);
 
         when(decisionRuleMapper.updateByPrimaryKeySelective(any())).thenReturn(1);
+
+        when(decisionRuleMapper.deleteByPrimaryKey(any())).thenReturn(1);
     }
 
     @Test
@@ -116,6 +118,12 @@ public class DecisionRuleRepoTest {
         DecisionRule decisionRule = new DecisionRule();
         List<DecisionRule> decisionRuleList = decisionRuleRepo.selectExampleByPage(decisionRule, 1, 10);
         Assert.assertTrue(!CollectionUtils.isEmpty(decisionRuleRepo.selectByEventId(decisionRuleList.get(0).getEventId())));
+    }
+
+    @Test
+    public void test005DeleteByPrimaryKey() {
+        int affectLine = decisionRuleRepo.deleteByPrimaryKey(1L);
+        Assert.assertTrue(affectLine != 0);
     }
 
     private DecisionRule obtainDecisionRule() {

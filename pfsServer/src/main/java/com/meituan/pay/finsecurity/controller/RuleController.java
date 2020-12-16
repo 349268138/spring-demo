@@ -8,7 +8,9 @@ import com.meituan.pay.finsecurity.dao.repository.DecisionRuleRepo;
 import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
 import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.po.EventRule;
-import com.meituan.pay.finsecurity.po.enums.StatusEnum;
+import com.sankuai.meituan.auth.util.UserUtils;
+import com.sankuai.meituan.auth.vo.User;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author hhhb
@@ -59,7 +58,7 @@ public class RuleController {
         try{
             decisionRuleRepo.insertBySelective(decisionRule);
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
-            logger.info("decisionRule add succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
+            logger.info("decisionRule add succeeded, decisionRule: {}, decisionRuleMap: {}, user: {}", decisionRule, decisionRuleMap, obtainUser());
         } catch (Exception e) {
             decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule add failed, decisionRule: {}, exception: {}", decisionRule, LoggerUtils.getStackTrace(e));
@@ -73,7 +72,7 @@ public class RuleController {
         try{
             decisionRuleRepo.updateByIdSelective(decisionRule);
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
-            logger.info("decisionRule update succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
+            logger.info("decisionRule update succeeded, decisionRule: {}, decisionRuleMap: {}, user: {}", decisionRule, decisionRuleMap, obtainUser());
         } catch (Exception e) {
             decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule update failed, decisionRule: {}, exception : {}", decisionRule, LoggerUtils.getStackTrace(e));
@@ -87,7 +86,7 @@ public class RuleController {
         try{
             decisionRuleRepo.deleteByPrimaryKey(decisionRule.getId());
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
-            logger.info("decisionRule delete succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
+            logger.info("decisionRule delete succeeded, decisionRule: {}, decisionRuleMap: {}, user: {}", decisionRule, decisionRuleMap, obtainUser());
         } catch (Exception e) {
             decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule delete failed, decisionRule: {}, exception : {}", decisionRule, LoggerUtils.getStackTrace(e));
@@ -140,5 +139,14 @@ public class RuleController {
         searchData.put("total", page.getTotal());
         searchData.put("list", page);
         return searchData;
+    }
+
+    private String obtainUser() {
+        User user = UserUtils.getUser();
+        if (Objects.isNull(user)) {
+            return StringUtils.EMPTY;
+        }
+
+        return String.format("id: %s, name: %s", user.getId(), user.getName());
     }
 }

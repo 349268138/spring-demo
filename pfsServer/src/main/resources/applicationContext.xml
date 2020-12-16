@@ -52,8 +52,8 @@
     <bean id="mtSSOFilter" class="com.sankuai.it.sso.sdk.spring.FilterFactoryBean">
         <property name="clientId" value="${sso.client.id}"/>
         <property name="secret" value="${sso.secret}"/>
-        <property name="includedUriList" value="/api/**"/>
-        <property name="excludedUriList" value="/static/**,/octo/checkAlive,/monitor/alive"/>
+        <property name="includedUriList" value="/"/>
+        <property name="excludedUriList" value="/**"/>
 
     </bean>
 

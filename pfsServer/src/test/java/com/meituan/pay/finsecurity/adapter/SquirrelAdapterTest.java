@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.when;
  * @date 2020/11/4 2:27 下午
  */
 public class SquirrelAdapterTest {
+    @Spy
     @InjectMocks
     private SquirrelAdapter squirrelAdapter;
 
@@ -94,7 +96,7 @@ public class SquirrelAdapterTest {
     @Test
     public void hSetSuccessTest() {
         when(redisStoreClient.hset(any(), any(), anyObject())).thenReturn(1L);
-        Assert.assertTrue(squirrelAdapter.hincrBy("", "", "", 1).equals(1L));
+        Assert.assertEquals(1L, squirrelAdapter.hSet("","", "", 1));
     }
 
     @Test
@@ -105,7 +107,7 @@ public class SquirrelAdapterTest {
             squirrelAdapter.hSet("", "", "", 1);
             Assert.fail();
         } catch (Exception e) {
-            Assert.assertTrue(e.getMessage().contains("squirrel hincrBy error"));
+            Assert.assertTrue(e.getMessage().contains("squirrel hSet error"));
         }
     }
 

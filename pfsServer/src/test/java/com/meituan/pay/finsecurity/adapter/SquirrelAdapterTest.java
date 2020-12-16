@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.when;
  * @date 2020/11/4 2:27 下午
  */
 public class SquirrelAdapterTest {
+    @Spy
     @InjectMocks
     private SquirrelAdapter squirrelAdapter;
 

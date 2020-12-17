@@ -3,11 +3,9 @@ package com.meituan.pay.finsecurity.controller;
 import com.github.pagehelper.Page;
 import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
-import com.meituan.pay.finsecurity.controller.vo.DropListVo;
 import com.meituan.pay.finsecurity.dao.repository.DecisionRuleRepo;
 import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
 import com.meituan.pay.finsecurity.po.DecisionRule;
-import com.meituan.pay.finsecurity.po.EventRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,15 +89,15 @@ public class RuleController {
         return JacksonUtils.toJson(decisionRuleMap);
     }
 
-    @RequestMapping(value = "event-search-all-code")
-    public String eventSearchAllCode() {
+    @RequestMapping(value = "event-search-all")
+    public String eventSearchAll() {
         Map<String, Object> eventRuleMap = new HashMap<>();
         try{
-            eventRuleMap = obtainSuccessResult(obtainDropListVos());
-            logger.info("event search all code succeeded, eventRuleMap: {}", eventRuleMap);
+            eventRuleMap = obtainSuccessResult(eventRuleRepo.selectAll());
+            logger.info("event search all succeeded, eventRuleMap: {}", eventRuleMap);
         } catch (Exception e) {
             eventRuleMap = obtainErrorResult(e.getMessage());
-            logger.error("event search all code failed, exception : {}", LoggerUtils.getStackTrace(e));
+            logger.error("event search all failed, exception : {}", LoggerUtils.getStackTrace(e));
         }
         return JacksonUtils.toJson(eventRuleMap);
     }
@@ -116,18 +114,6 @@ public class RuleController {
         result.put("code", 1);
         result.put("msg", msg);
         return result;
-    }
-
-    private List<DropListVo> obtainDropListVos() {
-        List<EventRule> eventRuleList = eventRuleRepo.selectAll();
-        List<DropListVo> dropListVos = new ArrayList<>();
-        for (EventRule eventRule : eventRuleList) {
-            DropListVo dropListVo = new DropListVo();
-            dropListVo.setValue(eventRule.getId());
-            dropListVo.setLable(eventRule.getCode());
-            dropListVos.add(dropListVo);
-        }
-        return dropListVos;
     }
 
     private Map<String, Object> obtainSearchData(DecisionRule decisionRule, int pageNum, int pageSize) {

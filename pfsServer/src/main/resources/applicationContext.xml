@@ -49,14 +49,6 @@
         <property name="remoteAppkey" value="com.sankuai.wpt.user.token"/>
     </bean>
 
-    <bean id="mtSSOFilter" class="com.sankuai.it.sso.sdk.spring.FilterFactoryBean">
-        <property name="clientId" value="${sso.client.id}"/>
-        <property name="secret" value="${sso.secret}"/>
-        <property name="includedUriList" value="/api/**"/>
-        <property name="excludedUriList" value="/static/**,/octo/checkAlive,/monitor/alive"/>
-
-    </bean>
-
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
 
     <context:component-scan base-package="com.meituan.pay.finsecurity.controller"/>

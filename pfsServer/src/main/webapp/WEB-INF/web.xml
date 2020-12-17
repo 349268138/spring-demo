@@ -79,19 +79,4 @@
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
-
-    <filter>
-        <filter-name>mtSSOFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <init-param>
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>mtSSOFilter</filter-name>
-        <!-- 将所有URI交给SSO过滤器管理 -->
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
 </web-app>

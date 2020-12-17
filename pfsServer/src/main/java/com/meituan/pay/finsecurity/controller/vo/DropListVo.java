@@ -6,22 +6,22 @@ package com.meituan.pay.finsecurity.controller.vo;
  * @CreateDateon 2020/10/27.
  */
 public class DropListVo {
-    private Long lable;
-    private String value;
+    private String lable;
+    private Long value;
 
-    public Long getLable() {
+    public String getLable() {
         return lable;
     }
 
-    public void setLable(Long lable) {
+    public void setLable(String lable) {
         this.lable = lable;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 

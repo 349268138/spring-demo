@@ -123,8 +123,8 @@ public class RuleController {
         List<DropListVo> dropListVos = new ArrayList<>();
         for (EventRule eventRule : eventRuleList) {
             DropListVo dropListVo = new DropListVo();
-            dropListVo.setValue(eventRule.getCode());
-            dropListVo.setLable(eventRule.getId());
+            dropListVo.setValue(eventRule.getId());
+            dropListVo.setLable(eventRule.getCode());
             dropListVos.add(dropListVo);
         }
         return dropListVos;

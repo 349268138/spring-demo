@@ -6,6 +6,7 @@ import com.meituan.pay.finsecurity.dao.repository.DecisionRuleRepo;
 import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
 import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.po.EventRule;
+import com.meituan.pay.finsecurity.service.data.TradeEventService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +36,9 @@ public class RuleControllerTest {
 
     @Mock
     private EventRuleRepo eventRuleRepo;
+
+    @Mock
+    private TradeEventService tradeEventService;
 
     @Before
     public void setUp() {

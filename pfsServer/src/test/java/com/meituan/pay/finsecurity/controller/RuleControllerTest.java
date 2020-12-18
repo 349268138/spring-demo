@@ -100,12 +100,12 @@ public class RuleControllerTest {
         eventRuleList.add(eventRule);
         when(eventRuleRepo.selectAll()).thenReturn(eventRuleList);
 
-        Map<String, Object> result = JacksonUtils.jsonToMap(ruleController.eventSearchAllCode());
+        Map<String, Object> result = JacksonUtils.jsonToMap(ruleController.eventSearchAll());
         Assert.assertTrue("0".equals(String.valueOf(result.get("code"))));
 
         RuntimeException runtimeException = new RuntimeException("selectAll error");
         when(eventRuleRepo.selectAll()).thenThrow(runtimeException);
-        result = JacksonUtils.jsonToMap(ruleController.eventSearchAllCode());
+        result = JacksonUtils.jsonToMap(ruleController.eventSearchAll());
         Assert.assertTrue("1".equals(String.valueOf(result.get("code"))));
     }
 }

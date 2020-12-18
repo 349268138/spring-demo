@@ -6,6 +6,7 @@ import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.dao.repository.DecisionRuleRepo;
 import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
 import com.meituan.pay.finsecurity.po.DecisionRule;
+import com.meituan.pay.finsecurity.service.data.TradeEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class RuleController {
     @Autowired
     private EventRuleRepo eventRuleRepo;
 
+    @Autowired
+    private TradeEventService tradeEventService;
+
     @RequestMapping(value = "decision-search")
     public String decisionSearch(DecisionRule decisionRule,
                                  @RequestParam(value = "pageNum") int pageNum,
@@ -52,6 +56,7 @@ public class RuleController {
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
             decisionRuleRepo.insertBySelective(decisionRule);
+            tradeEventService.refreshTradeEvent();
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule add succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {
@@ -66,6 +71,7 @@ public class RuleController {
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
             decisionRuleRepo.updateByIdSelective(decisionRule);
+            tradeEventService.refreshTradeEvent();
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule update succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {
@@ -80,6 +86,7 @@ public class RuleController {
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
             decisionRuleRepo.deleteByPrimaryKey(decisionRule.getId());
+            tradeEventService.refreshTradeEvent();
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule delete succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {

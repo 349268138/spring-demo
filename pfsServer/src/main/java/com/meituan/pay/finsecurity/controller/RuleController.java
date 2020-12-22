@@ -44,8 +44,8 @@ public class RuleController {
             decisionRuleMap = obtainSuccessResult(searchData);
             logger.info("decisionRule query succeeded, decisionRule: {}, pageNum: {}, pageSize: {}, decisionRuleMap: {}", decisionRule, pageNum, pageSize, decisionRuleMap);
         } catch (Exception e) {
-            decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule query failed, decisionRule: {}, pageNum: {}, pageSize: {} : {}, exception: {}", decisionRule, pageNum, pageSize, LoggerUtils.getStackTrace(e));
+            decisionRuleMap = obtainErrorResult(e.getMessage());
         }
         return JacksonUtils.toJson(decisionRuleMap);
 
@@ -60,8 +60,8 @@ public class RuleController {
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule add succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {
-            decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule add failed, decisionRule: {}, exception: {}", decisionRule, LoggerUtils.getStackTrace(e));
+            decisionRuleMap = obtainErrorResult(e.getMessage());
         }
         return JacksonUtils.toJson(decisionRuleMap);
     }
@@ -75,8 +75,8 @@ public class RuleController {
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule update succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {
-            decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule update failed, decisionRule: {}, exception : {}", decisionRule, LoggerUtils.getStackTrace(e));
+            decisionRuleMap = obtainErrorResult(e.getMessage());
         }
         return JacksonUtils.toJson(decisionRuleMap);
     }
@@ -90,8 +90,8 @@ public class RuleController {
             decisionRuleMap = obtainSuccessResult(decisionRule.getId());
             logger.info("decisionRule delete succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
         } catch (Exception e) {
-            decisionRuleMap = obtainErrorResult(e.getMessage());
             logger.error("decisionRule delete failed, decisionRule: {}, exception : {}", decisionRule, LoggerUtils.getStackTrace(e));
+            decisionRuleMap = obtainErrorResult(e.getMessage());
         }
         return JacksonUtils.toJson(decisionRuleMap);
     }
@@ -103,8 +103,8 @@ public class RuleController {
             eventRuleMap = obtainSuccessResult(eventRuleRepo.selectAll());
             logger.info("event search all succeeded, eventRuleMap: {}", eventRuleMap);
         } catch (Exception e) {
-            eventRuleMap = obtainErrorResult(e.getMessage());
             logger.error("event search all failed, exception : {}", LoggerUtils.getStackTrace(e));
+            eventRuleMap = obtainErrorResult(e.getMessage());
         }
         return JacksonUtils.toJson(eventRuleMap);
     }

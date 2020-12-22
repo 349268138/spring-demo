@@ -14,10 +14,10 @@
         <!--路由策略,默认值是master-only表示只从主节点读取。slave-only表示只读从节点,master-slave表示主从都可以读。选填-->
         <property name="routerType" value="master-only"></property>
         <!--连接redis节点的连接池配置，选填-->
-        <property name="poolMaxIdle" value="16"></property>
-        <property name="poolMaxTotal" value="32"></property>
+        <property name="poolMaxIdle" value="100"></property>
+        <property name="poolMaxTotal" value="300"></property>
         <property name="poolWaitMillis" value="500"></property>
-        <property name="poolMinIdle" value="3"></property>
+        <property name="poolMinIdle" value="50"></property>
     </bean>
 
 </beans>

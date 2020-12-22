@@ -24,9 +24,9 @@ public class CronBoot {
     public void refreshTradeEventCache() {
         try {
             tradeEventService.refreshTradeEvent();
+            logger.info("refresh tradeEvent cache success.");
         } catch (Exception e) {
             logger.error("refresh tradeEvent cache error, exception: {}", LoggerUtils.getStackTrace(e));
         }
-        logger.info("refresh tradeEvent cache success.");
     }
 }

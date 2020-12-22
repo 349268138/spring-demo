@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class RpcDataQueryProcessor implements DataQueryProcessor {
     private static final Logger logger = LoggerFactory.getLogger(RpcDataQueryProcessor.class);
-    private static final int TIME_OUT = 1000;
+    private static final int TIME_OUT = 2000;
     private static final String APPKEY = "com.sankuai.fundstransfer.finsecurity";
     private ConcurrentHashMap<String, ThriftClientProxy> thriftClientProxyHashMap = new ConcurrentHashMap<>();
 

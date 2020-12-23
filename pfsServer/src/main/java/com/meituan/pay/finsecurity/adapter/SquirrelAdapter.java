@@ -23,6 +23,9 @@ public class SquirrelAdapter {
     @Autowired
     private RedisStoreClient redisStoreClient;
 
+    @Autowired
+    private MccAdapter mccAdapter;
+
     /**
      * 设置String类型的值
      *
@@ -42,7 +45,7 @@ public class SquirrelAdapter {
     public String hGetAll(String category, String key) {
         try {
             Map<String, Object> result = redisStoreClient.hgetAll(buildStoreKey(category, key));
-            return JacksonUtils.toJson(result);
+            return handleResult(result);
         } catch (Exception e) {
             throw new RuntimeException(String.format("squirrel hGetAll error. category: %s, key: %s", category, key), e);
         }
@@ -55,7 +58,6 @@ public class SquirrelAdapter {
             throw new RuntimeException(String.format("squirrel hincrBy error. category: %s, key: %s", category, key), e);
         }
     }
-
 
     /**
      * 设置Hash类型的值
@@ -103,7 +105,7 @@ public class SquirrelAdapter {
         Map<String, Object> offlineData = new HashMap<>();
         for (Map.Entry<StoreKey, Object> entry : squirrelResult.entrySet()) {
             String key = String.valueOf(entry.getKey().getParams()[0]);
-            offlineData.put(key, entry.getValue());
+            offlineData.put(key, convertValue(key, entry.getValue()));
         }
 
         return JacksonUtils.toJson(offlineData);
@@ -136,5 +138,20 @@ public class SquirrelAdapter {
      */
     private StoreKey buildStoreKey(String category, String key) {
         return new StoreKey(category, key);
+    }
+
+    private String handleResult(Map<String, Object> dataMap) {
+        Map<String, Object> result = new HashMap<>();
+        for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
+            result.put(entry.getKey(), convertValue(entry.getKey(), entry.getValue()));
+        }
+        return JacksonUtils.toJson(result);
+    }
+
+    private Object convertValue(String key, Object value) {
+        if (mccAdapter.getLongConvertSet().contains(key)) {
+            return Long.parseLong(String.valueOf(value));
+        }
+        return value;
     }
 }

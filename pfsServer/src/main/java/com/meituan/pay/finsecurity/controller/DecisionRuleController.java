@@ -4,37 +4,35 @@ import com.github.pagehelper.Page;
 import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.dao.repository.DecisionRuleRepo;
-import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
 import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.service.data.TradeEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author hhhb
  * @date 2020/12/10 4:15 下午
  */
 @RestController
-@RequestMapping(value = "api")
-public class RuleController {
-    Logger logger = LoggerFactory.getLogger(RuleController.class);
+@RequestMapping(value = "api/decision")
+public class DecisionRuleController {
+    Logger logger = LoggerFactory.getLogger(DecisionRuleController.class);
 
     @Autowired
     private DecisionRuleRepo decisionRuleRepo;
 
     @Autowired
-    private EventRuleRepo eventRuleRepo;
-
-    @Autowired
     private TradeEventService tradeEventService;
 
-    @RequestMapping(value = "decision-search")
+    @RequestMapping(method = RequestMethod.GET)
     public String decisionSearch(DecisionRule decisionRule,
                                  @RequestParam(value = "pageNum") int pageNum,
                                  @RequestParam(value = "pageSize") int pageSize){
@@ -51,7 +49,7 @@ public class RuleController {
 
     }
 
-    @RequestMapping(value = "decision-add")
+    @RequestMapping(method = RequestMethod.POST)
     public String decisionAdd(DecisionRule decisionRule){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
@@ -66,7 +64,7 @@ public class RuleController {
         return JacksonUtils.toJson(decisionRuleMap);
     }
 
-    @RequestMapping(value = "decision-update")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
     public String decisionUpdate(DecisionRule decisionRule){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
@@ -81,7 +79,7 @@ public class RuleController {
         return JacksonUtils.toJson(decisionRuleMap);
     }
 
-    @RequestMapping(value = "decision-delete")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public String decisionDelete(DecisionRule decisionRule){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
@@ -96,34 +94,21 @@ public class RuleController {
         return JacksonUtils.toJson(decisionRuleMap);
     }
 
-    @RequestMapping(value = "event-search-all")
-    public String eventSearchAll() {
-        Map<String, Object> eventRuleMap = new HashMap<>();
-        try{
-            eventRuleMap = obtainSuccessResult(eventRuleRepo.selectAll());
-            logger.info("event search all succeeded, eventRuleMap: {}", eventRuleMap);
-        } catch (Exception e) {
-            logger.error("event search all failed, exception : {}", LoggerUtils.getStackTrace(e));
-            eventRuleMap = obtainErrorResult(e.getMessage());
-        }
-        return JacksonUtils.toJson(eventRuleMap);
-    }
-
-    private Map<String, Object> obtainSuccessResult(Object data) {
+    static Map<String, Object> obtainSuccessResult(Object data) {
         Map<String, Object> result = new HashMap<>();
         result.put("code", 0);
         result.put("data", data);
         return result;
     }
 
-    private Map<String, Object> obtainErrorResult(String msg) {
+    static Map<String, Object> obtainErrorResult(String msg) {
         Map<String, Object> result = new HashMap<>();
         result.put("code", 1);
         result.put("msg", msg);
         return result;
     }
 
-    private Map<String, Object> obtainSearchData(DecisionRule decisionRule, int pageNum, int pageSize) {
+    private  Map<String, Object> obtainSearchData(DecisionRule decisionRule, int pageNum, int pageSize) {
         Page page = decisionRuleRepo.selectExampleByPage(decisionRule, pageNum, pageSize);
         Map<String, Object> searchData = new HashMap<>();
         searchData.put("total", page.getTotal());

@@ -17,6 +17,11 @@ import java.util.List;
  * @Description
  * @CreateDateon 2020/10/27.
  */
+
+/**
+ *  Squirrel数据查询处理器
+ */
+
 @Service
 public class SquirrelDataQueryProcessor implements DataQueryProcessor {
     private static final Logger logger = LoggerFactory.getLogger(SquirrelDataQueryProcessor.class);

@@ -19,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description
  * @CreateDateon 2020/10/27.
  */
+
+/**
+ *  RPC数据查询处理器
+ */
 @Service
 public class RpcDataQueryProcessor implements DataQueryProcessor {
     private static final Logger logger = LoggerFactory.getLogger(RpcDataQueryProcessor.class);

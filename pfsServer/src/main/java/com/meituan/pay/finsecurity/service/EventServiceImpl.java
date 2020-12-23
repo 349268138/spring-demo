@@ -18,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author hhhb
  * @date 2020/10/29 2:44 下午
  */
+
+/**
+ * eventData同步入口
+ */
 public class EventServiceImpl implements EventService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventServiceImpl.class);
 

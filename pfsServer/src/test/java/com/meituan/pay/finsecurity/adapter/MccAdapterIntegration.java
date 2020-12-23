@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Collections;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * @author hhhb
@@ -22,12 +22,12 @@ public class MccAdapterIntegration {
     @Autowired
     private MccAdapter mccAdapter;
 
-    private Map<String, TradeEvent> eventDataMap = Collections.emptyMap();
+    private Set<String> longConvertSet = Collections.emptySet();
 
     @Test
     public void initEventDataMapTest() {
         mccAdapter.init();
-        eventDataMap = mccAdapter.getEventDataMap();
-        Assert.assertNotNull(eventDataMap);
+        longConvertSet = mccAdapter.getLongConvertSet();
+        Assert.assertTrue(longConvertSet.size() > 0);
     }
 }

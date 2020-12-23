@@ -1,5 +1,6 @@
 package com.meituan.pay.finsecurity.adapter;
 
+import com.dianping.squirrel.client.StoreKey;
 import com.dianping.squirrel.client.impl.redis.RedisStoreClient;
 import com.meituan.funds.simple.util.JacksonUtils;
 import org.junit.Assert;
@@ -10,9 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
@@ -28,6 +27,9 @@ public class SquirrelAdapterTest {
 
     @Mock
     private RedisStoreClient redisStoreClient;
+
+    @Mock
+    private MccAdapter mccAdapter;
 
     @Before
     public void setup() {
@@ -61,6 +63,19 @@ public class SquirrelAdapterTest {
     public void hGetAllSuccessTest() {
         when(redisStoreClient.hgetAll(any())).thenReturn(Collections.EMPTY_MAP);
         Assert.assertTrue(squirrelAdapter.hGetAll("", "").equals(JacksonUtils.toJson(Collections.EMPTY_MAP)));
+
+        Set<String> longConvertSet = new HashSet<>();
+        longConvertSet.add("averageCount");
+        when(mccAdapter.getLongConvertSet()).thenReturn(longConvertSet);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("averageCount", String.valueOf(Long.MAX_VALUE - 1));
+        data.put("averageCount2", "20");
+        when(redisStoreClient.hgetAll(any())).thenReturn(data);
+
+        Map<String, Object> dataMap = JacksonUtils.jsonToMap(squirrelAdapter.hGetAll("", ""));
+        Assert.assertTrue(dataMap.get("averageCount") instanceof Long);
+        Assert.assertTrue(dataMap.get("averageCount2") instanceof String);
     }
 
     @Test
@@ -115,6 +130,18 @@ public class SquirrelAdapterTest {
     public void mGetSuccessTest() {
         when(redisStoreClient.multiGet(any())).thenReturn(Collections.EMPTY_MAP);
         Assert.assertTrue(squirrelAdapter.mGet(any(), anyList()).equals(JacksonUtils.toJson(Collections.EMPTY_MAP)));
+
+        Map<StoreKey, Object> squirrelResult = new HashMap<>();
+        StoreKey key = new StoreKey("", "");
+        squirrelResult.put(key, "averageCount");
+
+        when(redisStoreClient.multiGet(any())).thenReturn(squirrelResult);
+        List<String> keys = new ArrayList<>();
+        keys.add("averageCount");
+        Assert.assertTrue(!squirrelAdapter.mGet("", keys).equals((Collections.EMPTY_MAP)));
+
+        when(redisStoreClient.multiGet(any())).thenReturn(Collections.EMPTY_MAP);
+        Assert.assertTrue(squirrelAdapter.mGet("", keys).equals((JacksonUtils.toJson(Collections.EMPTY_MAP))));
     }
 
     @Test

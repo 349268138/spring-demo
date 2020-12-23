@@ -15,7 +15,7 @@ public class GroovyScriptTest {
     @Test
     public void scriptSuccessTest() {
         String expr = "return eventData.id";
-        Long expectedId = 2147486562L;
+        Long expectedId = 2654623820L;
         Long actualId = Long.parseLong(GroovyScript.script(ScriptConstant.EVENT_DATA, obtainJsonData(), expr).toString());
         Assert.assertEquals(expectedId, actualId);
     }

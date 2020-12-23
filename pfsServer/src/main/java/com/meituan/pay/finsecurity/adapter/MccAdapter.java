@@ -51,7 +51,7 @@ public class MccAdapter {
         if (StringUtils.isEmpty(data)) {
             return Collections.EMPTY_SET;
         }
-        Set<String> longConvertSet = Collections.EMPTY_SET;
+        Set<String> longConvertSet = new HashSet<>();
         String[] values = data.split(",");
         for (String value : values) {
             longConvertSet.add(value);

@@ -92,14 +92,14 @@ public class SquirrelAdapterTest {
 
     @Test
     public void hincrBySuccessTest() {
-        when(redisStoreClient.hincrBy(any(), any(), anyInt())).thenReturn(1L);
+        when(redisStoreClient.hincrByLong(any(), any(), anyLong())).thenReturn(1L);
         Assert.assertTrue(squirrelAdapter.hincrBy("", "", "", 1).equals(1L));
     }
 
     @Test
     public void hincrByErrorTest() {
         RuntimeException runtimeException = new RuntimeException();
-        when(redisStoreClient.hincrBy(any(), any(), anyInt())).thenThrow(runtimeException);
+        when(redisStoreClient.hincrByLong(any(), any(), anyLong())).thenThrow(runtimeException);
         try {
             squirrelAdapter.hincrBy("", "", "", 1);
             Assert.fail();

@@ -9,10 +9,7 @@ import com.meituan.pay.finsecurity.service.data.TradeEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,9 +30,8 @@ public class DecisionRuleController {
     private TradeEventService tradeEventService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String decisionSearch(DecisionRule decisionRule,
-                                 @RequestParam(value = "pageNum") int pageNum,
-                                 @RequestParam(value = "pageSize") int pageSize){
+    public String decisionSearch(DecisionRule decisionRule, int pageNum,
+                                 int pageSize){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
             Map<String, Object> searchData = obtainSearchData(decisionRule, pageNum, pageSize);
@@ -50,7 +46,7 @@ public class DecisionRuleController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String decisionAdd(DecisionRule decisionRule){
+    public String decisionAdd(@RequestBody DecisionRule decisionRule){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
             decisionRuleRepo.insertBySelective(decisionRule);
@@ -65,7 +61,8 @@ public class DecisionRuleController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
-    public String decisionUpdate(DecisionRule decisionRule){
+    public String decisionUpdate(@PathVariable long id, @RequestBody DecisionRule decisionRule){
+        decisionRule.setId(id);
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
             decisionRuleRepo.updateByIdSelective(decisionRule);
@@ -80,15 +77,15 @@ public class DecisionRuleController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public String decisionDelete(DecisionRule decisionRule){
+    public String decisionDelete(@PathVariable Long id){
         Map<String, Object> decisionRuleMap = new HashMap<>();
         try{
-            decisionRuleRepo.deleteByPrimaryKey(decisionRule.getId());
+            decisionRuleRepo.deleteByPrimaryKey(id);
             tradeEventService.refreshTradeEvent();
-            decisionRuleMap = obtainSuccessResult(decisionRule.getId());
-            logger.info("decisionRule delete succeeded, decisionRule: {}, decisionRuleMap: {}", decisionRule, decisionRuleMap);
+            decisionRuleMap = obtainSuccessResult(id);
+            logger.info("decisionRule delete succeeded, id: {}, decisionRuleMap: {}", id, decisionRuleMap);
         } catch (Exception e) {
-            logger.error("decisionRule delete failed, decisionRule: {}, exception : {}", decisionRule, LoggerUtils.getStackTrace(e));
+            logger.error("decisionRule delete failed, id: {}, exception : {}", id, LoggerUtils.getStackTrace(e));
             decisionRuleMap = obtainErrorResult(e.getMessage());
         }
         return JacksonUtils.toJson(decisionRuleMap);

@@ -71,42 +71,24 @@ public class DecisionRuleControllerTest {
     @Test
     public void test003DecisionUpdate() {
         when(decisionRuleRepo.updateByIdSelective(any(DecisionRule.class))).thenReturn(1);
-        Map<String, Object> result = JacksonUtils.jsonToMap(decisionRuleController.decisionUpdate(new DecisionRule()));
+        Map<String, Object> result = JacksonUtils.jsonToMap(decisionRuleController.decisionUpdate(1L, new DecisionRule()));
         Assert.assertTrue("0".equals(String.valueOf(result.get("code"))));
 
         RuntimeException runtimeException = new RuntimeException("updateByIdSelective error");
         when(decisionRuleRepo.updateByIdSelective(any(DecisionRule.class))).thenThrow(runtimeException);
-        result = JacksonUtils.jsonToMap(decisionRuleController.decisionUpdate(new DecisionRule()));
+        result = JacksonUtils.jsonToMap(decisionRuleController.decisionUpdate(1L, new DecisionRule()));
         Assert.assertTrue("1".equals(String.valueOf(result.get("code"))));
     }
 
     @Test
     public void test004DecisionDelete() {
         when(decisionRuleRepo.deleteByPrimaryKey(any())).thenReturn(1);
-        Map<String, Object> result = JacksonUtils.jsonToMap(decisionRuleController.decisionDelete(new DecisionRule()));
+        Map<String, Object> result = JacksonUtils.jsonToMap(decisionRuleController.decisionDelete(1L));
         Assert.assertTrue("0".equals(String.valueOf(result.get("code"))));
 
         RuntimeException runtimeException = new RuntimeException("updateByIdSelective error");
         when(decisionRuleRepo.deleteByPrimaryKey(any())).thenThrow(runtimeException);
-        result = JacksonUtils.jsonToMap(decisionRuleController.decisionDelete(new DecisionRule()));
+        result = JacksonUtils.jsonToMap(decisionRuleController.decisionDelete(1L));
         Assert.assertTrue("1".equals(String.valueOf(result.get("code"))));
     }
-
-//    @Test
-//    public void test005EventSearchAllCode() {
-//        List<EventRule> eventRuleList = new ArrayList<>();
-//        EventRule eventRule = new EventRule();
-//        eventRule.setId(1L);
-//        eventRule.setCode("1");
-//        eventRuleList.add(eventRule);
-//        when(eventRuleRepo.selectAll()).thenReturn(eventRuleList);
-//
-//        Map<String, Object> result = JacksonUtils.jsonToMap(decisionRuleController.eventSearchAll());
-//        Assert.assertTrue("0".equals(String.valueOf(result.get("code"))));
-//
-//        RuntimeException runtimeException = new RuntimeException("selectAll error");
-//        when(eventRuleRepo.selectAll()).thenThrow(runtimeException);
-//        result = JacksonUtils.jsonToMap(decisionRuleController.eventSearchAll());
-//        Assert.assertTrue("1".equals(String.valueOf(result.get("code"))));
-//    }
 }

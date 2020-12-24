@@ -51,9 +51,9 @@ public class SquirrelAdapter {
         }
     }
 
-    public Long hincrBy(String category, String key, String field, int amount) {
+    public Long hincrBy(String category, String key, String field, long amount) {
         try {
-            return redisStoreClient.hincrBy(buildStoreKey(category, key), field, amount);
+            return redisStoreClient.hincrByLong(buildStoreKey(category, key), field, amount);
         } catch (Exception e) {
             throw new RuntimeException(String.format("squirrel hincrBy error. category: %s, key: %s", category, key), e);
         }

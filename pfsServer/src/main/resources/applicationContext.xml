@@ -49,6 +49,47 @@
         <property name="remoteAppkey" value="com.sankuai.wpt.user.token"/>
     </bean>
 
+    <bean id="mtSSOFilter" class="com.sankuai.it.sso.sdk.spring.FilterFactoryBean">
+        <!-- 必须配置，以下二者需先到开放平台(http://open.sankuai.com)申请接入SSO后颁发，
+             对应企平开放平台的AppKey和AppSecret -->
+        <property name="clientId" value="${sso.client.id}"/>
+        <property name="secret" value="${sso.secret}"/>
+
+        <!-- 需要 SSO 检查的 Url 配置, 多个以逗号分隔，允许换行
+             单独配 includedUriList，includedUriList 以外的链接都不检查sso登录
+                 单独配 excludedUriList，excludedUriList 以外的链接都会检查sso登录
+                 includedUriList，excludedUriList 都有的时候，仅includedUriList有效，匹配路径{**} -->
+        <property name="includedUriList" value="/user/**"/>
+        <property name="excludedUriList" value="/static/**,/octo/checkAlive"/>
+
+    </bean>
+
+    <bean id="uacAuthFilter" class="com.sankuai.meituan.uac.sdk.filter.UacFilterFactoryBean">
+        <!--必须配置，以下二者需先到开放平台(http://open.sankuai.com)申请接入UAC后颁发，对应企平开放平台的AppKey和AppSecret -->
+        <property name="appKey" value="${uac.appKey}}"/>
+        <property name="secret" value="${uac.appSecret}"/>
+
+        <!--接入的UAC HOST地址，线下为：http://uac.it.test.sankuai.com 线上为：http://uac.vip.sankuai.com -->
+        <property name="host" value="${uac.host}"/>
+
+<!--        &lt;!&ndash; 以下配置为可选配置 &ndash;&gt;-->
+
+<!--        &lt;!&ndash; 表示需要经过UAC鉴权的URI，多个之间以','分割,支持Ant风格路径表达式。includedUriList中的URI必须经过SSO进行过滤，否则UAC无法获取当前登录人信息进行鉴权。 &ndash;&gt;-->
+<!--        <property name="includedUriList" value="/test/**,/api/**" />-->
+
+<!--        &lt;!&ndash; 表示不需要经过UAC鉴权的URI。一定要看的注意：两者都配置的情况下，excludedUriList会失效，includedUriList优先级更高。 &ndash;&gt;-->
+<!--        <property name="excludedUriList" value="/octo/checkAlive/**,/pass/**"/>-->
+
+<!--        &lt;!&ndash; UAC授权失败后返回的错误信息 &ndash;&gt;-->
+<!--        <property name="authFailedResponse" value="业务方自行设置成期望的错误信息格式，可以参考配置项说明！"/>-->
+
+<!--        &lt;!&ndash; 是否关闭UAC日志功能（URI鉴权过程打印一些日志，方便调试），true表示关闭，默认为false，即开启日志功能。 &ndash;&gt;-->
+<!--        &lt;!&ndash; <property name="logClosed" value="true"/>  &ndash;&gt;-->
+
+<!--        &lt;!&ndash; URL鉴权时是否需要对HTTP方法进行鉴权 &ndash;&gt;-->
+<!--        &lt;!&ndash; <property name="authUrlWithMethod" value="true"/> &ndash;&gt;-->
+    </bean>
+
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
 
     <context:component-scan base-package="com.meituan.pay.finsecurity.controller"/>

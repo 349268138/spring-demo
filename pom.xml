@@ -322,6 +322,10 @@
                         <groupId>com.meituan.service.inf</groupId>
                         <artifactId>kms-pay-java-client</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba</groupId>
+                        <artifactId>fastjson</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>

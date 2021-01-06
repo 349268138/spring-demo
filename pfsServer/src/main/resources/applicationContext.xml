@@ -64,31 +64,31 @@
 
     </bean>
 
-    <bean id="uacAuthFilter" class="com.sankuai.meituan.uac.sdk.filter.UacFilterFactoryBean">
-        <!--必须配置，以下二者需先到开放平台(http://open.sankuai.com)申请接入UAC后颁发，对应企平开放平台的AppKey和AppSecret -->
-        <property name="appKey" value="${uac.appKey}}"/>
-        <property name="secret" value="${uac.appSecret}"/>
+<!--    <bean id="uacAuthFilter" class="com.sankuai.meituan.uac.sdk.filter.UacFilterFactoryBean">-->
+<!--        &lt;!&ndash;必须配置，以下二者需先到开放平台(http://open.sankuai.com)申请接入UAC后颁发，对应企平开放平台的AppKey和AppSecret &ndash;&gt;-->
+<!--        <property name="appKey" value="446d423d4a"/>-->
+<!--        <property name="secret" value="f16ab2b1ddd94ceeadb521f251b25eb5"/>-->
 
-        <!--接入的UAC HOST地址，线下为：http://uac.it.test.sankuai.com 线上为：http://uac.vip.sankuai.com -->
-        <property name="host" value="${uac.host}"/>
+<!--        &lt;!&ndash;接入的UAC HOST地址，线下为：http://uac.it.test.sankuai.com 线上为：http://uac.vip.sankuai.com &ndash;&gt;-->
+<!--        <property name="host" value="http://uac.it.test.sankuai.com"/>-->
 
-<!--        &lt;!&ndash; 以下配置为可选配置 &ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; 以下配置为可选配置 &ndash;&gt;&ndash;&gt;-->
 
-<!--        &lt;!&ndash; 表示需要经过UAC鉴权的URI，多个之间以','分割,支持Ant风格路径表达式。includedUriList中的URI必须经过SSO进行过滤，否则UAC无法获取当前登录人信息进行鉴权。 &ndash;&gt;-->
-<!--        <property name="includedUriList" value="/test/**,/api/**" />-->
+<!--&lt;!&ndash;        &lt;!&ndash; 表示需要经过UAC鉴权的URI，多个之间以','分割,支持Ant风格路径表达式。includedUriList中的URI必须经过SSO进行过滤，否则UAC无法获取当前登录人信息进行鉴权。 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="includedUriList" value="/test/**,/api/**" />&ndash;&gt;-->
 
-<!--        &lt;!&ndash; 表示不需要经过UAC鉴权的URI。一定要看的注意：两者都配置的情况下，excludedUriList会失效，includedUriList优先级更高。 &ndash;&gt;-->
-<!--        <property name="excludedUriList" value="/octo/checkAlive/**,/pass/**"/>-->
+<!--&lt;!&ndash;        &lt;!&ndash; 表示不需要经过UAC鉴权的URI。一定要看的注意：两者都配置的情况下，excludedUriList会失效，includedUriList优先级更高。 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="excludedUriList" value="/octo/checkAlive/**,/pass/**"/>&ndash;&gt;-->
 
-<!--        &lt;!&ndash; UAC授权失败后返回的错误信息 &ndash;&gt;-->
-<!--        <property name="authFailedResponse" value="业务方自行设置成期望的错误信息格式，可以参考配置项说明！"/>-->
+<!--&lt;!&ndash;        &lt;!&ndash; UAC授权失败后返回的错误信息 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="authFailedResponse" value="业务方自行设置成期望的错误信息格式，可以参考配置项说明！"/>&ndash;&gt;-->
 
-<!--        &lt;!&ndash; 是否关闭UAC日志功能（URI鉴权过程打印一些日志，方便调试），true表示关闭，默认为false，即开启日志功能。 &ndash;&gt;-->
-<!--        &lt;!&ndash; <property name="logClosed" value="true"/>  &ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; 是否关闭UAC日志功能（URI鉴权过程打印一些日志，方便调试），true表示关闭，默认为false，即开启日志功能。 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; <property name="logClosed" value="true"/>  &ndash;&gt;&ndash;&gt;-->
 
-<!--        &lt;!&ndash; URL鉴权时是否需要对HTTP方法进行鉴权 &ndash;&gt;-->
-<!--        &lt;!&ndash; <property name="authUrlWithMethod" value="true"/> &ndash;&gt;-->
-    </bean>
+<!--&lt;!&ndash;        &lt;!&ndash; URL鉴权时是否需要对HTTP方法进行鉴权 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; <property name="authUrlWithMethod" value="true"/> &ndash;&gt;&ndash;&gt;-->
+<!--    </bean>-->
 
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
 

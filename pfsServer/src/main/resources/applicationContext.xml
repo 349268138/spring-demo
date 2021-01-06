@@ -59,8 +59,7 @@
              单独配 includedUriList，includedUriList 以外的链接都不检查sso登录
                  单独配 excludedUriList，excludedUriList 以外的链接都会检查sso登录
                  includedUriList，excludedUriList 都有的时候，仅includedUriList有效，匹配路径{**} -->
-        <property name="includedUriList" value="/user/**"/>
-        <property name="excludedUriList" value="/static/**,/octo/checkAlive"/>
+        <property name="includedUriList" value="/api/**"/>
 
     </bean>
 

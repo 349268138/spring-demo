@@ -387,20 +387,6 @@
             <artifactId>pagehelper</artifactId>
             <version>4.1.1</version>
         </dependency>
-
-        <!--sso认证-->
-        <dependency>
-            <groupId>com.sankuai.it.sso</groupId>
-            <artifactId>sso-java-sdk</artifactId>
-            <version>2.4.0</version>
-        </dependency>
-
-        <!--UAC鉴权-->
-        <dependency>
-            <groupId>com.sankuai.meituan</groupId>
-            <artifactId>uac-common-sdk</artifactId>
-            <version>1.1.2</version>
-        </dependency>
     </dependencies>
 
 </project>

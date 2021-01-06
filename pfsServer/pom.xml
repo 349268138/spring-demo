@@ -147,6 +147,27 @@
             <artifactId>squirrel-client</artifactId>
             <version>2.3.17-HASHAPI-SNAPSHOT</version>
         </dependency>
+
+
+        <!--sso认证-->
+        <dependency>
+            <groupId>com.sankuai.it.sso</groupId>
+            <artifactId>sso-java-sdk</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+        <!--UAC鉴权-->
+        <dependency>
+            <groupId>com.sankuai.meituan</groupId>
+            <artifactId>uac-common-sdk</artifactId>
+            <version>1.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>fastjson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
 

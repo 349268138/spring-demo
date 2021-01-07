@@ -70,6 +70,9 @@
 
         <!--接入的UAC HOST地址，线下为：http://uac.it.test.sankuai.com 线上为：http://uac.vip.sankuai.com -->
         <property name="host" value="${uac.host}}"/>
+
+        <!-- 表示需要经过UAC鉴权的URI，多个之间以','分割,支持Ant风格路径表达式。includedUriList中的URI必须经过SSO进行过滤，否则UAC无法获取当前登录人信息进行鉴权。 -->
+        <property name="includedUriList" value="/api/**" />
     </bean>
 
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>

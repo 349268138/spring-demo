@@ -145,7 +145,7 @@
         <dependency>
             <groupId>com.dianping.squirrel</groupId>
             <artifactId>squirrel-client</artifactId>
-            <version>2.3.17-HASHAPI-SNAPSHOT</version>
+            <version>2.3.16.RC3</version>
         </dependency>
 
 

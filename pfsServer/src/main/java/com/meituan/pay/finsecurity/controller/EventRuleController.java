@@ -3,7 +3,6 @@ package com.meituan.pay.finsecurity.controller;
 import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.dao.repository.EventRuleRepo;
-import com.sankuai.meituan.auth.util.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,6 @@ public class EventRuleController {
     @RequestMapping(method = RequestMethod.GET, value = "search-all-code")
     public String eventSearchAll() {
         Map<String, Object> eventRuleMap = new HashMap<>();
-        logger.info("当前登录用户信息：{}", UserUtils.getUser());
         try{
             eventRuleMap = obtainSuccessResult(eventRuleRepo.selectAll());
             logger.info("event search all succeeded, eventRuleMap: {}", eventRuleMap);

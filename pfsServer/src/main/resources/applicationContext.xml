@@ -60,7 +60,6 @@
                  单独配 excludedUriList，excludedUriList 以外的链接都会检查sso登录
                  includedUriList，excludedUriList 都有的时候，仅includedUriList有效，匹配路径{**} -->
         <property name="includedUriList" value="/api/**"/>
-        <property name="rewriteLocation" value="/api"/>
         <property name="ssoListener" value="com.meituan.pay.finsecurity.listener.SecuritySSOListener"/>
 
     </bean>

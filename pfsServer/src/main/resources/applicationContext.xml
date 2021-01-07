@@ -61,6 +61,7 @@
                  includedUriList，excludedUriList 都有的时候，仅includedUriList有效，匹配路径{**} -->
         <property name="includedUriList" value="/api/**"/>
         <property name="rewriteLocation" value="/api"/>
+        <property name="ssoListener" value="com.meituan.pay.finsecurity.listener.SecuritySSOListener"/>
 
     </bean>
 

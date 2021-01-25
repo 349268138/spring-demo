@@ -37,6 +37,11 @@ public class MonitorDecisonProcessorTest {
         String dataJson = JacksonUtils.toJson(obtainContextData());
         ProcessResultEnum resultEnum = monitorDecisonProcessor.decide(obtainEventRule(), obtainDecisionRule(), dataJson);
         Assert.assertEquals(ProcessResultEnum.PASS, resultEnum);
+
+        EventRule eventRule = obtainEventRule();
+        eventRule.setVectorList(null);
+        resultEnum = monitorDecisonProcessor.decide(eventRule, obtainDecisionRule(), dataJson);
+        Assert.assertEquals(ProcessResultEnum.PASS, resultEnum);
     }
 
     private EventRule obtainEventRule() {

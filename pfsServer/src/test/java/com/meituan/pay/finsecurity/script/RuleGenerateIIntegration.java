@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
  * @Description
  * @CreateDateon 2020/12/24.
  */
-public class RuleGenerateTest {
+public class RuleGenerateIIntegration {
 
     @InjectMocks
     private TradeDataService tradeDataService;

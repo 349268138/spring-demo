@@ -45,6 +45,11 @@ public class AlarmDecisonProcessorTest {
         dataJson = JacksonUtils.toJson(contextData);
         resultEnum = alarmDecisonProcessor.decide(obtainEventRule(), obtainDecisionRule(), dataJson);
         Assert.assertEquals(ProcessResultEnum.PASS, resultEnum);
+
+        EventRule eventRule = obtainEventRule();
+        eventRule.setVectorList(null);
+        resultEnum = alarmDecisonProcessor.decide(eventRule, obtainDecisionRule(), dataJson);
+        Assert.assertEquals(ProcessResultEnum.PASS, resultEnum);
     }
 
     private EventRule obtainEventRule() {

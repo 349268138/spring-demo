@@ -6,7 +6,7 @@
 
     <groupId>com.meituan.pay</groupId>
     <artifactId>pfs-sdk</artifactId>
-    <version>1.0.2-RELEASE</version>
+    <version>1.0.3-RELEASE</version>
     <name>pfsSDK</name>
 
     <properties>
@@ -40,8 +40,8 @@
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk16</artifactId>
-            <version>1.46</version>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
         </dependency>
 
         <dependency>

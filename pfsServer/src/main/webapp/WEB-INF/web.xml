@@ -7,6 +7,35 @@
     <!-- FILTER CONFIGURATION BEGIN -->
 
     <filter>
+        <filter-name>mtSSOFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>mtSSOFilter</filter-name>
+        <!-- 将所有URI交给SSO过滤器管理 -->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--注意，UAC过滤器需要配置在SSO过滤器之后-->
+    <filter>
+        <filter-name>uacAuthFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>uacAuthFilter</filter-name>
+        <!--将所有URI交给UAC过滤器管理-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>setCharacterEncoding</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
@@ -79,19 +108,5 @@
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
-
-    <!--<filter>-->
-        <!--<filter-name>mtSSOFilter</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>targetFilterLifecycle</param-name>-->
-            <!--<param-value>true</param-value>-->
-        <!--</init-param>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>mtSSOFilter</filter-name>-->
-        <!--&lt;!&ndash; 将所有URI交给SSO过滤器管理 &ndash;&gt;-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
 
 </web-app>

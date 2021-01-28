@@ -21,6 +21,10 @@ import java.util.Map;
  * @Description
  * @CreateDateon 2020/10/23.
  */
+
+/**
+ * 查询交易数据类
+ */
 @Service
 public class TradeDataService {
     private static final Logger logger = LoggerFactory.getLogger(TradeDataService.class);
@@ -39,6 +43,7 @@ public class TradeDataService {
         }
     }
 
+    // 根据数据规则获取交易数据
     private String obtainTradeData(List<DataRule> dataRuleList, String eventData) {
         if (CollectionUtils.isEmpty(dataRuleList)) {
             return StringUtils.EMPTY;

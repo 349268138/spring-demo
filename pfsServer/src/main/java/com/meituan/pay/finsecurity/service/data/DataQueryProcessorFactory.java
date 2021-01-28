@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
  * @Description
  * @CreateDateon 2020/10/27.
  */
+
+/**
+ * 数据查询处理器工厂类
+ */
+
 @Service
 public class DataQueryProcessorFactory {
 

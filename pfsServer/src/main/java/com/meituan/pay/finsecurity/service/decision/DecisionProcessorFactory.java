@@ -1,8 +1,6 @@
 package com.meituan.pay.finsecurity.service.decision;
 
-import com.meituan.pay.finsecurity.po.enums.DataAccessTypeEnum;
 import com.meituan.pay.finsecurity.po.enums.TypeEnum;
-import com.meituan.pay.finsecurity.service.data.DataQueryProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +8,10 @@ import org.springframework.stereotype.Service;
  * @author wangjinping
  * @Description
  * @CreateDateon 2020/10/27.
+ */
+
+/**
+ * 决策处理器工厂
  */
 @Service
 public class DecisionProcessorFactory {

@@ -22,6 +22,11 @@ import java.util.Map;
  * @author hhhb
  * @date 2020/12/9 5:16 下午
  */
+
+/**
+ * 交易事件规则获取类
+ */
+
 @Component
 public class TradeEventService {
     private static final Logger logger = LoggerFactory.getLogger(TradeEventService.class);

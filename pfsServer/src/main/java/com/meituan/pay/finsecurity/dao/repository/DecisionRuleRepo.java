@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.meituan.pay.finsecurity.dao.mapper.DecisionRuleMapper;
 import com.meituan.pay.finsecurity.po.DecisionRule;
 import com.meituan.pay.finsecurity.po.DecisionRuleExample;
+import com.meituan.pay.finsecurity.po.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +55,7 @@ public class DecisionRuleRepo {
 
     public List<DecisionRule> selectByEventId(Long eventId) {
         DecisionRuleExample example = new DecisionRuleExample();
-        example.createCriteria().andEventIdEqualTo(eventId);
+        example.createCriteria().andEventIdEqualTo(eventId).andStatusEqualTo(StatusEnum.ON);
         return decisionRuleMapper.selectByExample(example);
     }
 

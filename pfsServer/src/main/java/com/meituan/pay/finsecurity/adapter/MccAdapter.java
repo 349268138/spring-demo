@@ -1,9 +1,7 @@
 package com.meituan.pay.finsecurity.adapter;
 
-import com.meituan.funds.simple.util.JacksonUtils;
 import com.meituan.funds.simple.util.LoggerUtils;
 import com.meituan.pay.finsecurity.constant.MccConstant;
-import com.meituan.pay.finsecurity.po.TradeEvent;
 import com.sankuai.meituan.config.MtConfigClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author hhhb
@@ -27,40 +25,41 @@ public class MccAdapter {
     @Autowired
     private MtConfigClient mtConfigClient;
 
-    private Map<String, TradeEvent> eventDataMap = Collections.emptyMap();
+    private Set<String> longConvertSet = Collections.EMPTY_SET;
 
     @PostConstruct
     public void init() {
-        initEventDataMap();
-        initEventDataMapMccEvent();
+        initLongConvertSet();
+        initLongConvertSetMccEvent();
     }
 
-    private void initEventDataMap() {
-        eventDataMap = convertUpdateEventDataMapJson(mtConfigClient.getValue(MccConstant.EVENTDATAMAP_KEY));
+    private void initLongConvertSet() {
+        longConvertSet = convertUpdateLongConvertSet(mtConfigClient.getValue(MccConstant.LONG_CONVERT_SET_KEY));
     }
 
-    private void initEventDataMapMccEvent() {
-        mtConfigClient.addListener(MccConstant.EVENTDATAMAP_KEY, ((key, oldValue, newValue) -> {
-            try{
-                eventDataMap = convertUpdateEventDataMapJson(newValue);
+    private void initLongConvertSetMccEvent() {
+        mtConfigClient.addListener(MccConstant.LONG_CONVERT_SET_KEY, ((key, oldValue, newValue) -> {
+            try {
+                longConvertSet = convertUpdateLongConvertSet(newValue);
             } catch (Exception e) {
-                logger.error("initEventDataMapMccEvent fail. key: {}, oldValue: {}, newValue: {}, exception: {}", key, oldValue, newValue, LoggerUtils.getStackTrace(e));
+                logger.error("initLongConvertSetMccEvent fail. key: {}, oldValue: {}, newValue: {}, exception: {}", key, oldValue, newValue, LoggerUtils.getStackTrace(e));
             }
         }));
     }
 
-    private Map<String, TradeEvent> convertUpdateEventDataMapJson(String EventDataMapJson) {
-        if(StringUtils.isEmpty(EventDataMapJson)) {
-            return Collections.EMPTY_MAP;
+    private Set<String> convertUpdateLongConvertSet(String data) {
+        if (StringUtils.isEmpty(data)) {
+            return Collections.EMPTY_SET;
         }
-        Map<String, TradeEvent> eventDataMap = JacksonUtils.jsonToBeanMap(EventDataMapJson, TradeEvent.class);
-        if(Objects.nonNull(eventDataMap)) {
-            return eventDataMap;
+        Set<String> longConvertSet = new HashSet<>();
+        String[] values = data.split(",");
+        for (String value : values) {
+            longConvertSet.add(value);
         }
-        throw new RuntimeException("parse eventDataMap string to object fail. eventDataMap: " + eventDataMap);
+        return longConvertSet;
     }
 
-    public Map<String, TradeEvent> getEventDataMap() {
-        return eventDataMap;
+    public Set<String> getLongConvertSet() {
+        return longConvertSet;
     }
 }

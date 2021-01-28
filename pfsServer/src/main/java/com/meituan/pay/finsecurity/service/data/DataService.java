@@ -23,6 +23,7 @@ public class DataService {
     @Autowired
     private TradeEventService tradeEventService;
 
+    // 从缓存中获取规则实体
     public TradeEvent obtaintradeEvent(String eventCode){
         if(Objects.nonNull(tradeEventService.obtainTradeEventMapCache().get(eventCode))) {
             return tradeEventService.obtainTradeEventMapCache().get(eventCode);
@@ -31,6 +32,7 @@ public class DataService {
         throw new RuntimeException(String.format("eventcode not exist. eventCode: %s", eventCode));
     }
 
+    // 查询交易数据
     public String obtainTradeData(List<DataRule> dataRuleList, String eventData) {
         String tradeData = tradeDataService.queryTradeData(dataRuleList, eventData);
         return tradeData;

@@ -19,10 +19,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description
  * @CreateDateon 2020/10/27.
  */
+
+/**
+ *  RPC数据查询处理器
+ */
 @Service
 public class RpcDataQueryProcessor implements DataQueryProcessor {
     private static final Logger logger = LoggerFactory.getLogger(RpcDataQueryProcessor.class);
-    private static final int TIME_OUT = 1000;
+    private static final int TIME_OUT = 2000;
     private static final String APPKEY = "com.sankuai.fundstransfer.finsecurity";
     private ConcurrentHashMap<String, ThriftClientProxy> thriftClientProxyHashMap = new ConcurrentHashMap<>();
 

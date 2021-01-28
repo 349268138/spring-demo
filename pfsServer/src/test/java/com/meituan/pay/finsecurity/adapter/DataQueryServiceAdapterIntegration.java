@@ -42,15 +42,15 @@ public class DataQueryServiceAdapterIntegration {
 
     @Test
     public void queryTradeDataTest() {
-        String tradeData = dataQueryService.queryTradeData(obtainDataRuleList(), obtainEventData("paycore"));
+        String tradeData = dataQueryService.queryTradeData(obtainTransferDataRuleList(), obtainEventData("transfer"));
         Assert.assertNotNull(tradeData);
     }
 
-    @Test
-    public void queryTradeDataTest2() {
-        String tradeData = dataQueryFactory.obtainProcessor(SQUIRREL).queryData(obtainDataRuleList().get(0), "2631008701");
-        Assert.assertNotNull(tradeData);
-    }
+//    @Test
+//    public void queryTradeDataTest2() {
+//        String tradeData = dataQueryFactory.obtainProcessor(SQUIRREL).queryData(obtainDataRuleList().get(0), "2631008701");
+//        Assert.assertNotNull(tradeData);
+//    }
 
     private List<DataRule> obtainDataRuleList() {
         List<DataRule> dataRuleList = new ArrayList<>();
@@ -62,6 +62,20 @@ public class DataQueryServiceAdapterIntegration {
         dataRule.setAddress("Hash:fin_security");
         dataRule.setType(SQUIRREL);
         dataRule.setKeyExpr("eventData.partnerid + “-” + eventData.pay_to_card_biz_req_code");
+        dataRuleList.add(dataRule);
+        return dataRuleList;
+    }
+
+    private List<DataRule> obtainTransferDataRuleList() {
+        List<DataRule> dataRuleList = new ArrayList<>();
+        DataRule dataRule = new DataRule();
+        dataRule.setId(4L);
+        dataRule.setEventId(1L);
+        dataRule.setName("转账数据配置");
+        dataRule.setAlias("acttransfer");
+        dataRule.setAddress("com.sankuai.pay.fundstransfer.acttransfer:9006:localhost");
+        dataRule.setType(DataAccessTypeEnum.RPC);
+        dataRule.setKeyExpr("eventData.trade_no");
         dataRuleList.add(dataRule);
         return dataRuleList;
     }

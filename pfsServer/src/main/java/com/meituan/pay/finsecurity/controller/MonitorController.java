@@ -28,18 +28,18 @@ public class MonitorController {
         List<Vector> vectorList = new ArrayList<>();
         Vector vector = new Vector();
         vector.setAlias("partner");
-        vector.setExpr("");
+        vector.setExpr("eventData.partnerid");
         vectorList.add(vector);
 
         Vector vector2 = new Vector();
         vector2.setAlias("status");
-        vector2.setExpr("");
+        vector2.setExpr("eventData.status");
         vectorList.add(vector2);
 
         eventRule.setVectorList(vectorList);
 
         ContextData contextData = new ContextData();
-        contextData.setEventData("{\"id\":99999999999,\"partnerid\":0");
+        contextData.setEventData("{\"status\":9,\"partnerid\":5}");
         contextData.setTradeData("");
         String dataJson = JacksonUtils.toJson(contextData);
 

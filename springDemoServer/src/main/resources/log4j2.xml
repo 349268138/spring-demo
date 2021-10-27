@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <Properties>
+        <Property name="LOG_HOME">/log/springdDemo</Property>
+    </Properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="false">
+            <PatternLayout pattern="%5p:%d{yyyy-MM-dd HH:mm:ss.SSS}[%M] %m %n"/>
+            <!--<PatternLayout pattern="%-4relative [%thread] %-5level %logger{35} - %msg %n"/>-->
+        </Console>
+
+        <RollingRandomAccessFile name="FILE" fileName="${LOG_HOME}/server.log"
+                                 filePattern="${LOG_HOME}/server.%d{yyyy-MM-dd HH:mm:ss}.log">
+            <PatternLayout pattern="%5p:%d{yyyy-MM-dd HH:mm:ss.SSS}[%M] %m %n"/>
+            <Policies>
+                <!--<TimeBasedTriggeringPolicy interval="1" modulate="true"/>-->
+                <SizeBasedTriggeringPolicy size="4000MB"/>
+            </Policies>
+            <!--<DefaultRolloverStrategy max="5"/>-->
+        </RollingRandomAccessFile>
+    </appenders>
+
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="FILE"/>
+        </root>
+
+        <!--<Logger name="com.spring.demo.adapter.persistent.mysql.mapper" level="DEBUG" additivity="false">-->
+        <!--<AppenderRef ref="Console"/>-->
+        <!--</Logger>-->
+    </loggers>
+</configuration>

@@ -4,385 +4,178 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.meituan.pay</groupId>
-    <artifactId>pay-funds-security</artifactId>
+    <groupId>com.spring</groupId>
+    <artifactId>demo</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>pfs</name>
+    <name>springDemo</name>
 
     <modules>
-        <module>pfsServer</module>
-        <module>pfsSDK</module>
+        <module>springDemoServer</module>
+        <module>springDemoSDK</module>
     </modules>
 
 
     <properties>
-        <build.timestamp>${maven.build.timestamp}</build.timestamp>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-
-        <common.logging.version>1.0.4</common.logging.version>
-        <common.lang.version>2.6</common.lang.version>
-        <common.io.version>2.2</common.io.version>
-        <common.codec.version>1.10</common.codec.version>
-        <common.beanutils.version>1.8.3</common.beanutils.version>
-        <common.fileupload.version>1.3</common.fileupload.version>
-        <common.cli.version>1.0</common.cli.version>
-        <common.discovery.version>0.5</common.discovery.version>
-        <common.net.version>2.2</common.net.version>
-        <common.pool.version>1.6</common.pool.version>
-        <commons-collections.version>3.2.1</commons-collections.version>
-        <javax.validation.version>1.0.0.GA</javax.validation.version>
-        <hibernate.version>4.3.0.Final</hibernate.version>
-        <thrift.version>0.8.0</thrift.version>
-        <paycommon.version>2.3.12.2-RELEASE</paycommon.version>
-        <powermock.version>2.0.2</powermock.version>
-        <mockito-core.version>2.23.0</mockito-core.version>
+        <spring.version>4.1.6.RELEASE</spring.version>
+        <!--<spring.version>4.3.12.RELEASE</spring.version>-->
+        <springmvc.version>4.1.6.RELEASE</springmvc.version>
+        <springboot.version>1.5.6.RELEASE</springboot.version>
+        <servlet.version>3.1.0</servlet.version>
+        <jetty.version>9.3.14.v20161028</jetty.version>
+        <skip.deploy>true</skip.deploy>
     </properties>
-
-    <!-- 程序环境配置 -->
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <env.name>dev</env.name>
-                <flumeClientIp>10.4.232.70</flumeClientIp>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <env.name>test</env.name>
-                <flumeClientIp>192.168.11.125</flumeClientIp>
-            </properties>
-        </profile>
-        <profile>
-            <id>pipline</id>
-            <properties>
-                <env.name>pipline</env.name>
-                <flumeClientIp>192.168.11.125</flumeClientIp>
-            </properties>
-        </profile>
-        <profile>
-            <id>beta</id>
-            <properties>
-                <env.name>beta</env.name>
-                <flumeClientIp>192.168.11.125</flumeClientIp>
-            </properties>
-        </profile>
-        <profile>
-            <id>staging</id>
-            <properties>
-                <env.name>staging</env.name>
-                <flumeClientIp>127.0.0.1</flumeClientIp>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <env.name>prod</env.name>
-                <flumeClientIp>127.0.0.1</flumeClientIp>
-            </properties>
-        </profile>
-    </profiles>
-
-
-    <build>
-        <finalName>${project.artifactId}-release-${project.version}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-archetype-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <jarName>${project.build.finalName}</jarName>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <warName>${project.build.finalName}</warName>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.2.0.v20101020</version>
-                <configuration>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>8091</port>
-                        </connector>
-                    </connectors>
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                    <scanIntervalSeconds>5000</scanIntervalSeconds>
-                    <stopKey>foo</stopKey>
-                    <stopPort>7878</stopPort>
-                </configuration>
-            </plugin>
-        </plugins>
-
-
-        <resources>
-            <!-- 保证所有的resources下的配置文件能被编译打包 -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
-    </build>
-
-    <distributionManagement>
-        <repository>
-            <id>meituan-nexus-releases</id>
-            <name>Meituan Nexus Repository</name>
-            <url>http://maven.sankuai.com/nexus/content/repositories/releases/</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>meituan-nexus-snapshots</id>
-            <name>Meituan Nexus Repository</name>
-            <url>http://maven.sankuai.com/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 
     <dependencyManagement>
         <dependencies>
+            <!-- spring -->
             <dependency>
-                <groupId>com.sankuai.conch</groupId>
-                <artifactId>base-bom</artifactId>
-                <version>1.4.3.1-RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sankuai.meituan</groupId>
-                <artifactId>mt-framework-bom</artifactId>
-                <version>1.3.48</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet.version}</version>
             </dependency>
 
+            <!-- springmvc -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${springmvc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${springmvc.version}</version>
+            </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
-            </dependency>
-            <!-- common jar -->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${common.io.version}</version>
+                <version>${servlet.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${common.lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${common.codec.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${common.beanutils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${common.fileupload.version}</version>
-            </dependency>
+            <!-- commons-logging -->
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>${common.logging.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-cli</groupId>
-                <artifactId>commons-cli</artifactId>
-                <version>${common.cli.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-discovery</groupId>
-                <artifactId>commons-discovery</artifactId>
-                <version>${common.discovery.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${common.net.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-pool</groupId>
-                <artifactId>commons-pool</artifactId>
-                <version>${common.pool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>${commons-collections.version}</version>
+                <version>1.2</version>
             </dependency>
 
+            <!-- db -->
             <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${javax.validation.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.thrift</groupId>
-                <artifactId>libfb303</artifactId>
-                <version>${thrift.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.thrift</groupId>
-                <artifactId>libthrift</artifactId>
-                <version>${thrift.version}</version>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.43</version>
             </dependency>
 
-
+            <!--jetty Embedded-->
             <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
-                <version>1.52</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>3.2.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>2.10.5</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>com.meituan.pay</groupId>
-                <artifactId>common-framework</artifactId>
-                <version>1.4.3-RELEASE</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.logging.log4j</groupId>
-                        <artifactId>log4j-web</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.meituan.service.inf</groupId>
-                        <artifactId>kms-pay-java-client</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${jetty.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-web</artifactId>
-                <version>2.7</version>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-webapp</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-jmx</artifactId>
+                <version>${jetty.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.meituan.servicecatalog</groupId>
-                <artifactId>api-annotations</artifactId>
-                <version>1.0.5</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-        </dependency>
-
-        <!--AssertJ断言-->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <!-- use 2.9.1 for Java 7 projects -->
-            <version>2.9.1</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 
+        <!-- 自动注入getter，setter及无参构造函数 -->
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
-            <scope>test</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
         </dependency>
 
-        <!--分页插件-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>4.1.1</version>
-        </dependency>
     </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <plugins>
+            <!-- jetty插件 -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.20.v20161216</version>
+                <configuration>
+                    <jvmArgs>-Xmx1000m -Xms1000m -XX:PermSize=256M -XX:MaxPermSize=512M</jvmArgs>
+                    <scanIntervalSeconds>6</scanIntervalSeconds>
+                    <httpConnector>
+                        <port>8088</port>
+                    </httpConnector>
+                    <webAppConfig>
+                        <!--任何的module的http服务都要以这个为前缀-->
+                        <contextPath>/</contextPath>
+                    </webAppConfig>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>org.eclipse.util.URI.charset</name>
+                            <value>UTF-8</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+            <!-- 编译脚本插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

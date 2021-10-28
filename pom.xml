@@ -129,14 +129,6 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- 自动注入getter，setter及无参构造函数 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.8</version>
-        </dependency>
-
     </dependencies>
 
     <build>

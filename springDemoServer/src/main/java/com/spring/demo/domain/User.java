@@ -5,8 +5,13 @@ import java.io.Serializable;
  * Created by wangjinping on 2017/7/7.
  */
 public class User implements Serializable {
+    // 标识
     private Long id;
+
+    // 姓名
     private String name;
+
+    // 性别
     private Boolean sex;
 
     public User(){

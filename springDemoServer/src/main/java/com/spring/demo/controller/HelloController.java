@@ -1,5 +1,7 @@
 package com.spring.demo.controller;
 
+import com.spring.demo.service.HelloService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -7,19 +9,15 @@ import org.springframework.web.bind.annotation.*;
  * @time 2016/12/15
  */
 @RestController
-@RequestMapping("/health")
-public class HealthCheckController {
+public class HelloController {
 
-    @RequestMapping("/check")
-    @ResponseBody
-    public String check() {
-        return "T";
-    }
+    @Autowired
+    private HelloService helloService;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     @ResponseBody
     public String check(
             @RequestParam(value = "name", required = true) String name) {
-        return name + ", 你好啊";
+        return helloService.welcome(name);
     }
 }

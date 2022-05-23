@@ -143,7 +143,7 @@
                     <jvmArgs>-Xmx1000m -Xms1000m -XX:PermSize=256M -XX:MaxPermSize=512M</jvmArgs>
                     <scanIntervalSeconds>6</scanIntervalSeconds>
                     <httpConnector>
-                        <port>8088</port>
+                        <port>8080</port>
                     </httpConnector>
                     <webAppConfig>
                         <!--任何的module的http服务都要以这个为前缀-->

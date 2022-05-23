@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.demo.dao.mapper.UserMapper">
+    <!-- 增删改查 -->
+    <select id="findById" resultType="User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="find" parameterType="User" resultType="User">
+        select * from user
+        <where>
+            <if test="userExample.id != null"> and id=#{userExample.id} </if>
+            <if test="userExample.name != null"> and name=#{userExample.name} </if>
+            <if test="userExample.sex != null"> and sex=#{userExample.sex} </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="User" useGeneratedKeys="true" keyProperty="user.id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user.id != null">id,</if>
+            <if test="user.name != null">name,</if>
+            <if test="user.sex != null">sex,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user.id != null">#{user.id},</if>
+            <if test="user.name != null">#{user.name},</if>
+            <if test="user.sex != null">#{user.sex},</if>
+        </trim>
+    </insert>
+
+    <insert id="addBatch" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="list[0].id != null">id,</if>
+            <if test="list[0].name != null">name,</if>
+            <if test="list[0].sex != null">sex,</if>
+        </trim>
+        values
+        <foreach collection="list" index="index" item="user" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="list[0].id != null">#{user.id},</if>
+                <if test="list[0].name != null">#{user.name},</if>
+                <if test="list[0].sex != null">#{user.sex},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="User">
+        update user
+        <set>
+            <if test="user.id != null">id=#{user.id},</if>
+            <if test="user.name != null">name=#{user.name},</if>
+            <if test="user.sex != null">sex=#{user.sex},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from user where id=#{id}
+    </delete>
+
+    <!-- test -->
+    <select id="resultMapTest" resultMap="userMap">
+        select id as userId, name as userName, sex as userSex from user
+        <where>
+            <if test="userExample.id != null"> and id=#{userExample.id} </if>
+            <if test="userExample.name != null"> and name=#{userExample.name} </if>
+            <if test="userExample.sex != null"> and sex=#{userExample.sex} </if>
+        </where>
+    </select>
+    <resultMap id="userMap" type="User">
+        <result property="id" column="userId" />
+        <result property="name" column="userName" />
+        <result property="sex" column="userSex" />
+    </resultMap>
+
+</mapper>

@@ -11,7 +11,16 @@
   <name>springDemoServer</name>
   <version>1.0.2-RELEASE</version>
   <build>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <finalName>spring-demo-server</finalName>
+    <filters>
+      <filter>src/main/resources/conf/${env.name}/db.properties</filter>
+    </filters>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>

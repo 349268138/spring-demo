@@ -63,19 +63,4 @@
         delete from user where id=#{id}
     </delete>
 
-    <!-- test -->
-    <select id="resultMapTest" resultMap="userMap">
-        select id as userId, name as userName, sex as userSex from user
-        <where>
-            <if test="userExample.id != null"> and id=#{userExample.id} </if>
-            <if test="userExample.name != null"> and name=#{userExample.name} </if>
-            <if test="userExample.sex != null"> and sex=#{userExample.sex} </if>
-        </where>
-    </select>
-    <resultMap id="userMap" type="User">
-        <result property="id" column="userId" />
-        <result property="name" column="userName" />
-        <result property="sex" column="userSex" />
-    </resultMap>
-
 </mapper>

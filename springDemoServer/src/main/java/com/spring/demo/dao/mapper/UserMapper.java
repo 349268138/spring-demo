@@ -20,7 +20,4 @@ public interface UserMapper {
     public Integer update(@Param("id") Long id, @Param("user") User user);
 
     public Integer delete(@Param("id") Long id);
-
-
-    public List<User> resultMapTest(@Param("userExample") User userExample);
 }

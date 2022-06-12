@@ -17,7 +17,6 @@ public class UserController {
     private UserMapper userMapper;
 
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
-    @ResponseBody
     public String findById(
             @RequestParam(value = "id", required = true) Long id) {
         User user = userMapper.findById(id);
@@ -29,7 +28,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    @ResponseBody
     public String add(
             @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "sex", required = true) Boolean sex) {
@@ -40,7 +38,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updateById", method = RequestMethod.GET)
-    @ResponseBody
     public String updateById(
             @RequestParam(value = "id", required = true) Long id,
             @RequestParam(value = "name", required = false) String name,
@@ -56,7 +53,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
-    @ResponseBody
     public String deleteById(
             @RequestParam(value = "id", required = true) Long id) {
         return userMapper.delete(id) + "";

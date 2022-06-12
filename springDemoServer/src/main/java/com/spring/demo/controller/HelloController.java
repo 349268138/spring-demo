@@ -15,7 +15,6 @@ public class HelloController {
     private HelloService helloService;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    @ResponseBody
     public String check(
             @RequestParam(value = "name", required = true) String name) {
         return helloService.welcome(name);

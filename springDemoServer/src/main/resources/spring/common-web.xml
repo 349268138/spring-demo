@@ -7,9 +7,19 @@
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <mvc:annotation-driven>
         <mvc:message-converters>
+            <!--
+                设置返回字符编码为utf-8，由于在com.spring.demo.utils.CrossFilter类中设置了
+                response.setContentType("text/html;charset=UTF-8")，所以此处也可不用设置
+            -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg name="defaultCharset" value="utf-8"/>
             </bean>
+
+
+            <!--
+                输出json字符串，可以实现Date格式按指定的样式输出
+                https://www.freesion.com/article/5115180410/
+            -->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
                     <bean class="com.fasterxml.jackson.databind.ObjectMapper">

@@ -3,43 +3,58 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <tx:annotation-driven/>
 
     <util:properties id="db" location="classpath:conf/${env.name}/db.properties" local-override="true"/>
 
     <bean id="dbcpDataSource"
           class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="#{db['driverClassName']}" />
-        <property name="url" value="#{db['url']}" />
-        <property name="username" value="#{db['username']}" />
-        <property name="password" value="#{db['password']}" />
-        <property name="initialSize" value="#{db['initialSize']}" />
-        <property name="maxTotal" value="#{db['maxTotal']}" />
-        <property name="maxIdle"  value="#{db['maxIdle']}" />
-        <property name="minIdle" value="#{db['minIdle']}" />
-        <property name="maxWaitMillis" value="#{db['maxWaitMillis']}" />
-        <property name="validationQuery" value="#{db['validationQuery']}" />
-        <property name="testWhileIdle" value="#{db['testWhileIdle']}" />
-        <property name="testOnBorrow" value="#{db['testOnBorrow']}" />
-        <property name="testOnReturn" value="#{db['testOnReturn']}" />
-        <property name="numTestsPerEvictionRun" value="#{db['numTestsPerEvictionRun']}" />
-        <property name="timeBetweenEvictionRunsMillis" value="#{db['timeBetweenEvictionRunsMillis']}" />
-        <property name="minEvictableIdleTimeMillis" value="#{db['minEvictableIdleTimeMillis']}" />
+        <property name="driverClassName" value="#{db['driverClassName']}"/>
+        <property name="url" value="#{db['url']}"/>
+        <property name="username" value="#{db['username']}"/>
+        <property name="password" value="#{db['password']}"/>
+        <property name="initialSize" value="#{db['initialSize']}"/>
+        <property name="maxTotal" value="#{db['maxTotal']}"/>
+        <property name="maxIdle" value="#{db['maxIdle']}"/>
+        <property name="minIdle" value="#{db['minIdle']}"/>
+        <property name="maxWaitMillis" value="#{db['maxWaitMillis']}"/>
+        <property name="validationQuery" value="#{db['validationQuery']}"/>
+        <property name="testWhileIdle" value="#{db['testWhileIdle']}"/>
+        <property name="testOnBorrow" value="#{db['testOnBorrow']}"/>
+        <property name="testOnReturn" value="#{db['testOnReturn']}"/>
+        <property name="numTestsPerEvictionRun" value="#{db['numTestsPerEvictionRun']}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="#{db['timeBetweenEvictionRunsMillis']}"/>
+        <property name="minEvictableIdleTimeMillis" value="#{db['minEvictableIdleTimeMillis']}"/>
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dbcpDataSource" />
-        <property name="configLocation" value="classpath:mybatis.xml" />
-        <property name="mapperLocations" value="classpath*:mapper/*.xml" />
+        <property name="dataSource" ref="dbcpDataSource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
-    <bean id="tranactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dbcpDataSource" />
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dbcpDataSource"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.spring.demo.dao.mapper" />
+        <property name="basePackage" value="com.spring.demo.dao.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 </beans>

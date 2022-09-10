@@ -5,6 +5,5 @@
 <!--configuration中的各元素的配置要按顺序，如要先配置properties，然后setting，接着typeAliases，这样依次，如果次序错了则会出错-->
 <configuration>
     <typeAliases>
-        <typeAlias alias="User" type="com.spring.demo.domain.User" />
     </typeAliases>
 </configuration>

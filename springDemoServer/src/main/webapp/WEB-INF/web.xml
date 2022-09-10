@@ -59,8 +59,15 @@
     <!-- 配置DispatcherServlet映射的 url -->
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
+        <!--注意:/ 会匹配所有url，但不包括 * .jsp，* .html，* .js这样的文件。也就是*.jsp不会进入Spring的DispatcherServlet-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!--静态资源过滤，https://wenku.baidu.com/view/dfff59dfadf8941ea76e58fafab069dc5122474e.html-->
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>default</servlet-name>-->
+    <!--<url-pattern>/static/*</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!-- Spring 刷新Introspector防止内存泄露 -->
     <listener>

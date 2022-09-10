@@ -1,7 +1,5 @@
 package com.spring.demo.service;
 
-import com.spring.demo.dao.mapper.UserMapper;
-import com.spring.demo.domain.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
